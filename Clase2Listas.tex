@@ -1,0 +1,1255 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  ignorenonframetext,
+  aspectratio=169,
+  spanish,
+]{beamer}
+\newif\ifbibliography
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolshorizontal
+% remove section numbering
+\setbeamertemplate{part page}{
+  \centering
+  \begin{beamercolorbox}[sep=16pt,center]{part title}
+    \usebeamerfont{part title}\insertpart\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+  \centering
+  \begin{beamercolorbox}[sep=12pt,center]{section title}
+    \usebeamerfont{section title}\insertsection\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center]{subsection title}
+    \usebeamerfont{subsection title}\insertsubsection\par
+  \end{beamercolorbox}
+}
+% Prevent slide breaks in the middle of a paragraph
+\widowpenalties 1 10000
+\raggedbottom
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+
+\usetheme[]{default}
+\usefonttheme[]{default}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+\usepackage{caption}
+% Make caption package work with longtable
+\makeatletter
+\def\fnum@table{\tablename~\thetable}
+\makeatother
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+
+\setbeamertemplate{headline}{} % Elimina la cabecera del tema Madrid
+\setbeamertemplate{section in head/foot}{} % Limpia la numeración de secciones
+\renewcommand{\contentsname}{Índice}
+\renewcommand{\refname}{Referencias}
+\renewcommand{\figurename}{Figura}
+\renewcommand{\tablename}{Tabla}
+\logo{%
+  \begin{tabular}{c}
+    \includegraphics[height=1.2cm]{EscudoU.png}
+  \end{tabular}%
+}
+% --- CONFIGURACIÓN DE COLORES INSTITUCIONALES ---
+\definecolor{UnicorGreen}{HTML}{024426}
+\definecolor{UnicorText}{HTML}{F9F9F9}
+\definecolor{UnicorWhite}{HTML}{FFFFFF}
+\definecolor{UnicorGold}{HTML}{D1B061}
+
+% Aplicación al fondo y texto general
+\setbeamercolor{background canvas}{bg=UnicorGreen}
+\setbeamercolor{normal text}{fg=UnicorText}
+
+% Aplicación a títulos y cabeceras
+%\setbeamercolor{title}{fg=UnicorWhite}
+\setbeamercolor{frametitle}{fg=UnicorWhite}
+\setbeamercolor{framesubtitle}{fg=UnicorWhite}
+
+% Aplicación a viñetas y estructura
+\setbeamercolor{structure}{fg=UnicorWhite}
+\setbeamercolor{itemize item}{fg=UnicorWhite}
+\setbeamercolor{itemize subitem}{fg=UnicorWhite}
+\setbeamercolor{enumerate item}{fg=UnicorWhite}
+
+% Forzar a LaTeX a repintar el texto general al iniciar el documento
+\AtBeginDocument{\usebeamercolor[fg]{normal text}}
+
+% Aplicación a hipervínculos
+\hypersetup{colorlinks=true, urlcolor=UnicorGold, linkcolor=UnicorWhite}
+
+% --- ACTIVAR ESTILO DE BLOQUES Y SOMBRAS (ESTILO MADRID) ---
+\useinnertheme[shadow=true]{rounded}
+
+% --- COLORES DEL RECUADRO DEL TÍTULO PRINCIPAL ---
+% Fondo dorado con texto verde
+\setbeamercolor{title}{bg=UnicorGold, fg=UnicorGreen}
+\setbeamercolor{frametitle}{fg=UnicorWhite} % Mantiene el título de las diapositivas normal
+\setbeamercolor{framesubtitle}{fg=UnicorWhite}
+
+% --- COLORES PARA TEOREMAS, DEFINICIONES Y BLOQUES ---
+% Título del bloque (Fondo dorado, texto verde)
+\setbeamercolor{block title}{bg=UnicorGold, fg=UnicorGreen}
+% Cuerpo del bloque (Fondo blanco, texto verde)
+\setbeamercolor{block body}{bg=UnicorWhite, fg=UnicorGreen}
+
+\AtBeginDocument{
+  \author{%
+    \begin{tabular}{c}
+      Mario A. Morales Rivera \\
+      \footnotesize \texttt{mamorales@correo.unicordoba.edu.co} \\
+      \footnotesize Universidad de Córdoba
+    \end{tabular}
+  }
+  \institute{}
+}
+% --- LIMPIAR DIAPOSITIVAS DE SECCIÓN (ELIMINAR "SECTION X") ---
+\setbeamertemplate{section page}{
+  \begin{center}
+    \begin{beamercolorbox}[sep=12pt,center,rounded=true,shadow=true]{title}
+      \usebeamerfont{title}\insertsection\par
+    \end{beamercolorbox}
+  \end{center}
+}
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
+\@ifpackageloaded{fontawesome5}{}{\usepackage{fontawesome5}}
+\definecolor{quarto-callout-color}{HTML}{909090}
+\definecolor{quarto-callout-note-color}{HTML}{0758E5}
+\definecolor{quarto-callout-important-color}{HTML}{CC1914}
+\definecolor{quarto-callout-warning-color}{HTML}{EB9113}
+\definecolor{quarto-callout-tip-color}{HTML}{00A047}
+\definecolor{quarto-callout-caution-color}{HTML}{FC5300}
+\definecolor{quarto-callout-color-frame}{HTML}{acacac}
+\definecolor{quarto-callout-note-color-frame}{HTML}{4582ec}
+\definecolor{quarto-callout-important-color-frame}{HTML}{d9534f}
+\definecolor{quarto-callout-warning-color-frame}{HTML}{f0ad4e}
+\definecolor{quarto-callout-tip-color-frame}{HTML}{02b875}
+\definecolor{quarto-callout-caution-color-frame}{HTML}{fd7e14}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Tabla de contenidos}
+\else
+  \newcommand\contentsname{Tabla de contenidos}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Listado de Figuras}
+\else
+  \newcommand\listfigurename{Listado de Figuras}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Listado de Tablas}
+\else
+  \newcommand\listtablename{Listado de Tablas}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figura}
+\else
+  \newcommand\figurename{Figura}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Tabla}
+\else
+  \newcommand\tablename{Tabla}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listado}
+\newcommand*\listoflistings{\listof{codelisting}{Listado de Listados}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{tikz}{}{\usepackage{tikz}}
+\makeatother
+        \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+          \node[shape=circle,draw,inner sep=1pt] (char) {{\scriptsize#1}};}}  
+                  
+
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Listas},
+  pdfauthor={Mario Morales},
+  pdflang={es},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Listas}
+\subtitle{\emph{Estadística con Python}}
+\author{Mario Morales}
+\date{}
+
+\begin{document}
+\frame{\titlepage}
+
+\renewcommand*\contentsname{Tabla de contenidos}
+\begin{frame}[allowframebreaks]
+  \frametitle{Tabla de contenidos}
+  \setcounter{tocdepth}{3}
+  \tableofcontents
+\end{frame}
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+
+\section{Introducción}\label{sec-listas}
+
+\begin{frame}{Introducción}
+\index{Listas}
+\end{frame}
+
+\begin{frame}{Introducción}
+\phantomsection\label{introducciuxf3n}
+Las listas sirven para agrupar objetos de diferente tipo, aunque
+típicamente se usan para alojar datos de la misma naturaleza (números,
+caracteres, lógicos, \ldots), son indexadas y, a diferencia de las
+tuplas, son \textbf{mutables}, es decir, se les puede agregar, quitar y
+cambiar elementos después de creadas. Las listas soportan todas las
+características de las tuplas, pero es posible adicionar, remover y
+modificar sus elementos.
+\end{frame}
+
+\section{Creación de listas}\label{creaciuxf3n-de-listas}
+
+\begin{frame}[fragile]{Creación de listas}
+\phantomsection\label{creaciuxf3n-de-listas-1}
+\index{Listas!Creación de}
+
+Para crear una lista colocamos los elementos dentro de corchetes de la
+siguiente forma:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{l1}\OperatorTok{=}\NormalTok{[}\OperatorTok{{-}}\DecValTok{5}\NormalTok{,}\OperatorTok{{-}}\DecValTok{4}\NormalTok{,}\OperatorTok{{-}}\DecValTok{3}\NormalTok{,}\OperatorTok{{-}}\DecValTok{2}\NormalTok{,}\OperatorTok{{-}}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{] }\CommentTok{\# lista de números enteros}
+\NormalTok{l2}\OperatorTok{=}\NormalTok{[}\DecValTok{2}\NormalTok{,}\StringTok{"a"}\NormalTok{,}\VariableTok{True}\NormalTok{]    }\CommentTok{\#lista con elementos de distinto tipo}
+\BuiltInTok{print}\NormalTok{(l2,}\BuiltInTok{type}\NormalTok{(l2))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[2, 'a', True] <class 'list'>
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Creación de listas (cont)}
+\phantomsection\label{creaciuxf3n-de-listas-cont}
+También se pueden crear listas a partir de otros objetos previamente
+creados, por ejemplo tuplas, con la función \texttt{list()}
+\index{Listas!Función!\texttt{list()}} \index{Función!\texttt{list()}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t}\OperatorTok{=}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{) }
+\BuiltInTok{list}\NormalTok{(t)  }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[2, 3, 4, 5, 6]
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{list}\NormalTok{(}\BuiltInTok{range}\NormalTok{(}\DecValTok{10}\NormalTok{)) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+\end{verbatim}
+\end{frame}
+
+\section{Indexado}\label{indexado}
+
+\begin{frame}[fragile]{Indexado de listas}
+\phantomsection\label{sec-IndexadoDeListas}
+\index{Listas!Indexado de}
+
+\begin{itemize}
+\tightlist
+\item
+  Cada elemento de una lista está asociado con un \emph{índice} que
+  refleja su posición en el arreglo.
+\item
+  Como en las tuplas, el primer elemento tiene índice 0, el segundo
+  índice 1 y así sucesivamente.
+\item
+  Asociados con la lista \texttt{l1} anterior tenemos 10 índices,
+  iniciando en 0 y terminando en 9 .
+\item
+  Para acceder al elemento con índice 3, es decir, al \textbf{cuarto}
+  elemento de la lista, escribimos \texttt{l1{[}3{]}} que corresponde a
+  \(-2\)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Indexado de listas, ejemplos}
+\phantomsection\label{indexado-de-listas-ejemplos}
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{print}\NormalTok{(l1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[-5, -4, -3, -2, -1, 1, 2, 3, 4, 5]
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{l1[}\DecValTok{3}\NormalTok{] }\CommentTok{\# Cuarto elemento de la lista l1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+-2
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Indexado de listas (cont)}
+\phantomsection\label{indexado-de-listas-cont}
+Análogo a las tuplas, estudiadas en la clase anterior, con las listas es
+posible usar \textbf{índices negativos}, lo cual conduce a indexar por
+la derecha. \texttt{l{[}-1{]}} corresponde al último elemento de la
+lista, \texttt{l{[}-2{]}} corresponde al anterior a \texttt{l{[}-1{]}} y
+así sucesivamente.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{l1[}\OperatorTok{{-}}\DecValTok{1}\NormalTok{] }\CommentTok{\# Último elemento de la lista l1}
+\NormalTok{l1[}\OperatorTok{{-}}\DecValTok{2}\NormalTok{] }\CommentTok{\# Penúltimo elemento de la lista l1}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\section{Edición}\label{ediciuxf3n}
+
+\begin{frame}[fragile]{Inserción, adición y borrado de elementos en una
+lista}
+\phantomsection\label{inserciuxf3n-adiciuxf3n-y-borrado-de-elementos-en-una-lista}
+\index{Listas!Edición!Método\texttt{.insert()}}
+\index{Método!\texttt{.insert()}}
+
+A diferencia de las tuplas, las listas se pueden modificar insertando,
+adicionando o borrando elementos, veamos como se usa el método
+\texttt{insert()} para insertar el número \(-6\) como primer elemento de
+la lista \texttt{l1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{l1.insert(}\DecValTok{0}\NormalTok{,}\OperatorTok{{-}}\DecValTok{6}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(l1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[-6, -5, -4, -3, -2, -1, 1, 2, 3, 4, 5]
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Inserción (cont)}
+\phantomsection\label{inserciuxf3n-cont}
+El primer argumento en la sentencia \texttt{l1.insert(0,-6)},
+corresponde al índice donde se insertará el número dado en el segundo
+argumento (\texttt{-6}). La lista \texttt{l1} ahora tiene un elemento
+más, \(-6\), en el índice 0 y el número \(-5\), que estaba en este
+índice, pasó al índice 1.
+\end{frame}
+
+\begin{frame}[fragile]{Adición de elementos}
+\phantomsection\label{adiciuxf3n-de-elementos}
+Para agregar un elemento al final de la lista se usa el método
+\texttt{append()} como se muestra a
+continuación\index{Listas!Edición!Método\texttt{append()}}\index{Método!\texttt{append()}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{l1.append(}\DecValTok{6}\NormalTok{) }
+\BuiltInTok{print}\NormalTok{(l1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[-6, -5, -4, -3, -2, -1, 1, 2, 3, 4, 5, 6]
+\end{verbatim}
+
+note que se ha agregado \texttt{6} al final de la lista \texttt{l1}.
+\end{frame}
+
+\begin{frame}[fragile]{Adición de elementos (cont)}
+\phantomsection\label{adiciuxf3n-de-elementos-cont}
+Es posible adicionar más de un elemento al final de una lista
+concatenándola con otra lista, usando el operador \texttt{+}, análogo a
+como se hace con tuplas.
+
+en este caso la lista \texttt{l2} no se modifica, para conseguirlo
+usamos
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{l2}\OperatorTok{=}\NormalTok{l2}\OperatorTok{+}\NormalTok{[}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{]  }
+\BuiltInTok{print}\NormalTok{(l2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[2, 'a', True, 4, 5, 6]
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Borrado}
+\phantomsection\label{borrado}
+Para borrar un elemento de una lista se usa \texttt{del\ lista{[}i{]}}
+\index{Función!\texttt{del}} donde \texttt{i} corresponde al índice del
+elemento que se desea eliminar. A manera de ejemplo, borremos el
+elemento \texttt{\textquotesingle{}a\textquotesingle{}} de la lista
+\texttt{l2}, (\texttt{i=1})
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{del}\NormalTok{ l2[}\DecValTok{1}\NormalTok{]  }
+\BuiltInTok{print}\NormalTok{(l2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[2, True, 4, 5, 6]
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Borrado (cont)}
+\phantomsection\label{borrado-cont}
+Mientras que \texttt{del} elimina elementos de una lista por posición,
+el método \texttt{remove()} \index{Método!\texttt{remove()}} los elimina
+por valor. Para ilustrarlo, seguidamente borramos el elemento \texttt{4}
+de la lista \texttt{l2}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{l2.remove(}\DecValTok{4}\NormalTok{)  }
+\BuiltInTok{print}\NormalTok{(l2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[2, True, 5, 6]
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Borrado (cont)}
+\phantomsection\label{borrado-cont-1}
+Si en la lista hay más de un elemento con el argumento entregado a
+\texttt{remove()}, se elimina el de índice más pequeño, es decir, el
+primero que aparezca en la lista, veamos el siguiente ejemplo
+
+\phantomsection\label{annotated-cell-12}%
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{l3}\OperatorTok{=}\NormalTok{[}\DecValTok{2}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{4}\NormalTok{,}\OperatorTok{{-}}\DecValTok{1}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{0}\NormalTok{,}\OperatorTok{{-}}\DecValTok{2}\NormalTok{] }\hspace*{\fill}\NormalTok{\circled{1}}
+\NormalTok{l3.remove(}\DecValTok{4}\NormalTok{) }\hspace*{\fill}\NormalTok{\circled{2}}
+\NormalTok{l3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{description}
+\tightlist
+\item[\circled{1}]
+El número 4 está en la lista dos veces
+\item[\circled{2}]
+Se elimina el primer 4
+\end{description}
+
+\begin{verbatim}
+[2, 5, -1, 4, 3, 0, -2]
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Borrado (cont)}
+\phantomsection\label{borrado-cont-2}
+Otro método para eliminar elementos de listas es \texttt{pop()}
+\index{Método!\texttt{pop()}} que recibe un índice, elimina el elemento
+que corresponde, pero además regresa el valor eliminado
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{l3.pop(}\DecValTok{2}\NormalTok{) }\CommentTok{\# regresa {-}1 (índice 2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+-1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{print}\NormalTok{(l3) }\CommentTok{\# l3 queda modificada, sin {-}1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[2, 5, 4, 3, 0, -2]
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Borrado (cont)}
+\phantomsection\label{borrado-cont-3}
+Si no se entrega índice, el método \texttt{pop()} remueve (y regresa) el
+último elemento de la lista.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{l3.pop()  }\CommentTok{\# regresa {-}2 (el último elemento de l3)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+-2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{print}\NormalTok{(l3) }\CommentTok{\# l3 queda modificada, se remueve {-}2   }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[2, 5, 4, 3, 0]
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Longitud de una lista.}
+\phantomsection\label{longitud-de-una-lista.}
+\index{Listas!Longitud de una}
+
+Cuando queremos recuperar en número de elementos que contiene una lista,
+procedemos de manera similar a como se hace con tuplas, usamos la
+función \texttt{len()}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{len}\NormalTok{(l2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+4
+\end{verbatim}
+
+como una aplicación, podemos combinar las funciones \texttt{del} y
+\texttt{len()} para borrar el último elemento de una lista
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{del}\NormalTok{ l2[}\BuiltInTok{len}\NormalTok{(l2)}\OperatorTok{{-}}\DecValTok{1}\NormalTok{] }
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\section{Métodos asociados a
+listas}\label{muxe9todos-asociados-a-listas}
+
+\begin{frame}{Indexación de listas}
+\phantomsection\label{sec-IndexacionDeLista}
+\index{Listas!Indexación de}\index{Indexación!de Listas}\index{Indexación}
+
+En esta sección se estudian las distintas formas de acceder, recuperar y
+cambiar elementos de una lista.
+\end{frame}
+
+\begin{frame}[fragile]{Verificar si un elemento pertenece a una lista}
+\phantomsection\label{verificar-si-un-elemento-pertenece-a-una-lista}
+\index{Listas!Operador!\texttt{in}}
+
+De manera análoga a como se hizo con las tuplas, se puede verificar si
+un elemento pertenece a una lista con el operador \texttt{in}. Si el
+elemento dado está en la lista se obtiene \texttt{True}, en caso
+contrario, \texttt{False}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{print}\NormalTok{(}\DecValTok{0} \KeywordTok{in}\NormalTok{ l1, }\DecValTok{3} \KeywordTok{in}\NormalTok{ l1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+False True
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Índice de un elemento.}
+\phantomsection\label{uxedndice-de-un-elemento.}
+Con el método \texttt{index()} \index{Método!\texttt{index()}} se
+recupera el índice que corresponde a un valor en la lista. Si el valor
+está en la lista más de una vez, se regresa el primer índice.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{print}\NormalTok{(l1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[-6, -5, -4, -3, -2, -1, 1, 2, 3, 4, 5, 6]
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{l1.index(}\OperatorTok{{-}}\DecValTok{1}\NormalTok{) }\CommentTok{\# {-}1 tiene índice 5 }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{l3}\OperatorTok{=}\NormalTok{[}\DecValTok{2}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{4}\NormalTok{,}\OperatorTok{{-}}\DecValTok{1}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{0}\NormalTok{,}\OperatorTok{{-}}\DecValTok{2}\NormalTok{] }\CommentTok{\# en esta lista 4 está dos veces }
+\NormalTok{l3.index(}\DecValTok{4}\NormalTok{) }\CommentTok{\# índice del primer 4 }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+2
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Indexación de listas (cont)}
+\phantomsection\label{indexaciuxf3n-de-listas-cont}
+\begin{itemize}
+\item
+  En caso que el argumento entregado al método \texttt{index()} no esté
+  en la lista, ocurre un error.
+\item
+  Por ejemplo, \texttt{l3.index(0.5)} regresa
+  \texttt{ValueError:\ 0.5\ is\ not\ in\ list}, esto es lo que se conoce
+  técnicamente como una excepción no controlada (uncaught exception).
+\item
+  Para evitar que tu código se \texttt{reviente}, podrías indagar si el
+  elemento está en la lista, en caso afirmativo usas \texttt{index()},
+  en caso negativo, imprimes un mensaje
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Indexación de listas (cont)}
+\phantomsection\label{indexaciuxf3n-de-listas-cont-1}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{i}\OperatorTok{=}\FloatTok{0.5}
+\ControlFlowTok{if}\NormalTok{ i }\KeywordTok{in}\NormalTok{ l1:}
+\NormalTok{  pos}\OperatorTok{=}\NormalTok{l1.index(i) }
+  \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"}\SpecialCharTok{\{}\NormalTok{i}\SpecialCharTok{\}}\SpecialStringTok{ se encuentra en la posición }\SpecialCharTok{\{}\NormalTok{pos}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+\ControlFlowTok{else}\NormalTok{:}
+    \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"}\SpecialCharTok{\{}\NormalTok{i}\SpecialCharTok{\}}\SpecialStringTok{ no está en la lista"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]{Capturar errores con \texttt{try-except}}
+\phantomsection\label{capturar-errores-con-try-except}
+\begin{tcolorbox}[enhanced jigsaw, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Tip}, bottomtitle=1mm, opacityback=0, bottomrule=.15mm, arc=.35mm, colframe=quarto-callout-tip-color-frame, colback=white, opacitybacktitle=0.6, colbacktitle=quarto-callout-tip-color!10!white, left=2mm, coltitle=black, leftrule=.75mm, rightrule=.15mm, toptitle=1mm, titlerule=0mm, breakable, toprule=.15mm]
+
+Como se La forma \textbf{técnica} de tratar con este error en python es
+capturándolo con \texttt{try-except}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{i}\OperatorTok{=}\FloatTok{0.5}
+\ControlFlowTok{try}\NormalTok{:}
+\NormalTok{    pos }\OperatorTok{=}\NormalTok{ l1.index(i)}
+    \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"}\SpecialCharTok{\{}\NormalTok{i}\SpecialCharTok{\}}\SpecialStringTok{ se encuentra en la posición }\SpecialCharTok{\{}\NormalTok{pos}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+\ControlFlowTok{except} \PreprocessorTok{ValueError}\NormalTok{:}
+    \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"}\SpecialCharTok{\{}\NormalTok{i}\SpecialCharTok{\}}\SpecialStringTok{ no está en la lista"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Con \texttt{try}, python intenta ejecutar el código dentro del bloque.
+Si ocurre un \texttt{ValueError}, python salta al bloque \texttt{except}
+y ejecuta ese código.
+
+\end{tcolorbox}
+\end{frame}
+
+\section{Sub-listas}\label{sub-listas}
+
+\begin{frame}[fragile]{Sublistas}
+\phantomsection\label{sublistas}
+\index{Listas!Sublistas}
+
+Para extraer una sublista de una lista empleamos la sintaxis
+\texttt{l{[}i:j{]}}, \texttt{i} corresponde al índice del elemento
+inicial a partir del cual, incluido, comenzará la sublista, mientras que
+\texttt{j} indica el extremo superior, la sublista llegará hasta el
+elemento con índice \texttt{j-1}. La sentencia \texttt{l{[}i:{]}}
+regresa una sublista de \texttt{l} que inicia en el índice \texttt{i}
+hasta el final de la lista, de manera análoga \texttt{l{[}:j{]}} es una
+sublista que inicia en el índice cero de la lista hasta el índice
+\texttt{j-1}, por último \texttt{l{[}:{]}} regresa la lista completa.
+\end{frame}
+
+\begin{frame}[fragile]{Sublistas}
+\phantomsection\label{sublistas-1}
+Veamos
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{l1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[-6, -5, -4, -3, -2, -1, 1, 2, 3, 4, 5, 6]
+\end{verbatim}
+
+\phantomsection\label{annotated-cell-25}%
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{l1[}\DecValTok{2}\NormalTok{:}\DecValTok{7}\NormalTok{] }\hspace*{\fill}\NormalTok{\circled{1}}
+\NormalTok{l1[}\DecValTok{2}\NormalTok{:] }\hspace*{\fill}\NormalTok{\circled{2}}
+\NormalTok{l1[:}\DecValTok{4}\NormalTok{] }\hspace*{\fill}\NormalTok{\circled{3}}
+\NormalTok{l1[:] }\hspace*{\fill}\NormalTok{\circled{4}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{description}
+\tightlist
+\item[\circled{1}]
+Desde el elemento con índice 2 hasta el elemento con indice 6.
+\item[\circled{2}]
+Desde el elemento con índice 2 hasta el último.
+\item[\circled{3}]
+Desde el primer (índice 0) hasta el elemento con índice 3.
+\item[\circled{4}]
+La lista completa.
+\end{description}
+\end{frame}
+
+\begin{frame}[fragile]{Otras formas de crear listas}
+\phantomsection\label{sec-ListasOtrasFormas}
+\index{Listas!Creación de}
+
+Es posible construir listas a partir de \texttt{tuplas},
+\texttt{diccionarios}, \texttt{sets} (conjuntos) y otros objetos,
+mediante la función \texttt{list()}. Veamos un ejemplo de creación de
+listas a partir de tuplas
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t1}\OperatorTok{=}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{) }
+\NormalTok{lt1}\OperatorTok{=}\BuiltInTok{list}\NormalTok{(t1) }\CommentTok{\# se crea lista a partir de la tupla t1 }
+\BuiltInTok{print}\NormalTok{(}\BuiltInTok{type}\NormalTok{(lt1)) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+<class 'list'>
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Combinación de las funciones \texttt{list()} y
+\texttt{range()}.}
+\phantomsection\label{combinaciuxf3n-de-las-funciones-list-y-range.}
+\index{Listas!Función!\texttt{list()}}
+
+\index{Listas!Función!\texttt{range()}}\index{Función!\texttt{range()}}
+
+En el siguiente ejemplo se usa la función \texttt{range()} que
+representa una secuencia \emph{inmutable} (como las tuplas),
+estrictamente creciente o decreciente, de números. Esta función se
+utiliza en bucles \texttt{for} para realizar un número específico de
+iteraciones en función de un valor que se reduce o aumenta en una
+constante (\texttt{step}), hasta que se alcanza un límite. La función
+\texttt{range()} regresa un objeto de tipo \texttt{range}, pero se puede
+convertir en una lista mediante la función \texttt{list()}.
+\end{frame}
+
+\begin{frame}[fragile]{Combinación de las funciones \texttt{list()} y
+\texttt{range()}.}
+\phantomsection\label{combinaciuxf3n-de-las-funciones-list-y-range.-1}
+Ilustremos su uso con ejemplos
+
+\phantomsection\label{annotated-cell-27}%
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{print}\NormalTok{(}\BuiltInTok{range}\NormalTok{(}\DecValTok{9}\NormalTok{),}\BuiltInTok{type}\NormalTok{(}\BuiltInTok{range}\NormalTok{(}\DecValTok{9}\NormalTok{))) }\hspace*{\fill}\NormalTok{\circled{1}}
+\BuiltInTok{list}\NormalTok{(}\BuiltInTok{range}\NormalTok{(}\DecValTok{9}\NormalTok{)) }\hspace*{\fill}\NormalTok{\circled{2}}
+\BuiltInTok{list}\NormalTok{(}\BuiltInTok{range}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{22}\NormalTok{,}\DecValTok{2}\NormalTok{)) }\hspace*{\fill}\NormalTok{\circled{3}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{description}
+\tightlist
+\item[\circled{1}]
+La clase del objeto \texttt{range(0,\ 9)} es
+\texttt{\textquotesingle{}range\textquotesingle{}}
+\item[\circled{2}]
+Lista que contiene secuencia de enteros desde cero (0) hasta ocho (8).
+\item[\circled{3}]
+Lista que contiene secuencia de enteros desde 3 hasta 21 incrementando
+en 2.
+\end{description}
+\end{frame}
+
+\begin{frame}[fragile]{Combinación de las funciones \texttt{list()} y
+\texttt{range()}.}
+\phantomsection\label{combinaciuxf3n-de-las-funciones-list-y-range.-2}
+\begin{itemize}
+\item
+  En \texttt{range(start,stop,step)}, \texttt{start} es el parámetro
+  inicio, entero a partir del cual se devolverá la secuencia,
+\item
+  \texttt{stop} es el entero que indica el final; la secuencia termina
+  en el mayor entero que es menor o igual que \texttt{stop-1},
+\item
+  Por último \texttt{step} es el paso, que determina el incremento entre
+  cada entero de la secuencia.
+\item
+  Se puede iterar sobre el objeto (\texttt{range}) sin necesidad de
+  convertirlo a una lista, uso que es bastante frecuente cuando se
+  programa en python
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Combinación de las funciones \texttt{list()} y
+\texttt{range()}.}
+\phantomsection\label{combinaciuxf3n-de-las-funciones-list-y-range.-3}
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{15}\NormalTok{,}\DecValTok{3}\NormalTok{):}
+  \BuiltInTok{print}\NormalTok{(i)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\section{Comprensión de listas}\label{comprensiuxf3n-de-listas}
+
+\begin{frame}[fragile]{Comprensión de listas}
+\phantomsection\label{sec-ComprensionDeListas}
+\index{Listas!Comprensión de}
+
+La comprensión de listas es una forma elegante de definir y crear listas
+basadas en listas existentes. Es una forma concisa de generar una lista
+al aplicar una operación a los elementos de otra lista, esto se ilustra
+en el siguiente ejemplo:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{[}\OperatorTok{{-}}\DecValTok{2}\OperatorTok{+}\FloatTok{0.5}\OperatorTok{*}\NormalTok{x }\ControlFlowTok{for}\NormalTok{ x }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\DecValTok{9}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[-2.0, -1.5, -1.0, -0.5, 0.0, 0.5, 1.0, 1.5, 2.0]
+\end{verbatim}
+
+Lo que se hace en el código anterior es evaluar la expresión \(-2+0.5x\)
+para cada valor \(x\) en la secuencia generada por la función
+\texttt{range()}.
+\end{frame}
+
+\begin{frame}[fragile]{Comprensión de listas (cont)}
+\phantomsection\label{comprensiuxf3n-de-listas-cont}
+Otro ejemplo, suponga que tiene una lista con valores de temperatura
+expresada en grados centígrado (\(C\)) y se le pide que haga la
+conversión a grados Fahrenheit (\(F\)) mediante la transformación
+\(F=\frac 9 5 C+32\), podemos hacer la conversión de la siguiente forma
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{C}\OperatorTok{=}\NormalTok{[}\DecValTok{25}\NormalTok{,}\DecValTok{32}\NormalTok{,}\DecValTok{36}\NormalTok{,}\DecValTok{19}\NormalTok{,}\DecValTok{20}\NormalTok{,}\DecValTok{24}\NormalTok{] }\CommentTok{\#temperaturas en grados centígrados}
+\NormalTok{F}\OperatorTok{=}\NormalTok{[}\FloatTok{9.0}\OperatorTok{/}\DecValTok{5}\OperatorTok{*}\NormalTok{x}\OperatorTok{+}\DecValTok{32} \ControlFlowTok{for}\NormalTok{ x }\KeywordTok{in}\NormalTok{ C] }\CommentTok{\#temperaturas en grados Fahrenheit}
+\NormalTok{F}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[77.0, 89.6, 96.8, 66.2, 68.0, 75.2]
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Comprensión de listas (cont)}
+\phantomsection\label{comprensiuxf3n-de-listas-cont-1}
+En la comprensión de listas se pueden utilizar sentencias condicionales
+para generar nuevas listas, veamos un ejemplo: de la lista \texttt{l3}
+obtener una sub-lista que contenga sólo los elementos positivos.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{print}\NormalTok{(l3) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[2, 5, 4, -1, 4, 3, 0, -2]
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{[x }\ControlFlowTok{for}\NormalTok{ x }\KeywordTok{in}\NormalTok{ l3 }\ControlFlowTok{if}\NormalTok{ x}\OperatorTok{\textgreater{}}\DecValTok{0}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[2, 5, 4, 4, 3]
+\end{verbatim}
+\end{frame}
+
+\section{\texorpdfstring{Copiar listas vs.~asignar referencias
+(\texttt{Aliasing})}{Copiar listas vs.~asignar referencias (Aliasing)}}\label{copiar-listas-vs.-asignar-referencias-aliasing}
+
+\begin{frame}[fragile]{\texttt{listaB=listaA}}
+\phantomsection\label{listablistaa}
+Tenemos la lista \texttt{l3}
+
+\begin{verbatim}
+[2, 5, 4, -1, 4, 3, 0, -2]
+\end{verbatim}
+
+Igualamos \texttt{l4\ a\ l3}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{l4}\OperatorTok{=}\NormalTok{l3  }
+\end{Highlighting}
+\end{Shaded}
+
+Modificamos \texttt{l4} agregando \texttt{6} al final
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{l4.append(}\DecValTok{6}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Imprimimos \texttt{l3}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{print}\NormalTok{(l3) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[2, 5, 4, -1, 4, 3, 0, -2, 6]
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{\texttt{listaB=listaA.copy()}}
+\phantomsection\label{listablistaa.copy}
+Tenemos la lista \texttt{l3}
+
+\begin{verbatim}
+[2, 5, 4, -1, 4, 3, 0, -2, 6]
+\end{verbatim}
+
+Hacemos \texttt{l4=l3.copy()}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{l4}\OperatorTok{=}\NormalTok{l3.copy() }
+\end{Highlighting}
+\end{Shaded}
+
+Modificamos \texttt{l4} agregando \texttt{7} al final
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{l4.append(}\DecValTok{7}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Imprimimos \texttt{l3}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{print}\NormalTok{(l3)  }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[2, 5, 4, -1, 4, 3, 0, -2, 6]
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Importante}
+\phantomsection\label{importante}
+\begin{tcolorbox}[enhanced jigsaw, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Tip}, bottomtitle=1mm, opacityback=0, bottomrule=.15mm, arc=.35mm, colframe=quarto-callout-tip-color-frame, colback=white, opacitybacktitle=0.6, colbacktitle=quarto-callout-tip-color!10!white, left=2mm, coltitle=black, leftrule=.75mm, rightrule=.15mm, toptitle=1mm, titlerule=0mm, breakable, toprule=.15mm]
+
+\begin{itemize}
+\item
+  Si se hace \texttt{lista2\ =\ lista1}, lo que se conoce como
+  \texttt{creación\ de\ alias} \texttt{(Aliasing)} o
+  \texttt{asignación\ por\ referencia}, al modificar \texttt{lista2}
+  también alterará \texttt{lista1}.
+\item
+  El método \texttt{.copy()} (ej. \texttt{lista2\ =\ lista1.copy()})
+  crea \texttt{lista2} como un objeto independiente. Esto se conoce como
+  \texttt{copia\ superficial} o \texttt{Shallow\ Copy}
+\end{itemize}
+
+\end{tcolorbox}
+\end{frame}
+
+\section{Ejemplo de aplicación}\label{ejemplo-de-aplicaciuxf3n}
+
+\begin{frame}[fragile]{Aplicación en control de calidad}
+\phantomsection\label{aplicaciuxf3n-en-control-de-calidad}
+Supongamos que monitoreamos el grosor de piezas en un proceso de
+manufactura. Almacenamos las mediciones de las muestras en una lista.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 1. Recolección de datos}
+\NormalTok{mediciones }\OperatorTok{=}\NormalTok{ [}\FloatTok{10.2}\NormalTok{, }\FloatTok{10.1}\NormalTok{, }\FloatTok{9.8}\NormalTok{, }\FloatTok{10.3}\NormalTok{, }\FloatTok{11.5}\NormalTok{, }\FloatTok{9.9}\NormalTok{, }\FloatTok{10.0}\NormalTok{, }\FloatTok{10.1}\NormalTok{, }\FloatTok{8.5}\NormalTok{, }\FloatTok{10.2}\NormalTok{]}
+
+\CommentTok{\# 2. Uso de funciones nativas para calcular la Media}
+\NormalTok{n }\OperatorTok{=} \BuiltInTok{len}\NormalTok{(mediciones)}
+\NormalTok{suma\_total }\OperatorTok{=} \BuiltInTok{sum}\NormalTok{(mediciones)}
+\NormalTok{media\_muestral }\OperatorTok{=}\NormalTok{ suma\_total }\OperatorTok{/}\NormalTok{ n}
+
+\BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"La media del proceso es: }\SpecialCharTok{\{}\NormalTok{media\_muestral}\SpecialCharTok{:.3f\}}\SpecialStringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+La media del proceso es: 10.060
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Identificando anomalías}
+\phantomsection\label{identificando-anomaluxedas}
+Si una medición está por encima de \(\overline x +0.5\) o por debajo de
+\(\overline x - 0.5\) se considera una anomalía y debemos identificarlas
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Establecemos límites de control empíricos}
+\NormalTok{limite\_sup }\OperatorTok{=}\NormalTok{ media\_muestral }\OperatorTok{+} \FloatTok{0.5}
+\NormalTok{limite\_inf }\OperatorTok{=}\NormalTok{ media\_muestral }\OperatorTok{{-}} \FloatTok{0.5}
+
+\CommentTok{\# Extraemos solo las piezas que están fuera de control}
+\NormalTok{piezas\_defectuosas }\OperatorTok{=}\NormalTok{ [x }\ControlFlowTok{for}\NormalTok{ x }\KeywordTok{in}\NormalTok{ mediciones }\ControlFlowTok{if}\NormalTok{ x }\OperatorTok{\textgreater{}}\NormalTok{ limite\_sup }\KeywordTok{or}\NormalTok{ x }\OperatorTok{\textless{}}\NormalTok{ limite\_inf]}
+
+\BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"Mediciones fuera de control encontradas: }\SpecialCharTok{\{}\NormalTok{piezas\_defectuosas}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Mediciones fuera de control encontradas: [11.5, 8.5]
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"Total de defectos: }\SpecialCharTok{\{}\BuiltInTok{len}\NormalTok{(piezas\_defectuosas)}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Total de defectos: 2
+\end{verbatim}
+\end{frame}
+
+\section{Listas anidadas}\label{listas-anidadas}
+
+\begin{frame}[fragile]{Listas anidadas}
+\phantomsection\label{listas-anidadas-1}
+\index{Listas!Anidadas}
+
+Como con las tuplas, es posible tener dentro de una lista otras listas o
+tuplas u objetos de distinto tipo, a continuación se crea una lista que
+\emph{anida} las listas \texttt{C} y \texttt{F} creadas anteriormente
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{T}\OperatorTok{=}\NormalTok{[C,F]}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]{Listas anidadas (cont)}
+\phantomsection\label{listas-anidadas-cont}
+Para recuperar el tercer elemento de la lista \texttt{F}, que está
+anidada en \texttt{T} se usa la indexación, recuperando primero a
+\texttt{F} y luego al elemento dentro de \texttt{F}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{T[}\DecValTok{1}\NormalTok{][}\DecValTok{2}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+96.8
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Ordenar una lista.}
+\phantomsection\label{ordenar-una-lista.}
+\index{Listas!Ordenar una} \index{Método!\texttt{sort()}}
+
+El método \texttt{sort} ordena los elementos de una lista, por defecto
+lo hace de manera ascendente, es decir, de menor a mayor, si se quiere
+que el orden sea descendente usamos la opción \texttt{reverse=True}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{l3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[2, 5, 4, -1, 4, 3, 0, -2, 6]
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{l3.sort()}
+\NormalTok{l3.sort(reverse}\OperatorTok{=}\VariableTok{True}\NormalTok{) }\CommentTok{\#orden descendente }
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+
+
+
+\end{document}

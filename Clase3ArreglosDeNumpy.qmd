@@ -1,0 +1,614 @@
+---
+title: "Arreglos de Numpy"
+subtitle: "Estadística con Python"   
+author: 
+  - name: Mario Morales
+    orcid: 0000-0001-8814-0179
+    email: mamorales@correo.unicordoba.edu.co
+    url: https://mariomorales.xyz/
+    affiliations:
+      - name: Universidad de Córdoba, Montería
+format: 
+  revealjs:
+    theme: default 
+    css: estilos2.css
+    include-before-body: logo2.html
+    mainfont: "Arial" 
+    slide-level: 2
+    embed-resources: true
+    toc-depth: 1 
+    highlight: "tango"
+    center: true
+    transition: fade
+    lang: es
+    code-fold: true
+    #slide-level: 3
+    scrollable: true
+  beamer:
+    aspectratio: 169
+    theme: default
+    navigation: horizontal
+    number-sections: false
+    include-in-header:
+      - text: |
+          \setbeamertemplate{headline}{} % Elimina la cabecera del tema Madrid
+          \setbeamertemplate{section in head/foot}{} % Limpia la numeración de secciones
+          \renewcommand{\contentsname}{Índice}
+          \renewcommand{\refname}{Referencias}
+          \renewcommand{\figurename}{Figura}
+          \renewcommand{\tablename}{Tabla}
+          \logo{%
+            \begin{tabular}{c}
+              \includegraphics[height=1.2cm]{EscudoU.png}
+            \end{tabular}%
+          }
+          % --- CONFIGURACIÓN DE COLORES INSTITUCIONALES ---
+          \definecolor{UnicorGreen}{HTML}{024426}
+          \definecolor{UnicorText}{HTML}{F9F9F9}
+          \definecolor{UnicorWhite}{HTML}{FFFFFF}
+          \definecolor{UnicorGold}{HTML}{D1B061}
+          
+          % Aplicación al fondo y texto general
+          \setbeamercolor{background canvas}{bg=UnicorGreen}
+          \setbeamercolor{normal text}{fg=UnicorText}
+          
+          % Aplicación a títulos y cabeceras
+          %\setbeamercolor{title}{fg=UnicorWhite}
+          \setbeamercolor{frametitle}{fg=UnicorWhite}
+          \setbeamercolor{framesubtitle}{fg=UnicorWhite}
+          
+          % Aplicación a viñetas y estructura
+          \setbeamercolor{structure}{fg=UnicorWhite}
+          \setbeamercolor{itemize item}{fg=UnicorWhite}
+          \setbeamercolor{itemize subitem}{fg=UnicorWhite}
+          \setbeamercolor{enumerate item}{fg=UnicorWhite}
+          
+          % Forzar a LaTeX a repintar el texto general al iniciar el documento
+          \AtBeginDocument{\usebeamercolor[fg]{normal text}}
+          
+          % Aplicación a hipervínculos
+          \hypersetup{colorlinks=true, urlcolor=UnicorGold, linkcolor=UnicorWhite} 
+          
+          % --- ACTIVAR ESTILO DE BLOQUES Y SOMBRAS (ESTILO MADRID) ---
+          \useinnertheme[shadow=true]{rounded}
+          
+          % --- COLORES DEL RECUADRO DEL TÍTULO PRINCIPAL ---
+          % Fondo dorado con texto verde
+          \setbeamercolor{title}{bg=UnicorGold, fg=UnicorGreen}
+          \setbeamercolor{frametitle}{fg=UnicorWhite} % Mantiene el título de las diapositivas normal
+          \setbeamercolor{framesubtitle}{fg=UnicorWhite}
+          
+          % --- COLORES PARA TEOREMAS, DEFINICIONES Y BLOQUES ---
+          % Título del bloque (Fondo dorado, texto verde)
+          \setbeamercolor{block title}{bg=UnicorGold, fg=UnicorGreen}
+          % Cuerpo del bloque (Fondo blanco, texto verde)
+          \setbeamercolor{block body}{bg=UnicorWhite, fg=UnicorGreen}
+          
+          \AtBeginDocument{
+            \author{%
+              \begin{tabular}{c}
+                Mario A. Morales Rivera \\
+                \footnotesize \texttt{mamorales@correo.unicordoba.edu.co} \\
+                \footnotesize Universidad de Córdoba
+              \end{tabular}
+            }
+            \institute{} 
+          }
+          % --- LIMPIAR DIAPOSITIVAS DE SECCIÓN (ELIMINAR "SECTION X") ---
+          \setbeamertemplate{section page}{
+            \begin{center}
+              \begin{beamercolorbox}[sep=12pt,center,rounded=true,shadow=true]{title}
+                \usebeamerfont{title}\insertsection\par
+              \end{beamercolorbox}
+            \end{center}
+          }
+    slide-level: 2
+    fonttheme: default 
+    keep-tex: true
+    lang: es
+
+toc: true
+editor: source 
+---
+
+```{r echo=FALSE}
+library(reticulate)
+use_condaenv("/Users/unicordoba/miniforge3/envs/limpio",required = TRUE)
+```
+
+# Introducción
+
+## Arreglos {#sec-arreglos}
+
+\index{Arreglos!de NumPy}
+
+- Los arreglos en Python se pueden entender como una variante de las listas donde todos los elementos deben ser del mismo tipo.
+
+- En el paquete básico (o estándar) de Python hay un tipo de objeto llamado `array`, pero este no es eficiente para cálculos estadísticos y matemáticos, por tanto no lo trataremos en este libro.
+
+- Estudiaremos los arreglos definidos en el paquete *Numerical Python*, ampliamente conocido como **NumPy**.
+
+- Este módulo debe estar instalado previamente y se carga con el comando `import numpy`.
+
+## Características de los arreglos
+
+- Operaciones *vectorizadas*. No es necesario el uso de bucles para recorrer los elementos del arreglo.
+- Los arreglos con un solo índice (o un índice unidimensional) se conocen como vectores.
+- Arreglos con dos índices (o un índice bidimensional) se usan como una eficiente estructura de datos, matrices y tablas.
+- Los arreglos pueden tener mas de dos índices, es decir, pueden ser $n-$dimensionales.
+
+# Creación
+
+## Creación de arreglos de `numpy`
+
+\index{Arreglos de NumPy!Creación de}
+
+- Primero cargamos el paquete `numpy`, lo haremos con el nombre `np` como es la costumbre en la comunidad de usuarios de python.
+
+```{python echo=TRUE}
+import numpy as np # <1>
+t=(2,3,4,1)  
+at=np.array(t) 
+l2=[7.5,8.1,9]  
+al=np.array(l2) 
+print(at,type(at)) 
+```
+
+1.  Cargamos el módulo `numpy`.
+
+## Creación de arreglos de `numpy` (II)
+
+- En la salida anterior `ndarray` significa *arreglo* $n$ dimensional.
+
+- Con el siguiente código se crea un arreglo bidimensional, una matriz de $2$ filas y $3$ columnas, observe que se entrega una lista con dos listas anidadas de la misma longitud, las listas anidadas pasan a ser las filas de la matriz.
+
+- Análogamente se pueden crear arreglos a partir de tuplas anidadas
+
+## Creación de arreglos de `numpy` (III)
+
+```{python echo=TRUE}
+a2=np.array([[1, -1  , 0], [0, 1, -1]]) # <1>
+ta2=np.array(((2,3),(4,1))) # <2>
+```
+
+1.  Matriz o arreglo de dimensión $2\times 3$ creado a partir de listas anidadas.
+2.  Matriz o arreglo de dimensión $2\times 2$ creado a partir de tuplas anidadas.
+
+## Creación de arreglos de `numpy` (IV)
+
+Con los métodos `.ndim` y `.shape` se obtiene el número de dimensiones y la longitud de cada dimensión de un arreglo de `numpy` \index{Método!\texttt{ndim()}} \index{Método!\texttt{shape}}
+
+```{python echo=TRUE}
+nd=a2.ndim # <1>
+a2.shape # <2> 
+```
+
+1.  Número de dimensiones del arreglo.
+2.  Longitud de cada dimensión
+
+## Creación de arreglos de `numpy` (V)
+
+- Note que `a2.shape` regresa una tupla cuyas componentes son las longitudes de cada dimensión.
+
+- De esta forma, para el caso de arreglos con dos dimensiones, es decir matrices, podemos obtener el número de filas mediante `a2.shape[0]`, y el número de columnas con `a2.shape[1]`.
+
+- El método `.reshape` \index{Método!\texttt{reshape}} sirve para crear arreglos $n-$dimensionales a partir de un arreglos unidimensionales.
+
+# Matrices 
+
+## Creación de matrices
+
+Veamos un ejemplo, ingresar la matriz $$A=\begin{bmatrix}
+  9 & 137 &297 &261 \\
+  136 & 2114 &4176 &3583 \\
+  269 &4176 &8257 &7104 \\
+  260 & 3583 &7104 &12276
+\end{bmatrix}$$ {#eq-matrizxtxe}
+
+## Creación de matrices (II)
+
+Como un arreglo bidimencional $4\times 4$ de `numpy`
+
+```{python echo=TRUE}
+Aa=np.array([9,137,297,261, 
+            136,2114,4176,3583,
+            269,4176,8257,7104, 
+            260,3583,7104,12276]) # <1> 
+#
+A=Aa.reshape(4,4) # <2>  
+print(A) 
+```
+
+1.  Los elementos de la matriz en un arreglo unidimensional de 16 filas y una columna.
+2.  Se modifican las dimensiones, se transforma el arreglo en una matriz de $4\times 4$.
+
+## Creación de matrices (III)
+
+- Note que de forma predeterminada el llenado de la matriz se hace por filas
+
+- En caso que se requiera, podemos conseguir que el llenado de la matriz se haga por columna, en ese caso se obtendría la transpuesta de la matriz [-@eq-matrizxtxe] dada en el ejemplo.
+
+```{python echo=TRUE}
+np.reshape(Aa,(4,4),order="F") 
+```
+
+## Observación  
+
+::: callout-note
+no se confunda, la `F` **no** es de fila, es de `Fortran`, lenguaje de programación de alto nivel que se usa principalmente en aplicaciones científicas y matemáticas 
+:::
+
+
+
+## Arreglos especiales
+
+\index{Arreglos de NumPy!Arreglos!especiales}
+
+- El paquete `numpy` tiene métodos para creación de arreglos especiales, por ejemplo, arreglos de ceros, de unos, en general arreglos con algún valor repetido, con cierta repetición de series de números, con números de un tipo específico de datos (`dtype`).
+
+- A continuación ilustramos el uso de las funciones `zeros`, `zeros_like`, `ones`, `ones_like`, `linespace` y `arrange` para crear arreglos con valores y tipos de datos específicos
+
+## Arreglos especiales (II)
+
+```{python echo=TRUE}
+a0s=np.zeros(5) # <1>   
+c=np.zeros_like(l2) # <2> 
+u=np.ones(4) # <3>  
+t2=((2,3),(4,1)) 
+u2=np.ones_like(t2) # <4>
+```
+
+1.  Arreglo de 5 ceros.
+2.  Arreglo de ceros con las dimensiones y tipo de datos de `l2`.
+3.  Arreglo de 4 unos.
+4.  Arreglo de unos con las dimensiones y tipo de datos de `t2`.
+
+# Secuencias regulares 
+
+## La función `linespace()`
+
+La función `linespace()` crea un arreglo con $n$ elementos con valores separados uniformemente en el intervalo $[p,q]$, estos arreglos son muy útiles una aplicación es momento de graficar, para generar el conjunto de valores del dominio de la función
+
+```{python echo=TRUE}
+a=np.linspace(0,1,5) 
+print(a,type(a)) 
+```
+
+Observe que el arreglo anterior, creado por `linespace()`, tiene $n=5$ elementos, inicia en $p=0$ y termina en $q=1$.
+
+## La función `arrange()`
+
+`arrange()` se usa de manera similar a la función `range()` que estudiamos en la clase de listas. Se pueden generar secuencias de números reales (no solo enteros) con incrementos que también pueden ser números reales.
+
+```{python echo=TRUE}
+np.arange(1.2,6,0.5)
+```
+
+En el anterior ejemplo, 1.2 es el valor de corresponde al valor de inicio, `start`, en caso que se omita el arreglo iniciará en cero, 6 es el valor de final `stop` de la secuencia, este valor es excluido, es decir el arreglo generado no lo incluirá.
+
+## Matrices especiales
+
+\index{Arreglos de NumPy!Matrices!especiales}
+
+El paquete `numpy` cuenta con funciones para la creación de matrices especiales, como la identidad, nula, escalar entre otras. En cuanto a la matriz identidad, hay dos funciones para crearla: `eye()` e `identity()`
+
+```{python echo=TRUE}
+id=np.eye(2) # <1>  
+id2=np.identity(3) # <2>
+E2=2*id2 # <3> 
+```
+
+1.  Matriz idéntica de orden 2.
+2.  Matriz idéntica de orden 3.
+3.  Matriz escalar $2\times I_3$.
+
+## Matrices especiales (II)
+
+Las matrices escalares son de la forma $c\times I$, donde $I$ es la identidad, podemos crear matrices escalares multiplicando la identidad por la constante $c$ 
+
+La diferencia entre `eye()` e `identity()` es que con `eye()` se puede indicar, con el argumento `k`, cuál de las diagonales de la matriz se llenará de unos, de manera predeterminada `k=0`, con lo que se genera la identidad, pero si se indica `k=1`, se llena con unos la primera diagonal por encima de la diagonal principal, si `k<0` se llenan las diagonales por debajo de la principal.
+
+## Matrices especiales (III)
+
+A continuación se crea un arreglo bidimensional de $4\times 4$ con todos los elementos iguales, en este caso, a $1$.
+
+```{python eval=FALSE}
+np.full((4,4),1)
+```
+
+Estas matrices tienen la particularidad de que al multiplicarlas por otra, el efecto es sumar las filas (o columnas) de la segunda matriz, algunos autores les llaman matrices `sumadoras`
+
+```{python echo=TRUE}
+S4=np.full((1,4),1) # <1> 
+S4@A # <2>
+```
+
+1.  Vector fila $(1\times 4)$ de puros unos.
+2.  Suma de las filas de la matriz $A$ dada en [-@eq-matrizxtxe].
+
+# Tipos de datos 
+
+## Tipos de datos en los arreglos
+
+\index{Arreglos de NumPy!Tipos de datos}
+
+Numpy tiene 5 tipos numéricos básicos, a saber:
+
+- booleanos (`bool`),
+
+- enteros (`int`) ,
+
+- enteros sin signo (`uint`),
+
+- punto flotante (`float`) y
+
+- complejo (`complex`).
+
+Los tipos con números en su nombre, por ejemplo `int64`, indican el tamaño en bits del tipo (es decir, cuántos bits se necesitan para representar un solo valor en la memoria)
+
+## Tipos de datos en los arreglos (II)
+
+\index{Numpy!Método!\texttt{dtype}}
+
+- Con el método `dtype` asociado a los arreglos de `numpy` podemos crear arreglos con el tipo de datos deseado o recuperar el tipo de datos que contiene el objeto.
+
+- A continuación se pide el tipo de dato que contiene el arreglo `a` y se crea un objeto con datos tipo `float64`
+
+```{python echo=TRUE}
+a.dtype # <1>  
+ar1 = np.array([1, 2, 3], dtype=np.float64) # <2> 
+print(ar1,ar1.dtype) 
+```
+
+1.  Regresa el tipo de dato que contiene el arreglo `a`
+2.  para crear un arreglo que contenga datos de tipo real `float` de 64 bits.
+
+## Tipos de datos en los arreglos (III)
+
+A continuación arreglos con otros tipos de datos
+
+```{python echo=TRUE, eval=FALSE}
+ar3 = np.array([1, 2, 3], dtype=np.int64) # <1>
+ar3 = np.array([1, 2, 3], dtype=np.int32) # <2>
+ar4 = np.array([1, 2, 3], dtype=np.int16) # <3>
+ar5 = np.array([1, 2, 3], dtype=np.int8) # <4>
+ar6 = np.array([1, 0, 1], dtype=np.bool_) # <5>
+print(ar6,ar6.dtype)
+```
+
+1.  Enteros de 64 bits.
+2.  Enteros de 32 bits.
+3.  Enteros de 16 bits.
+4.  Enteros de 8 bits.
+5.  Booleanos, `True` o `False`.
+
+## Tipos de datos en los arreglos (IV)
+
+Podemos hacer la conversión de un tipo a otro, por ejemplo, para convertir el arreglo `ar1`, que es de tipo `float`, a entero de 32 bits, procedemos de la siguiente forma
+
+```{python echo=TRUE}
+ar1int=ar1.astype(np.int32)
+print(ar1int,ar1int.dtype)
+```
+
+# Indexación 
+
+## Indexación en arreglos de NumPy {#sec-indexacionNumpy}
+
+\index{Arreglos de NumPy!Indexación}
+
+- Los arreglos $n-$dimensionales de `numpy` se indexan usando la indexación estándar de Python (`x[obj]`), que hemos estudiado con tuplas y listas
+
+- Hay diferentes tipos de indexación disponibles según el objeto: indexación básica, indexación avanzada y acceso de campo.
+
+## Indexación básica {#sec-IndexacionBasica}
+
+\index{Arreglos de NumPy!Indexación básica }
+
+<!--##### Indexación de un solo elemento-->
+
+\index{Arreglos de NumPy!Indexación de un solo elemento}
+
+- La *indexación de un solo elemento* funciona exactamente igual que para otras secuencias estándar de Python.
+
+- Inicia en cero y acepta índices negativos para la indexación desde el final del arreglo.
+
+```{python echo=TRUE,  eval=FALSE}
+a=np.arange(10)  # <1> arreglo de 0 a 9
+a[2] # <2>  
+a[-2] # <3>   
+A[1,2] # <4>
+A[1,-3] # <5> 
+```
+
+1.  Arreglo con valores de 0 a 9.
+2.  Tercer elemento del arreglo.
+3.  El segundo elemento, desde el final hacia adelante.
+4.  Ejemplo con arreglos bidimensionales: elemento en la segunda fila y tercera columna de la matriz $A$ dada en [-@eq-matrizxtxe], es decir, el elemento $A_{23}$.
+5.  Segunda fila, última columna de la matriz $A$.
+
+## Indexación básica (II)
+
+Cuando se tiene un arreglo $n-$dimensional y se entrega un único valor, predeterminadamente el valor se toma como índice de la primera dimensión (en el caso de matrices, la fila), a continuación se selecciona la segunda fila de $A$.
+
+```{python echo=TRUE}
+A[1] #<1>  
+A[1][2] #<2> 
+```
+
+1.  Segunda fila de $A$
+2.  Tercer elemento de la segunda fila de $A$, equivalente a `A[1,2]`.
+
+## Segmentación
+
+\index{Arreglos de NumPy!Segmentación}
+
+La *segmentación* se produce cuando en `x[obj]` `obj` es de la forma `inicio:fin:paso`, un entero o una tupla de objetos de segmentación
+
+```{python echo=TRUE}
+a=np.arange(10) #<1> 
+a[1:7:2] #<2>
+a[5:] #<3>      
+```
+
+1.  Arreglo de 0 a 9.
+2.  Selecciona el elemento con índice 1, luego suma dos (1+2), selecciona el elemento de índice 3, luego suma dos (3+2), así que selecciona el elemento de indice 5.
+3.  Del sexto elemento del arreglo a en adelante (índice 5 en adelante).
+
+## Herramientas de indexado dimensional
+
+Las herramientas de indexado dimensional permiten seleccionar toda una dimensión. Por ejemplo, en el caso de matrices, toda una fila o conjunto de filas, o toda una columna o grupo de columnas. En general seleccionar submatrices, veamos algunos ejemplos con la matriz $A$ dada en [-@eq-matrizxtxe]
+
+```{python echo=TRUE}
+A[1:,]  # <1>  
+A[:,1]  # <2>  
+A[(0,2),] # <3> 
+```
+
+1.  Selecciona de la fila dos (índice 1) de $A$ en adelante.
+2.  Selecciona la segunda columna de $A$.
+3.  Selecciona la fila 1 y 3 de $A$
+
+## Indexación entera
+
+
+\index{Arreglos de NumPy!Indexación!entera}
+
+- La indexación entera de arreglos permite la selección de elementos arbitrarios en el arreglo en función de su índice $n-$dimensional.
+
+- Cada arreglo de enteros representa los índices en la correspondiente dimensión.
+
+- Se permiten valores negativos en los arreglos de índices y funcionan como se explicó en la clase de listas.
+
+## Indexación entera (ejemplos)
+
+```{python echo=TRUE}
+a[np.array([3, 3, 0, 8])] # <1> 
+a[np.array([3, 3, -3, 8])] # <2> 
+A[np.array([0, 0, 3, 3]),np.array([0, 3, 0, 3])] # <3> 
+A[np.ix_([0,1],[0,1])] # <4> 
+A[0:2,0:2] # <5> 
+```
+
+1.  Se seleccionan del arreglo `a` el elemento con índice 3 dos veces, luego el de índice cero y por ultimo el de índice 8.
+2.  Se seleccionan del arreglo `a` el elemento con índice 3 dos veces, luego el tercer elemento de atrás hacia adelante y (7) por último el de índice 8.\
+3.  Selecciona los elementos en las esquinas de la matriz $A$ [-@eq-matrizxtxe].
+4.  Selecciona la submatriz (menor) de $2\times2$ de la esquina superior izquierda de la matriz $A$.
+5.  Otra forma de conseguir el resultado anterior.
+
+## Indexación booleana {#IndexacionBooleana}
+
+\index{Arreglos de NumPy!Indexación!booleana}
+
+- Podemos usar como índice un arreglo de valores lógicos,
+
+- este tipo de indexación es muy útil porque permite extraer del arreglo los valores que cumplan cierta condición.
+
+- Por ejemplo,
+
+  - extraer los números pares;
+  - los que sean mayores que la media;
+  - los que estén por debajo de primer cuartil;
+  - entre otras condiciones, veamos como se hace
+
+## Indexación booleana (ejemplos)
+
+```{python echo=TRUE}
+a[a%2==0]  # <1>
+a[a>5] # <2>  
+a[a<=3] # <3> 
+```
+
+1.  Se extraen del arreglo `a` los elementos pares.
+2.  Valores en el arreglo `a` mayores que 5.
+3.  Valores del arreglo a menores o iguales que 3
+
+## Residuo de la división
+
+::: callout-note
+- En el código anterior se está usando el operador `%` que regresa el residuo de la división.
+
+- Si al dividir un número por 2, el residuo es cero, entonces el número es par.
+
+- De esta forma `a%2==0` regresa `True` para aquellos elementos del arreglo que sean pares y `False` en caso contrario.
+
+- El resultado es que se extraen del arreglo `a` aquellos elementos que sean pares, es decir, los que se correspondan con `True` en el vector lógico.
+:::
+
+## Aplicación 
+
+
+```{python}
+#| echo: false 
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# 1. Creación del dominio usando np.linspace
+# Generamos 100 puntos equiespaciados entre 0 y 2*pi
+x = np.linspace(0, 2 * np.pi, 100)
+
+# 2. Evaluación de las funciones vectorizadas
+# Al aplicar np.sin() a un arreglo, NumPy calcula el seno para cada elemento automáticamente
+y_seno = np.sin(x)
+y_coseno = np.cos(x)
+
+# 3. Inicialización y configuración del lienzo
+plt.figure(figsize=(8, 5))
+
+# Trazado de las curvas
+plt.plot(x, y_seno, label="Seno(x)", color="blue", linewidth=2)
+plt.plot(x, y_coseno, label="Coseno(x)", color="red", linestyle="--", linewidth=2)
+
+# 4. Personalización estética del gráfico
+plt.title("Funciones Seno y Coseno")
+plt.xlabel("x (radianes)")
+plt.ylabel("f(x)")
+plt.axhline(0, color='black', linewidth=0.8) # Línea central para el eje X
+plt.legend(loc="upper right")
+plt.grid(alpha=0.4)
+
+# Renderizar el gráfico
+plt.show()
+
+```
+
+
+## Aplicación 
+
+
+```{python}
+#| echo: true
+#| eval: true
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# 1. Creación del dominio usando np.linspace
+# Generamos 100 puntos equiespaciados entre 0 y 2*pi
+x = np.linspace(0, 2 * np.pi, 100)
+
+# 2. Evaluación de las funciones vectorizadas
+# Al aplicar np.sin() a un arreglo, NumPy calcula el seno para cada elemento automáticamente
+y_seno = np.sin(x)
+y_coseno = np.cos(x)
+
+# 3. Inicialización y configuración del lienzo
+plt.figure(figsize=(8, 5))
+
+# Trazado de las curvas
+plt.plot(x, y_seno, label="Seno(x)", color="blue", linewidth=2)
+plt.plot(x, y_coseno, label="Coseno(x)", color="red", linestyle="--", linewidth=2)
+
+# 4. Personalización estética del gráfico
+plt.title("Funciones Seno y Coseno")
+plt.xlabel("x (radianes)")
+plt.ylabel("f(x)")
+plt.axhline(0, color='black', linewidth=0.8) # Línea central para el eje X
+plt.legend(loc="upper right")
+plt.grid(alpha=0.4)
+
+# Renderizar el gráfico
+plt.show()
+
+```

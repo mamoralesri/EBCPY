@@ -1,0 +1,1620 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  ignorenonframetext,
+  aspectratio=169,
+  spanish,
+]{beamer}
+\newif\ifbibliography
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolshorizontal
+% remove section numbering
+\setbeamertemplate{part page}{
+  \centering
+  \begin{beamercolorbox}[sep=16pt,center]{part title}
+    \usebeamerfont{part title}\insertpart\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+  \centering
+  \begin{beamercolorbox}[sep=12pt,center]{section title}
+    \usebeamerfont{section title}\insertsection\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center]{subsection title}
+    \usebeamerfont{subsection title}\insertsubsection\par
+  \end{beamercolorbox}
+}
+% Prevent slide breaks in the middle of a paragraph
+\widowpenalties 1 10000
+\raggedbottom
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+
+\usetheme[]{default}
+\usefonttheme[]{default}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+\usepackage{caption}
+% Make caption package work with longtable
+\makeatletter
+\def\fnum@table{\tablename~\thetable}
+\makeatother
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+
+\setbeamertemplate{headline}{} % Elimina la cabecera del tema Madrid
+\setbeamertemplate{section in head/foot}{} % Limpia la numeración de secciones
+\renewcommand{\contentsname}{Índice}
+\renewcommand{\refname}{Referencias}
+\renewcommand{\figurename}{Figura}
+\renewcommand{\tablename}{Tabla}
+\logo{%
+  \begin{tabular}{c}
+    \includegraphics[height=1.2cm]{EscudoU.png}
+  \end{tabular}%
+}
+% --- CONFIGURACIÓN DE COLORES INSTITUCIONALES ---
+\definecolor{UnicorGreen}{HTML}{024426}
+\definecolor{UnicorText}{HTML}{F9F9F9}
+\definecolor{UnicorWhite}{HTML}{FFFFFF}
+\definecolor{UnicorGold}{HTML}{D1B061}
+
+% Aplicación al fondo y texto general
+\setbeamercolor{background canvas}{bg=UnicorGreen}
+\setbeamercolor{normal text}{fg=UnicorText}
+
+% Aplicación a títulos y cabeceras
+%\setbeamercolor{title}{fg=UnicorWhite}
+\setbeamercolor{frametitle}{fg=UnicorWhite}
+\setbeamercolor{framesubtitle}{fg=UnicorWhite}
+
+% Aplicación a viñetas y estructura
+\setbeamercolor{structure}{fg=UnicorWhite}
+\setbeamercolor{itemize item}{fg=UnicorWhite}
+\setbeamercolor{itemize subitem}{fg=UnicorWhite}
+\setbeamercolor{enumerate item}{fg=UnicorWhite}
+
+% Forzar a LaTeX a repintar el texto general al iniciar el documento
+\AtBeginDocument{\usebeamercolor[fg]{normal text}}
+
+% Aplicación a hipervínculos
+\hypersetup{colorlinks=true, urlcolor=UnicorGold, linkcolor=UnicorWhite}
+
+% --- ACTIVAR ESTILO DE BLOQUES Y SOMBRAS (ESTILO MADRID) ---
+\useinnertheme[shadow=true]{rounded}
+
+% --- COLORES DEL RECUADRO DEL TÍTULO PRINCIPAL ---
+% Fondo dorado con texto verde
+\setbeamercolor{title}{bg=UnicorGold, fg=UnicorGreen}
+\setbeamercolor{frametitle}{fg=UnicorWhite} % Mantiene el título de las diapositivas normal
+\setbeamercolor{framesubtitle}{fg=UnicorWhite}
+
+% --- COLORES PARA TEOREMAS, DEFINICIONES Y BLOQUES ---
+% Título del bloque (Fondo dorado, texto verde)
+\setbeamercolor{block title}{bg=UnicorGold, fg=UnicorGreen}
+% Cuerpo del bloque (Fondo blanco, texto verde)
+\setbeamercolor{block body}{bg=UnicorWhite, fg=UnicorGreen}
+
+\AtBeginDocument{
+  \author{%
+    \begin{tabular}{c}
+      Mario A. Morales Rivera \\
+      \footnotesize \texttt{mamorales@correo.unicordoba.edu.co} \\
+      \footnotesize Universidad de Córdoba
+    \end{tabular}
+  }
+  \institute{}
+}
+% --- LIMPIAR DIAPOSITIVAS DE SECCIÓN (ELIMINAR "SECTION X") ---
+\setbeamertemplate{section page}{
+  \begin{center}
+    \begin{beamercolorbox}[sep=12pt,center,rounded=true,shadow=true]{title}
+      \usebeamerfont{title}\insertsection\par
+    \end{beamercolorbox}
+  \end{center}
+}
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
+\@ifpackageloaded{fontawesome5}{}{\usepackage{fontawesome5}}
+\definecolor{quarto-callout-color}{HTML}{909090}
+\definecolor{quarto-callout-note-color}{HTML}{0758E5}
+\definecolor{quarto-callout-important-color}{HTML}{CC1914}
+\definecolor{quarto-callout-warning-color}{HTML}{EB9113}
+\definecolor{quarto-callout-tip-color}{HTML}{00A047}
+\definecolor{quarto-callout-caution-color}{HTML}{FC5300}
+\definecolor{quarto-callout-color-frame}{HTML}{acacac}
+\definecolor{quarto-callout-note-color-frame}{HTML}{4582ec}
+\definecolor{quarto-callout-important-color-frame}{HTML}{d9534f}
+\definecolor{quarto-callout-warning-color-frame}{HTML}{f0ad4e}
+\definecolor{quarto-callout-tip-color-frame}{HTML}{02b875}
+\definecolor{quarto-callout-caution-color-frame}{HTML}{fd7e14}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Tabla de contenidos}
+\else
+  \newcommand\contentsname{Tabla de contenidos}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Listado de Figuras}
+\else
+  \newcommand\listfigurename{Listado de Figuras}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Listado de Tablas}
+\else
+  \newcommand\listtablename{Listado de Tablas}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figura}
+\else
+  \newcommand\figurename{Figura}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Tabla}
+\else
+  \newcommand\tablename{Tabla}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listado}
+\newcommand*\listoflistings{\listof{codelisting}{Listado de Listados}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{tikz}{}{\usepackage{tikz}}
+\makeatother
+        \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+          \node[shape=circle,draw,inner sep=1pt] (char) {{\scriptsize#1}};}}  
+                  
+
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Estadística con Python},
+  pdfauthor={Mario Morales},
+  pdflang={es},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Estadística con Python}
+\subtitle{Tipos de Datos en Python - Calculadora}
+\author{Mario Morales}
+\date{}
+
+\begin{document}
+\frame{\titlepage}
+
+\renewcommand*\contentsname{Tabla de contenidos}
+\begin{frame}[allowframebreaks]
+  \frametitle{Tabla de contenidos}
+  \setcounter{tocdepth}{3}
+  \tableofcontents
+\end{frame}
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+
+\section{Objetivos de la Sesión}\label{objetivos-de-la-sesiuxf3n}
+
+\begin{frame}{Objetivos de la Sesión}
+\begin{itemize}
+\tightlist
+\item
+  Comprender la naturaleza y utilidad de los diferentes tipos de datos
+  en Python.
+\item
+  Diferenciar entre datos numéricos (enteros y flotantes), cadenas de
+  texto y valores lógicos.
+\item
+  Reconocer estructuras de datos introductorias relevantes para el
+  análisis de datos.
+\item
+  Aplicar funciones nativas de Python para verificar y convertir tipos
+  de datos.
+\end{itemize}
+\end{frame}
+
+\section{Tipos de datos: importancia}\label{tipos-de-datos-importancia}
+
+\begin{frame}{Tipos de datos: importancia}
+\begin{itemize}
+\item
+  En estadística y programación, la forma en que el computador almacena
+  la información dicta qué operaciones matemáticas o lógicas podemos
+  realizar.
+\item
+  No podemos calcular la media de un texto, ni concatenar
+  matemáticamente dos números lógicos sin una conversión previa.
+\item
+  Python es un lenguaje de tipado dinámico, lo que significa que el tipo
+  de dato se asigna automáticamente durante la ejecución.
+\end{itemize}
+\end{frame}
+
+\section{Datos Numéricos}\label{datos-numuxe9ricos}
+
+\begin{frame}{Datos Numéricos}
+Python maneja los números principalmente de dos maneras fundamentales
+para nuestros cálculos.
+\end{frame}
+
+\begin{frame}[fragile]{Enteros (\texttt{int})}
+\phantomsection\label{enteros-int}
+Representan números completos sin parte decimal. Son útiles para contar
+frecuencias, iteraciones, o tamaños de muestra (\(n\)).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Ejemplo de Integer}
+\NormalTok{tamaño\_muestra }\OperatorTok{=} \DecValTok{150}
+\BuiltInTok{print}\NormalTok{(tamaño\_muestra)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+150
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{print}\NormalTok{(}\BuiltInTok{type}\NormalTok{(tamaño\_muestra))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+<class 'int'>
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Flotantes (\texttt{floats})}
+\phantomsection\label{flotantes-floats}
+Representan números reales (con parte decimal). Son el estándar para
+variables continuas, probabilidades, promedios y estadísticos de prueba.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Ejemplo de Float}
+\NormalTok{media\_muestral }\OperatorTok{=} \FloatTok{45.89}
+\NormalTok{p\_valor }\OperatorTok{=} \FloatTok{0.035}
+\BuiltInTok{print}\NormalTok{(media\_muestral)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+45.89
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{print}\NormalTok{(}\BuiltInTok{type}\NormalTok{(media\_muestral))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+<class 'float'>
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Datos de Texto o Caracteres (\texttt{str})}
+\phantomsection\label{datos-de-texto-o-caracteres-str}
+Conocidos como \texttt{strings}, almacenan texto. En el modelado
+estadístico, a menudo usamos \texttt{strings} para etiquetas, nombres de
+variables categóricas o descripciones cualitativas. Se delimitan con
+comillas simples o dobles.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Ejemplo de String}
+\NormalTok{categoria\_tratamiento }\OperatorTok{=} \StringTok{"Tratamiento A"}
+\BuiltInTok{print}\NormalTok{(categoria\_tratamiento)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Tratamiento A
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{print}\NormalTok{(}\BuiltInTok{type}\NormalTok{(categoria\_tratamiento))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+<class 'str'>
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Datos Lógicos o Booleanos (\texttt{bool})}
+\phantomsection\label{datos-luxf3gicos-o-booleanos-bool}
+\begin{itemize}
+\item
+  Solo pueden tomar dos valores: \texttt{True} (Verdadero) o
+  \texttt{False} (Falso).
+\item
+  Son la base del control de flujo y la evaluación de condiciones (por
+  ejemplo, si un valor supera un umbral crítico).
+\item
+  En el fondo, Python evalúa True como \(1\) y False como \(0\).
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Ejemplo de Booleano}
+\NormalTok{hipotesis\_rechazada }\OperatorTok{=} \VariableTok{True}
+\BuiltInTok{print}\NormalTok{(hipotesis\_rechazada)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+True
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{print}\NormalTok{(}\BuiltInTok{type}\NormalTok{(hipotesis\_rechazada))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+<class 'bool'>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Evaluación de una condición que retorna un booleano}
+\NormalTok{es\_significativo }\OperatorTok{=}\NormalTok{ p\_valor }\OperatorTok{\textless{}} \FloatTok{0.05}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"¿Es estadísticamente significativo?:"}\NormalTok{, es\_significativo)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+¿Es estadísticamente significativo?: True
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo de \texttt{bool}}
+\phantomsection\label{ejemplo-de-bool}
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Evaluación de una condición que retorna un booleano}
+\NormalTok{es\_significativo }\OperatorTok{=}\NormalTok{ p\_valor }\OperatorTok{\textless{}} \FloatTok{0.05}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"¿Es estadísticamente significativo?:"}\NormalTok{, es\_significativo)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+¿Es estadísticamente significativo?: True
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Datos Especiales: Ausencia de Valor (NoneType)}
+\phantomsection\label{datos-especiales-ausencia-de-valor-nonetype}
+\begin{itemize}
+\item
+  En la limpieza de datos, es común encontrar valores perdidos
+  (\texttt{Missing\ values}).
+\item
+  En Python puro, esto suele representarse con \texttt{None}.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Ejemplo de None}
+\NormalTok{dato\_faltante }\OperatorTok{=} \VariableTok{None}
+\BuiltInTok{print}\NormalTok{(}\BuiltInTok{type}\NormalTok{(dato\_faltante))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+<class 'NoneType'>
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Conversión de Tipos (\texttt{Casting})}
+\phantomsection\label{conversiuxf3n-de-tipos-casting}
+A veces necesitamos transformar un tipo de dato en otro, por ejemplo,
+convertir un texto numérico recolectado de un formulario web a un
+entero.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# De string a entero}
+\NormalTok{texto\_numero }\OperatorTok{=} \StringTok{"120"}
+\NormalTok{numero\_real }\OperatorTok{=} \BuiltInTok{int}\NormalTok{(texto\_numero)}
+\BuiltInTok{print}\NormalTok{(}\BuiltInTok{type}\NormalTok{(numero\_real))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+<class 'int'>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# De float a int (¡Cuidado: se pierde la parte decimal!)}
+\NormalTok{valor\_estimado }\OperatorTok{=} \FloatTok{4.95}
+\NormalTok{entero\_truncado }\OperatorTok{=} \BuiltInTok{int}\NormalTok{(valor\_estimado)}
+\BuiltInTok{print}\NormalTok{(entero\_truncado)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+4
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Ejercicio Práctico en Clase}
+\phantomsection\label{ejercicio-pruxe1ctico-en-clase}
+\begin{itemize}
+\item
+  Crear una variable llamada \texttt{edad} y asígnenle su edad en años
+  (¿Qué tipo de dato es?).
+\item
+  Crear una variable estatura en metros (ej. 1.75).
+\item
+  Crear una variable \texttt{nombre\_estudiante} con su nombre completo.
+\item
+  Evaluar de forma lógica (Booleana) si la edad es mayor a 18 y guardar
+  el resultado en una variable llamada \texttt{es\_mayor\_edad}.
+\item
+  Usen la función \texttt{print()} para mostrar todas las variables y la
+  función \texttt{type()} para verificar que usaron el tipo correcto.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo de aplicación}
+\phantomsection\label{ejemplo-de-aplicaciuxf3n}
+\begin{itemize}
+\item
+  Escribir un programa es \texttt{python} que capture dos números
+  \texttt{a} y \texttt{b} y regrese la suma \texttt{a+b}
+\item
+  \emph{Ayuda:} para capturar un valor desde el teclado use la función
+  \texttt{input()}
+\end{itemize}
+\end{frame}
+
+\section{Python como calculadora}\label{python-como-calculadora}
+
+\begin{frame}[fragile]{Operaciones I}
+\phantomsection\label{operaciones-i}
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Suma }
+\DecValTok{2}\OperatorTok{+}\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Resta }
+\DecValTok{5}\OperatorTok{{-}}\DecValTok{3} 
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Producto }
+\DecValTok{3}\OperatorTok{*}\DecValTok{5} 
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+15
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Operaciones II}
+\phantomsection\label{operaciones-ii}
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#\# Cuidado }
+\DecValTok{2}\OperatorTok{\^{}}\DecValTok{2} \CommentTok{\# no funciona como potencia     }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#\#\# para la potenciación en python potencia se debe usar **}
+\BuiltInTok{print}\NormalTok{(}\DecValTok{2}\OperatorTok{**}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{9}\OperatorTok{**}\NormalTok{(}\DecValTok{1}\OperatorTok{/}\DecValTok{2}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+3.0
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Operaciones III}
+\phantomsection\label{operaciones-iii}
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# El orden de las operaciones se altera con paréntesis }
+
+\NormalTok{(}\DecValTok{4}\OperatorTok{{-}}\DecValTok{2}\NormalTok{)}\OperatorTok{*}\DecValTok{3}\OperatorTok{**}\DecValTok{2} 
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+18
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Residuo de la división}
+\DecValTok{7}\OperatorTok{\%}\DecValTok{4}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Parte entera de la división }
+\DecValTok{7}\OperatorTok{//}\DecValTok{4}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+1
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Funciones I}
+\phantomsection\label{funciones-i}
+Para tener disponibles funciones matemáticas es necesario importar el
+paquete \texttt{math}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Raíz cuadrada }
+\ImportTok{from}\NormalTok{ math }\ImportTok{import}\NormalTok{ sqrt}
+\NormalTok{sqrt(}\DecValTok{9}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+3.0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# exponencial }
+\ImportTok{from}\NormalTok{ math }\ImportTok{import}\NormalTok{ exp}
+\NormalTok{exp(}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+2.718281828459045
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# logaritmo en base 10 }
+\ImportTok{from}\NormalTok{ math }\ImportTok{import}\NormalTok{ log10}
+\NormalTok{log10(}\DecValTok{100}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+2.0
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Funciones II}
+\phantomsection\label{funciones-ii}
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{from}\NormalTok{ math }\ImportTok{import}\NormalTok{ log}
+\CommentTok{\# logaritmo en base 10 }
+\NormalTok{log(}\DecValTok{100}\NormalTok{,}\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+2.0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# logaritmo en base 2 }
+\NormalTok{log(}\DecValTok{8}\NormalTok{,}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+3.0
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{Funciones trigonométricas}
+\phantomsection\label{funciones-trigonomuxe9tricas}
+Usando Python, calcular
+
+\begin{itemize}
+\tightlist
+\item
+  \(\sin(\pi/2)\)
+\item
+  \(\sin(\pi)\)
+\item
+  \(\sin(2\times \pi)\)
+\item
+  \(\cos(\pi/2)\)
+\item
+  \(\cos(\pi)\)
+\item
+  \(\cos(2\times \pi)\)
+\item
+  \(\tan(\pi/4)\)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Solución}
+\phantomsection\label{soluciuxf3n}
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{from}\NormalTok{ math }\ImportTok{import}\NormalTok{ sin, cos , pi }
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]{Tuplas}
+\phantomsection\label{tuplas}
+Las tuplas sirven para agrupar objetos de diferente tipo, ellas estan
+\emph{indexadas} y son \textbf{inmutables}, es decir, no se pueden
+modificar (agregar, quitar, cambiar entradas) una vez creadas.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mytupla0}\OperatorTok{=}\NormalTok{(}\StringTok{\textquotesingle{}abc\textquotesingle{}}\NormalTok{,}\DecValTok{4}\NormalTok{,}\VariableTok{True}\NormalTok{,}\DecValTok{5}\NormalTok{,}\VariableTok{False}\NormalTok{,}\FloatTok{2.5}\NormalTok{)}
+\NormalTok{mytupla}\OperatorTok{=}\NormalTok{(}\DecValTok{1}\NormalTok{,}\FloatTok{0.7}\NormalTok{,mytupla0,}\StringTok{"Hola"}\NormalTok{) }
+\BuiltInTok{print}\NormalTok{(mytupla0)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+('abc', 4, True, 5, False, 2.5)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mytupla}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+(1, 0.7, ('abc', 4, True, 5, False, 2.5), 'Hola')
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{Datos soportados por las tuplas}
+\phantomsection\label{datos-soportados-por-las-tuplas}
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-important-color!10!white, colframe=quarto-callout-important-color-frame, arc=.35mm, opacityback=0, toptitle=1mm, left=2mm, breakable, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Importante}, bottomtitle=1mm, titlerule=0mm, rightrule=.15mm, coltitle=black, bottomrule=.15mm, toprule=.15mm, colback=white, leftrule=.75mm, opacitybacktitle=0.6]
+
+Note que una tupla puede contener distintos tipos de datos (string,
+enteros, lógicos y floats), incluso otras tuplas y otros tipos de
+contenedores
+
+\end{tcolorbox}
+\end{frame}
+
+\begin{frame}[fragile]{Acceso a datos en una tupla}
+\phantomsection\label{acceso-a-datos-en-una-tupla}
+Para acceder a los elementos de una tupla se usa
+\texttt{tupla{[}indice{]}} donde \emph{indice} es un número entero de
+cero hasta la longitud de la tupla menos uno \(n-1\)
+
+\phantomsection\label{annotated-cell-31}%
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mytupla[}\DecValTok{0}\NormalTok{] }\hspace*{\fill}\NormalTok{\circled{1}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{description}
+\tightlist
+\item[\circled{1}]
+Primer elemento de la tupla.
+\end{description}
+
+\begin{verbatim}
+1
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Ejecute I}
+\phantomsection\label{ejecute-i}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mytupla[}\DecValTok{4}\NormalTok{]}
+\NormalTok{mytupla[}\DecValTok{2}\NormalTok{]}\OperatorTok{=}\DecValTok{0} 
+\NormalTok{mytupla[}\DecValTok{2}\NormalTok{]}\OperatorTok{=}\StringTok{\textquotesingle{}xyz\textquotesingle{}}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]{Ejecute II}
+\phantomsection\label{ejecute-ii}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mytupla[}\DecValTok{4}\NormalTok{] }\CommentTok{\# IndexError: tuple index out of range}
+\CommentTok{\# no corre, a eso se refiere con inmutable }
+\NormalTok{mytupla[}\DecValTok{2}\NormalTok{]}\OperatorTok{=}\DecValTok{0} \CommentTok{\#TypeError: \textquotesingle{}tuple\textquotesingle{} object does not support item assignment}
+\NormalTok{mytupla[}\DecValTok{2}\NormalTok{]}\OperatorTok{=}\StringTok{\textquotesingle{}xyz\textquotesingle{}}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]{Observe}
+\phantomsection\label{observe}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t1}\OperatorTok{=}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{) }
+\BuiltInTok{print}\NormalTok{(}\StringTok{\textquotesingle{}t1= \textquotesingle{}}\NormalTok{,t1,}\StringTok{\textquotesingle{}id de t1 antes \textquotesingle{}}\NormalTok{,}\BuiltInTok{id}\NormalTok{(t1))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+t1=  (3, 4) id de t1 antes  4778509312
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t2}\OperatorTok{=}\NormalTok{(}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(}\StringTok{\textquotesingle{}t2= \textquotesingle{}}\NormalTok{,t2,}\StringTok{\textquotesingle{}id de t2 antes \textquotesingle{}}\NormalTok{,}\BuiltInTok{id}\NormalTok{(t2))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+t2=  (5, 6) id de t2 antes  4778496832
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{print}\NormalTok{(t2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+(5, 6)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t1}\OperatorTok{=}\NormalTok{t1}\OperatorTok{+}\NormalTok{t2}
+\BuiltInTok{print}\NormalTok{(}\StringTok{\textquotesingle{}t1= \textquotesingle{}}\NormalTok{, t1,}\StringTok{\textquotesingle{}id de t1 despues \textquotesingle{}}\NormalTok{, }\BuiltInTok{id}\NormalTok{(t1))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+t1=  (3, 4, 5, 6) id de t1 despues  4778839392
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{print}\NormalTok{(}\StringTok{\textquotesingle{}t2= \textquotesingle{}}\NormalTok{, t2, }\StringTok{\textquotesingle{}id de t2 despues \textquotesingle{}}\NormalTok{, }\BuiltInTok{id}\NormalTok{(t2))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+t2=  (5, 6) id de t2 despues  4778496832
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{Ventajas de la inmutabilidad}
+\phantomsection\label{ventajas-de-la-inmutabilidad}
+\begin{itemize}
+\item
+  Seguridad: Como los datos no pueden ser modificados accidentalmente,
+  es más seguro usar tuplas cuando se quiere proteger la integridad de
+  los datos.
+\item
+  Uso como claves en diccionarios: Las tuplas, al ser inmutables, pueden
+  ser utilizadas como claves en diccionarios, algo que no es posible con
+  las listas.
+\item
+  Optimización: Las tuplas pueden ser más eficientes en términos de
+  rendimiento y uso de memoria en comparación con las listas. La
+  inmutabilidad hace que las tuplas sean útiles en situaciones donde se
+  requiere un conjunto de datos constante y seguro.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Función \texttt{type}}
+\phantomsection\label{funciuxf3n-type}
+Para averiguar la \textbf{clase} de un objeto usamos la función
+\texttt{type()}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{type}\NormalTok{(mytupla) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+<class 'tuple'>
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Averiguar si un objeto es una tupla}
+\phantomsection\label{averiguar-si-un-objeto-es-una-tupla}
+\begin{itemize}
+\item
+  En algunas aplicaciones es necesario verificar si un objeto pertenece
+  o no a una clase.
+\item
+  Por ejemplo, para dirigir el flujo de ejecución del código de
+  programación de una función: si el objeto entregado es una tupla,
+  ejecute ciertas líneas de código, de lo contrario ejecute otras
+  líneas.
+\item
+  La función \texttt{isinstance(objeto,tipo)} regresa \texttt{True} si
+  la clase del \texttt{objeto} entregado corresponde a \texttt{tipo}, en
+  caso contrario regresa \texttt{False}.
+\item
+  Otra forma es mediante la función \texttt{type}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Función \texttt{isinstance}}
+\phantomsection\label{funciuxf3n-isinstance}
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{isinstance}\NormalTok{(mytupla, }\BuiltInTok{tuple}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+True
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{isinstance}\NormalTok{(}\StringTok{\textquotesingle{}abcd\textquotesingle{}}\NormalTok{, }\BuiltInTok{tuple}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+False
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{isinstance}\NormalTok{(}\StringTok{\textquotesingle{}abcd\textquotesingle{}}\NormalTok{, }\BuiltInTok{str}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+True
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Función \texttt{isinstance}}
+\phantomsection\label{funciuxf3n-isinstance-1}
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{type}\NormalTok{(mytupla)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+<class 'tuple'>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{type}\NormalTok{(mytupla) }\KeywordTok{is} \BuiltInTok{tuple}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+True
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{type}\NormalTok{(}\DecValTok{4}\NormalTok{) }\KeywordTok{is} \BuiltInTok{tuple}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+False
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{type}\NormalTok{(}\DecValTok{4}\NormalTok{) }\KeywordTok{is} \BuiltInTok{int}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+True
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Otras formas de crear tuplas}
+\phantomsection\label{otras-formas-de-crear-tuplas}
+Otra forma de crear tuplas es mediante la siguiente orden, con la
+segunda linea se imprime el tipo de objeto que es \texttt{t3}, con el
+fin de verificar que efectivamente se ha creado una tupla.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t3}\OperatorTok{=}\DecValTok{10}\NormalTok{,}\DecValTok{20} 
+\BuiltInTok{type}\NormalTok{(t3)  }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+<class 'tuple'>
+\end{verbatim}
+
+Esta forma se conoce como creación de tuplas mediante \emph{empaquetado}
+\end{frame}
+
+\begin{frame}[fragile]{Desempaquetado de tuplas}
+\phantomsection\label{desempaquetado-de-tuplas}
+También podemos recuperar los elementos de una tupla mediante el
+\emph{desempaquetado}\index{Tuplas!desempaquetado}, de la siguiente
+manera
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x,y}\OperatorTok{=}\NormalTok{t3}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"x= "}\NormalTok{,x)}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"y= "}\NormalTok{,y)}
+\end{Highlighting}
+\end{Shaded}
+
+el primer elemento de la tupla \texttt{t3} se asigna al objeto
+\texttt{x} y el segundo a \texttt{y} luego se imprimen sus valores.
+\end{frame}
+
+\begin{frame}[fragile]{Tuplas especiales}
+\phantomsection\label{tuplas-especiales}
+Se pueden crear tuplas vacías y tuplas que contiene un solo valor, estas
+últimas llamadas tuplas unitarias, como se muestra a continuación
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tupvacia}\OperatorTok{=}\NormalTok{() }\CommentTok{\# crea una tupla vacía }
+\NormalTok{tupunit}\OperatorTok{=}\NormalTok{(}\DecValTok{4}\NormalTok{,) }\CommentTok{\# crea una tupla con un único elemento }
+\BuiltInTok{print}\NormalTok{(tupvacia,}\BuiltInTok{type}\NormalTok{(tupvacia),tupunit,}\BuiltInTok{type}\NormalTok{(tupunit))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+() <class 'tuple'> (4,) <class 'tuple'>
+\end{verbatim}
+
+note el uso de la coma después del elemento de la tupla unitaria, eso
+debe ser así porque de lo contrario no se estaría creando una tupla,
+sino un objeto de tipo entero (\texttt{int})
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x}\OperatorTok{=}\NormalTok{(}\DecValTok{4}\NormalTok{) }\CommentTok{\# cuidado!!! x es un entero, no una tupla  }
+\BuiltInTok{print}\NormalTok{(x,}\BuiltInTok{type}\NormalTok{(x))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+4 <class 'int'>
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Indexado de tuplas.}
+\phantomsection\label{indexado-de-tuplas.}
+\index{Tuplas!Indexado de}
+
+Se puede crear una tupla a partir de otra mediante órdenes de la forma
+\texttt{tupla{[}i:j{]}} esto se conoce como indexación, veamos algunos
+ejemplos:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a}\OperatorTok{=}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{4}\NormalTok{) }\CommentTok{\# se crea la tupla a }
+\NormalTok{b}\OperatorTok{=}\NormalTok{a[}\DecValTok{1}\NormalTok{:}\DecValTok{4}\NormalTok{] }\CommentTok{\# tupla b, creada a partir de a }
+\BuiltInTok{print}\NormalTok{(b,}\BuiltInTok{type}\NormalTok{(b))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+(2, 4, 1) <class 'tuple'>
+\end{verbatim}
+
+Note en la salida anterior que la tupla \texttt{b} inicia en \texttt{2},
+y no en \texttt{3}, que es el primer elemento de la tupla \texttt{a}
+¿por qué?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a[:}\DecValTok{4}\NormalTok{]    }\CommentTok{\# los cuatro primeros elementos de la tupla a}
+\NormalTok{a[}\DecValTok{2}\NormalTok{:]    }\CommentTok{\# desde el tercer elemento hasta el final }
+\NormalTok{a[::}\OperatorTok{{-}}\DecValTok{1}\NormalTok{]  }\CommentTok{\# la tupla en reversa  }
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\section{Funciones y métodos aplicables a
+tuplas}\label{sec-funcionesAplicablesATuplas}
+
+\begin{frame}{Funciones y métodos aplicables a tuplas}
+\index{Tuplas!Función!\texttt{len()}}\index{Tuplas!Método!\texttt{.index}}\index{Tuplas!Método!\texttt{.count()}}
+\end{frame}
+
+\begin{frame}[fragile]{La función \texttt{len()}}
+\phantomsection\label{la-funciuxf3n-len}
+\begin{itemize}
+\tightlist
+\item
+  La función \texttt{len()} regresa el número de elementos que contiene
+  una tupla
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{print}\NormalTok{(}\BuiltInTok{len}\NormalTok{(t1)) }\CommentTok{\# Imprime  la longitud  de la tupla}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t1[}\BuiltInTok{len}\NormalTok{(t1)}\OperatorTok{{-}}\DecValTok{1}\NormalTok{]  }\CommentTok{\# recupera el último }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+6
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Método \texttt{.index(x)}}
+\phantomsection\label{muxe9todo-.indexx}
+\begin{itemize}
+\tightlist
+\item
+  El método \texttt{.index(x)} regresa el índice que le corresponde al
+  elemento \texttt{x} en la tupla, si el elemento está más de una vez
+  regresa el índice de la primera ocurrencia, en caso que \texttt{x} no
+  esté ocurre un error.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t1.index(}\DecValTok{4}\NormalTok{)    }\CommentTok{\# índice correspondiente al primer 4 en t1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+1
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Método \texttt{.count()}}
+\phantomsection\label{muxe9todo-.count}
+\begin{itemize}
+\tightlist
+\item
+  El método \texttt{.count()} regresa el número de veces que un elemento
+  está en la tupla, en caso de no estar regresa cero, a continuación se
+  muestra como usarlos sobre la tupla \texttt{t1} creada arriba
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t1.count(}\DecValTok{4}\NormalTok{) }\CommentTok{\# número de veces que está 4 }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+1
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{}
+\phantomsection\label{section}
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-important-color!10!white, colframe=quarto-callout-important-color-frame, arc=.35mm, opacityback=0, toptitle=1mm, left=2mm, breakable, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Importante}, bottomtitle=1mm, titlerule=0mm, rightrule=.15mm, coltitle=black, bottomrule=.15mm, toprule=.15mm, colback=white, leftrule=.75mm, opacitybacktitle=0.6]
+
+Habrá notado la diferencia en el llamado a \texttt{len()} frente a
+\texttt{.index()} y \texttt{.count()}:
+
+\begin{itemize}
+\item
+  \texttt{len()} es una función genérica de Python, así que puede
+  aplicarse a diferentes tipos de objetos,
+\item
+  Mientras que los dos últimos son \emph{métodos}, definidos sobre la
+  clase \emph{tuple}.
+\end{itemize}
+
+\end{tcolorbox}
+\end{frame}
+
+\begin{frame}[fragile]{Diferencia entre método y función}
+\phantomsection\label{diferencia-entre-muxe9todo-y-funciuxf3n}
+\begin{itemize}
+\item
+  Cuando se crea una tupla se le asocian los métodos propios de la
+  clase, es decir, el método está asociado al objeto.
+\item
+  Las funciones sólo se pueden llamar por su nombre, ya que se definen
+  de forma independiente,
+\item
+  Los métodos no pueden ser llamados únicamente por su nombre,
+  necesitamos invocar la clase por una referencia de esa clase en la que
+  está definida.
+\item
+  Esa es la razón por la que \textbf{no usamos} \texttt{index(t1,4)} o
+  \texttt{count(t1,4)} sino \texttt{t1.index(4)} o \texttt{t1.count(4)}
+\item
+  Porque estos son métodos definidos sobre la clase \texttt{tuple},
+  mientras que \texttt{len()} es una función a la cual se le entrega una
+  tupla y regresa su longitud,
+\item
+  \texttt{len()} se puede usar con otros tipos de contenedores, incluso
+  con cadenas de caracteres.
+\end{itemize}
+\end{frame}
+
+\section{Operaciones con tuplas}\label{operaciones-con-tuplas}
+
+\begin{frame}[fragile]{Operador \texttt{in}}
+\phantomsection\label{operador-in}
+Para saber si un elemento hace parte de una tupla, usamos el operador
+\texttt{in} el cual regresa un valor lógico \texttt{True} o
+\texttt{False} dependiendo de si el elemento se encuentra o no en la
+tupla.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{4} \KeywordTok{in}\NormalTok{ t1     }\CommentTok{\# True sí 4 está en t1, False si no  }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+True
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{"x"} \KeywordTok{in}\NormalTok{ t1   }\CommentTok{\# True sí  "x" está en t1,  False si no }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+False
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{"abc"} \KeywordTok{in}\NormalTok{ t1 }\CommentTok{\# True sí "abc" está en t1,  False si no }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+False
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Concatenación de tuplas.}
+\phantomsection\label{concatenaciuxf3n-de-tuplas.}
+\index{Tuplas!Operaciones con}
+
+Se pueden concatenar y replicar tuplas usando los operadores \texttt{+}
+y \texttt{*} de la siguiente forma
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Trats}\OperatorTok{=}\NormalTok{(}\StringTok{"T1"}\NormalTok{,}\StringTok{"T2"}\NormalTok{,}\StringTok{"T3"}\NormalTok{) }
+\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{) }\OperatorTok{+}\NormalTok{ Trats }\CommentTok{\# Concatena la tupla (2,3,4) con Trats }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+(2, 3, 4, 'T1', 'T2', 'T3')
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Trats}\OperatorTok{*}\DecValTok{3}         \CommentTok{\# replica la tupla Trats tres veces }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+('T1', 'T2', 'T3', 'T1', 'T2', 'T3', 'T1', 'T2', 'T3')
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{)}\OperatorTok{*}\DecValTok{2}       \CommentTok{\# replica la tupla (2,3,4) tres veces }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+(2, 3, 4, 2, 3, 4)
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Iterar sobre una tupla.}
+\phantomsection\label{iterar-sobre-una-tupla.}
+\index{Tuplas!Iterar sobre una}\index{Iterar}
+
+Una tupla es un objeto \emph{iterable}, es decir, se pueden recorrer uno
+tras otro sus elementos usando bucles, a continuación un ejemplo usando
+\texttt{for}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in}\NormalTok{ Trats:}
+    \BuiltInTok{print}\NormalTok{(i) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+T1
+T2
+T3
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Aplicación}
+\phantomsection\label{aplicaciuxf3n}
+Escribir código que tome una tupla y nos informe cuántos enteros y no
+enteros contiene.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t1}\OperatorTok{=}\NormalTok{(}\StringTok{\textquotesingle{}abc\textquotesingle{}}\NormalTok{,}\DecValTok{4}\NormalTok{,}\VariableTok{True}\NormalTok{,}\DecValTok{5}\NormalTok{,}\VariableTok{False}\NormalTok{,}\FloatTok{2.5}\NormalTok{) }
+\NormalTok{entero }\OperatorTok{=} \DecValTok{0}
+\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in}\NormalTok{ t1:}
+    \ControlFlowTok{if} \BuiltInTok{type}\NormalTok{(i) }\KeywordTok{is} \BuiltInTok{int}\NormalTok{:}
+\NormalTok{        entero}\OperatorTok{+=}\DecValTok{1}
+\NormalTok{NoEnteros}\OperatorTok{=}\BuiltInTok{len}\NormalTok{(t1)}\OperatorTok{{-}}\NormalTok{entero}
+\BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"Hay }\SpecialCharTok{\{}\NormalTok{entero}\SpecialCharTok{\}}\SpecialStringTok{ enteros en la tupla y }\SpecialCharTok{\{}\NormalTok{NoEnteros}\SpecialCharTok{\}}\SpecialStringTok{ que no son enteros"}\NormalTok{)  }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Hay 2 enteros en la tupla y 4 que no son enteros
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo de aplicación.}
+\phantomsection\label{ejemplo-de-aplicaciuxf3n.}
+En el siguiente bloque de código se generan datos de una población
+normal con media cero y desviación estándar 10. Luego se usa la función
+\texttt{shapiro} del módulo \texttt{scipy.stats}, para llevar a cabo la
+prueba de \emph{Shapiro Wilks} \index{Prueba!de Shapiro Wilks} usando
+estos datos. Lo que se quiere resaltar es que la función regresa una
+tupla que tiene como primer elemento el estadístico \(W\) y en la
+segunda posición el \(p-\)valor de la prueba, veamos
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo de aplicación II}
+\phantomsection\label{ejemplo-de-aplicaciuxf3n-ii}
+\phantomsection\label{annotated-cell-65}%
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\ImportTok{import}\NormalTok{ scipy.stats }\ImportTok{as}\NormalTok{ s }\hspace*{\fill}\NormalTok{\circled{1}}
+\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np }\hspace*{\fill}\NormalTok{\circled{2}}
+\NormalTok{np.random.seed(seed}\OperatorTok{=}\DecValTok{123}\NormalTok{) }\hspace*{\fill}\NormalTok{\circled{3}}
+\NormalTok{n }\OperatorTok{=}\NormalTok{ s.norm(}\DecValTok{0}\NormalTok{,}\DecValTok{10}\NormalTok{) }\hspace*{\fill}\NormalTok{\circled{4}}
+\NormalTok{datos}\OperatorTok{=}\NormalTok{n.rvs(}\DecValTok{100}\NormalTok{) }\hspace*{\fill}\NormalTok{\circled{5}}
+\NormalTok{res}\OperatorTok{=}\NormalTok{s.shapiro(datos) }\hspace*{\fill}\NormalTok{\circled{6}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{description}
+\tightlist
+\item[\circled{1}]
+Carga del modulo \texttt{scipy.stats}.
+\item[\circled{2}]
+Carga del paquete \texttt{numpy}
+\item[\circled{3}]
+Establece una semilla para el generador de números aleatorios de
+\texttt{NumPy}, para que el ejemplo sea reproducible.
+\item[\circled{4}]
+Se \texttt{instancia} una variable aleatoria normal de media 0 y
+desviación estándar 10.
+\item[\circled{5}]
+Se simula la toma de una muestra aleatoria de una población con
+distribución normal de media 0 y desviación estándar 10.
+\item[\circled{6}]
+Prueba de Shapiro Wilks.
+\end{description}
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo de aplicación III}
+\phantomsection\label{ejemplo-de-aplicaciuxf3n-iii}
+Podemos recuperar los valores del estadístico de prueba, \(W\), y el
+\(p-\)valor, mediante el desempaquetado o mediante el indexado como se
+muestra a continuación
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{W,p}\OperatorTok{=}\NormalTok{res  }\CommentTok{\# desempaquetado, equivalente a W=res[0] ; p=res[1]}
+\end{Highlighting}
+\end{Shaded}
+
+si estamos escribiendo un informe donde sea necesario reportar el
+resultado de la prueba podríamos usar
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Estadístico de S{-}Wilks, }\SpecialCharTok{\%0.3f}\StringTok{, p\_valor = }\SpecialCharTok{\%0.4f}\StringTok{"} \OperatorTok{\%}\NormalTok{res)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]{¿Cómo saber si un objeto de Python es una tupla?}
+\phantomsection\label{cuxf3mo-saber-si-un-objeto-de-python-es-una-tupla}
+\index{Tuplas!Función \texttt{isinstance()}}
+\index{Tuplas!Función \texttt{type()}}
+
+En algunas aplicaciones es necesario verificar si un objeto pertenece o
+no a una clase. Por ejemplo, para dirigir el flujo de ejecución del
+código de programación de una función: si el objeto entregado es una
+tupla, ejecute ciertas líneas de código, de lo contrario ejecute otras
+líneas. La función \texttt{isinstance(objeto,tipo)} regresa
+\texttt{True} si la clase del \texttt{objeto} entregado corresponde a
+\texttt{tipo}, en caso contrario regresa \texttt{False}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{isinstance}\NormalTok{(t1, }\BuiltInTok{tuple}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+True
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Función \texttt{type()}}
+\phantomsection\label{funciuxf3n-type-1}
+Otra forma es usando la función \texttt{type()}, como se muestra a
+continuación
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{type}\NormalTok{(t1) }\KeywordTok{is} \BuiltInTok{tuple}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+True
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{type}\NormalTok{(}\DecValTok{4}\NormalTok{) }\KeywordTok{is} \BuiltInTok{tuple}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+False
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Otros tipos de datos}
+\phantomsection\label{otros-tipos-de-datos}
+Esta última línea regresa \texttt{False} porque el número \texttt{4} no
+es una tupla. En las siguientes líneas se ilustra como averiguar por los
+tipos de datos más usados en estadística
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{type}\NormalTok{(x) }\KeywordTok{is} \BuiltInTok{int}    \CommentTok{\# True si x es entero, False en otro caso}
+\BuiltInTok{type}\NormalTok{(x) }\KeywordTok{is} \BuiltInTok{float}  \CommentTok{\# True si x un real, False en otro caso}
+\BuiltInTok{type}\NormalTok{(x) }\KeywordTok{is} \BuiltInTok{str}    \CommentTok{\# True si x es string,  False en otro caso}
+\BuiltInTok{type}\NormalTok{(x) }\KeywordTok{is} \BuiltInTok{bool}   \CommentTok{\# True si x es lógico,  False en otro caso }
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo}
+\phantomsection\label{ejemplo}
+A manera de ejemplo, programar una función que reciba un objeto y en
+caso que este sea una tupla regrese el mensaje
+\texttt{\textquotesingle{}Es\ una\ tupla\textquotesingle{}}, en caso
+contrario regrese
+\texttt{\textquotesingle{}No\ es\ una\ tupla\textquotesingle{}}
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\CommentTok{\# Se define la función }
+\KeywordTok{def}\NormalTok{ verificartupla(x):}
+  \ControlFlowTok{if}\NormalTok{(}\BuiltInTok{type}\NormalTok{(x) }\KeywordTok{is} \BuiltInTok{tuple}\NormalTok{):}
+    \BuiltInTok{print}\NormalTok{(}\StringTok{"Es una tupla"}\NormalTok{)}
+  \ControlFlowTok{else}\NormalTok{:}
+    \BuiltInTok{print}\NormalTok{(}\StringTok{"No es una tupla"}\NormalTok{)}
+\CommentTok{\# Fin de definición de función}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]{Uso de la función}
+\phantomsection\label{uso-de-la-funciuxf3n}
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Uso de  la función }
+\NormalTok{verificartupla(t1) }\CommentTok{\# Retorna: \textasciigrave{}True\textasciigrave{}, \textasciigrave{}t1\textasciigrave{} es una tupla}
+\NormalTok{verificartupla(}\StringTok{"hola"}\NormalTok{) }\CommentTok{\# Retorna: \textasciigrave{}False\textasciigrave{}, \textasciigrave{}"hola"\textasciigrave{} no es una tupla}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+
+
+
+\end{document}

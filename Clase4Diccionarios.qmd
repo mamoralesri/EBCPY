@@ -1,0 +1,559 @@
+---
+title: "Diccionarios"
+subtitle: "Estadística con Python"   
+author: 
+  - name: Mario Morales
+    orcid: 0000-0001-8814-0179
+    email: mamorales@correo.unicordoba.edu.co
+    url: https://mariomorales.xyz/
+    affiliations:
+      - name: Universidad de Córdoba, Montería
+format: 
+  revealjs:
+    theme: default 
+    css: estilos2.css
+    include-before-body: logo2.html
+    mainfont: "Arial" 
+    slide-level: 3
+    embed-resources: true
+    toc-depth: 1 
+    highlight: "tango"
+    center: true
+    transition: fade
+    lang: es
+    code-fold: true
+    #slide-level: 3
+    scrollable: true
+  beamer:
+    aspectratio: 169
+    theme: default
+    navigation: horizontal
+    number-sections: false
+    include-in-header:
+      - text: |
+          \setbeamertemplate{headline}{} % Elimina la cabecera del tema Madrid
+          \setbeamertemplate{section in head/foot}{} % Limpia la numeración de secciones
+          \renewcommand{\contentsname}{Índice}
+          \renewcommand{\refname}{Referencias}
+          \renewcommand{\figurename}{Figura}
+          \renewcommand{\tablename}{Tabla}
+          \logo{%
+            \begin{tabular}{c}
+              \includegraphics[height=1.2cm]{EscudoU.png}
+            \end{tabular}%
+          }
+          % --- CONFIGURACIÓN DE COLORES INSTITUCIONALES ---
+          \definecolor{UnicorGreen}{HTML}{024426}
+          \definecolor{UnicorText}{HTML}{F9F9F9}
+          \definecolor{UnicorWhite}{HTML}{FFFFFF}
+          \definecolor{UnicorGold}{HTML}{D1B061}
+          
+          % Aplicación al fondo y texto general
+          \setbeamercolor{background canvas}{bg=UnicorGreen}
+          \setbeamercolor{normal text}{fg=UnicorText}
+          
+          % Aplicación a títulos y cabeceras
+          %\setbeamercolor{title}{fg=UnicorWhite}
+          \setbeamercolor{frametitle}{fg=UnicorWhite}
+          \setbeamercolor{framesubtitle}{fg=UnicorWhite}
+          
+          % Aplicación a viñetas y estructura
+          \setbeamercolor{structure}{fg=UnicorWhite}
+          \setbeamercolor{itemize item}{fg=UnicorWhite}
+          \setbeamercolor{itemize subitem}{fg=UnicorWhite}
+          \setbeamercolor{enumerate item}{fg=UnicorWhite}
+          
+          % Forzar a LaTeX a repintar el texto general al iniciar el documento
+          \AtBeginDocument{\usebeamercolor[fg]{normal text}}
+          
+          % Aplicación a hipervínculos
+          \hypersetup{colorlinks=true, urlcolor=UnicorGold, linkcolor=UnicorWhite} 
+          
+          % --- ACTIVAR ESTILO DE BLOQUES Y SOMBRAS (ESTILO MADRID) ---
+          \useinnertheme[shadow=true]{rounded}
+          
+          % --- COLORES DEL RECUADRO DEL TÍTULO PRINCIPAL ---
+          % Fondo dorado con texto verde
+          \setbeamercolor{title}{bg=UnicorGold, fg=UnicorGreen}
+          \setbeamercolor{frametitle}{fg=UnicorWhite} % Mantiene el título de las diapositivas normal
+          \setbeamercolor{framesubtitle}{fg=UnicorWhite}
+          
+          % --- COLORES PARA TEOREMAS, DEFINICIONES Y BLOQUES ---
+          % Título del bloque (Fondo dorado, texto verde)
+          \setbeamercolor{block title}{bg=UnicorGold, fg=UnicorGreen}
+          % Cuerpo del bloque (Fondo blanco, texto verde)
+          \setbeamercolor{block body}{bg=UnicorWhite, fg=UnicorGreen}
+          
+          \AtBeginDocument{
+            \author{%
+              \begin{tabular}{c}
+                Mario A. Morales Rivera \\
+                \footnotesize \texttt{mamorales@correo.unicordoba.edu.co} \\
+                \footnotesize Universidad de Córdoba
+              \end{tabular}
+            }
+            \institute{} 
+          }
+          % --- LIMPIAR DIAPOSITIVAS DE SECCIÓN (ELIMINAR "SECTION X") ---
+          \setbeamertemplate{section page}{
+            \begin{center}
+              \begin{beamercolorbox}[sep=12pt,center,rounded=true,shadow=true]{title}
+                \usebeamerfont{title}\insertsection\par
+              \end{beamercolorbox}
+            \end{center}
+          }
+    slide-level: 2
+    fonttheme: default 
+    keep-tex: true
+    lang: es
+
+toc: true
+editor: source 
+---
+
+
+```{r echo=FALSE}
+library(reticulate)
+use_condaenv("/Users/unicordoba/miniforge3/envs/limpio",required = TRUE)
+```
+
+# Introducción 
+
+## Diccionarios
+
+\index{Diccionarios}
+
+::: callout-note
+Un diccionario es un objeto muy flexible de Python para almacenar diferentes tipos de datos y objetos, tales como números, caracteres, listas y arreglos.
+:::
+
+- Como estudiamos en clase anterior, una lista es una colección de objetos indexada desde cero (0) hasta el número de objetos menos uno $(n-1)$.
+
+- En lugar de buscar un elemento a través de un índice de números enteros puede ser más fácil, práctico (o útil) usar una cadena de texto con un nombre, que sea fácil de recordar.
+
+## Diccionarios (cont)
+
+- Los diccionarios nos permiten identificar cada elemento por una clave `(key)` que por lo general es un *string* o cadena de caracteres.
+
+- Rigurosamente hablando, un diccionario en Python es una lista donde los índices pueden ser cadenas de texto.
+
+- Suponga que necesitamos guardar las edades de tres personas: Brenda, Luis y Diego. Para eso podemos usar una lista
+
+```{python echo=TRUE}
+edad=[22,15,19]  
+```
+
+## Diccionarios (cont)
+
+- Pero de esta forma debemos recordar la secuencia de nombres, por ejemplo que el índice cero corresponde a Brenda, el índice 1 a Luis y el 2 a Diego.
+
+- Esto es, la edad de Luis se obtiene como `edad[1]`. Un diccionario con los nombres de las personas como índice es más conveniente porque esto permite escribir `edad['Luis']` para recuperar la edad de Luis, sin tener que recordar el índice numérico.
+
+# Creación de diccionarios
+
+## Creación de diccionarios {#sec-crearciondiccionarios}
+
+\index{Diccionarios} \index{Diccionarios!Creación}
+
+En esta sección se estudian las formas de crear diccionarios, primero mediante `{clave:valor,...}` luego mediante la función `dict` \index{Diccionarios!Creación!mediante \texttt{\{clave:valor\}} }
+
+A continuación se crea un diccionario que contiene los nombres de las personas como claves y sus edades como valores
+
+```{python echo=TRUE}
+edad={'Luis':15,'Brenda':22,'Diego':19}
+```
+
+\index{Diccionarios!Creación!mediante \texttt{dict()}}
+
+### Creación de diccionarios: función `dict()`
+
+De manera equivalente, podemos usar la función `dict()` para crear el mismo diccionario. En este caso entregamos los datos de la forma `clave=valor` como se muestra a continuación
+
+```{python echo=TRUE}
+edad=dict(Luis=15,Brenda=22,Diego=19) 
+```
+
+### Creación de diccionarios: `dict(zip())`
+
+\index{Diccionarios!Creación!mediante \texttt{dict(zip())}}
+
+- Suponga que tenemos los nombres de las personas en una lista o tupla y sus edades en otra lista o tupla, podemos crear el diccionario mediante `dict(zip(a,b))`.
+
+- En este caso se le entrega a la función `zip()` dos objetos iterables, `a` y `b`, de la misma longitud, que podrían ser una cadena de caracteres, una lista o una tupla,
+
+- `dict()` devolverá un diccionario cuya clave $i-$ésima es el elemento $i$ del primer iterable (`a`) y el valor asignado a esa clave es $i-$ésimo del segundo iterable (`b`)
+
+### Creación de diccionarios: `dict(zip())`, ejemplo
+
+```{python echo=TRUE}
+nombres=("Luis","Brenda","Diego") # <1> 
+edades=[15,22,19]  # <2>
+edad=dict(zip(nombres,edades)) # <3>
+```
+
+1.  Tupla que contiene los nombres.
+2.  Lista que contiene las correspondientes edades.
+3.  Diccionario con los nombres como como claves y las edades como valores.
+
+
+
+### Diccionarios: Claves y valores
+
+- Los índices de texto en los diccionarios se conocen como claves *(Keys)*.
+
+- En el diccionario `edad`, creado mediante los ejemplos anteriores, las claves son `'Luis'`, `'Brenda'` y `'Diego'` y los valores son 15, 22 y 19.
+
+# Edición de diccionarios 
+
+##  Adición de elementos a un diccionario
+
+En cualquier momento, después de su creación, se puede adicionar una pareja `clave:valor` a un diccionario, por ejemplo, a partir del diccionario `edad` agregamos a `Jaime` , cuya edad es `21` años
+
+```{python echo=TRUE}
+edad["Jaime"]=21 
+print(edad)
+```
+
+##  Diccionarios: tipos de valores
+
+En el ejemplo anterior todos los valores del diccionario son números enteros, pero es posible crear diccionarios con diferentes tipos de valores, como en el siguiente ejemplo
+
+```{python echo=TRUE}
+d1= {
+     "clave1":234,
+     "clave2":True,
+     "clave3":"Valor 1",
+     "clave4":[1,2,3,4]}
+```
+
+## Diccionarios: tipos de valores (II)
+
+como con los objetos estudiados en las secciones anteriores, podemos usar la la función `type()` para confirmar si un objeto de Python es un diccionario y obtener el tipo de datos que tienen sus elementos
+
+```{python echo=TRUE}
+type(d1) # <1> 
+type(d1) is dict # <2>
+type(d1['clave2']) is int # <3>
+```
+
+1.  Regresa `dict` si `d1` es un diccionario.
+2.  Regresa `True` si `d1` es un diccionario, en caso contrario regresa `False`.
+3.  Regresa `True` si el valor correspondiente a `clave2` es un entero, en caso contrario regresa `False`.
+
+##  Acceso a claves y valores de un diccionario
+
+\index{Diccionarios!Acceso a claves y valores}
+
+Para verificar si una clave está en el diccionario `d` usamos `clave in d`, lo cual regresará un valor lógico, `True` o `False` dependiendo de si la clave está o no en el diccionario. Para recuperar el valor asociado a la clave de un diccionario usamos `d['clave']`, veamos
+
+```{python echo=TRUE}
+'Mary' in edad # <1> 
+edad["Jaime"]  # <2> 
+```
+
+1.  Regresa `True` si la clave `Mary` está en el diccionario `edad`, en caso contrario, regresa `False`.
+2.  Regresa el valor asociado a la clave `Jaime`
+
+##  Diccionarios: `KeyError`
+
+Si usas la forma `d['nombre']` y `nombre` no es una clave del diccionario, ocurre un `KeyError`. Para evitarlo, podemos usar la sentencia `if` para tomar decisiones, por ejemplo: en caso que se tenga el dato de `Mary` en el diccionario se imprime su edad, de lo contrario, se imprime un mensaje informando que ese nombre no se encuentra
+
+```{python echo=TRUE}
+nombre='Mary' #<1>  
+if nombre in edad: #<2> 
+  print("La edad de %s es %g" % (nombre,edad[nombre]) ) #<3>
+else: #<4> 
+  print("No hay datos para %s" % nombre )
+```
+
+1.  Se asigna `Mary` a nombre.
+2.  Si `Mary` es una clave del diccionario `edad`.
+3.  Se imprime la clave y el valor.
+4.  En caso contrario, se imprime que no hay valor para esa clave.
+
+##  Diccionarios control `KeyError` con `try:except`
+
+::: callout-tip
+Como se explicó en la clase de listas, otra forma de tratar con este error y evitar que el código `reviente` es mediante `try:except`
+
+```{python echo=TRUE}
+clave='Luis'
+try:
+    e= edad[clave]
+    print(f"La edad de {clave} es {e} años") 
+except KeyError:
+    print(f"{clave} no es una clave de edad")
+    
+```
+:::
+
+# Claves y valores a listas 
+
+##  Extraer claves y valores en listas
+
+Tanto las claves como los valores en un diccionario se pueden extraer y convertir a una lista, veamos \index{Diccionarios!Método!keys} \index{Diccionarios!Método!values}
+
+```{python echo=TRUE}
+claves=edad.keys() #<1>
+print(type(claves)) #<2>
+list(claves) #<3>
+valores=list(edad.values()) # <4>  
+print(valores)  #<5> 
+```
+
+1.  Se recuperan las claves con el método `keys`.
+2.  Note que `claves` es de tipo `dict_keys`.
+3.  Convertimos `claves` a una lista.
+4.  Recuperamos los valores con el método `values` que es de tipo `dict_values` y lo convertimos a lista.
+5.  Imprimimos los valores.
+
+##  Extraer claves y valores en listas
+
+- Note que `claves`, el objeto regresado por el método `.keys()`, no es una lista, pero podemos recuperar las claves como lista con la función `list()`.
+
+- Análogamente con los valores del diccionario, usando el método `.values()` se obtiene un objeto de tipo `dict_values` que se puede convertir a lista, con la función `list()`.
+
+# Iteración sobre diccionarios 
+
+##  Iterar sobre un diccionario
+
+De manera análoga a tuplas, listas y arreglos es posible iterar sobre las claves de un diccionario usando bucles, por ejemplo
+
+```{python echo=TRUE}
+for nombre in edad:
+  print(f"La edad de {nombre} es {edad[nombre]} años")
+```
+
+##  Iterar sobre un diccionario (II)
+
+Suponga que deseamos la salida anterior pero en orden alfabético, por los nombres, eso podemos lograrlo con la función `sorted()`, la cual regresa una lista con las claves ordenadas
+
+```{python echo=TRUE}
+sorted(edad) #<1> 
+for nombre in sorted(edad): # <2> 
+  print(f"La Edad de {nombre} es {edad[nombre]} años") 
+```
+
+1.  Lista con los nombres (claves del diccionario), en orden alfabético.
+2.  Se recorren las claves, ordenadas alfabéticamente.
+
+##  Iterar sobre un diccionario
+
+Tenga en cuenta que la función `sorted()` no ordena ni modifica el diccionario, solo regresa una listas que contiene las claves ordenadas. En el siguiente bloque de código creamos un nuevo diccionario ordenado a partir de diccionario `edad`
+
+```{python echo=TRUE}
+edad_o={} # <1>
+for clave in sorted(edad): 
+    edad_o[clave]=edad[clave] # <2>
+print(edad_o) # <3>
+```
+
+1.  Creamos un diccionario vacío.
+2.  Llenamos el diccionario vacío con las claves ordenadas previamente.
+3.  Imprimimos.
+
+
+## Iterar sobre claves y valores: `.items()`
+
+El método `.items()` devuelve una vista de los pares clave-valor del diccionario como tuplas. Esto es extremadamente útil para desempaquetar ambos elementos directamente en el bucle `for`:
+
+```{python echo=TRUE}
+for nombre, edad_persona in edad.items():
+    print(f"La edad de {nombre} es {edad_persona} años")
+```
+
+
+##  Ordenar elementos de un diccionario
+
+Alternativamente, podemos ordenar los elementos del diccionario por las claves usando el método `.OrderedDict()` del módulo `collections`.
+
+```{python echo=TRUE}
+import collections  
+EdadOr=collections.OrderedDict(sorted(edad.items()))
+print(dict(EdadOr))
+```
+
+## Ordenar elementos de un diccionario
+
+Observe que el ordenamiento se hace de manera ascendente, para hacerlo en orden descendente use `reverse=True` en la función `sorted()`
+
+```{python, eval=FALSE}
+sorted(edad,reverse=True) 
+```
+
+## Hacer copia de un diccionario
+
+Se puede hacer una copia de un diccionario mediante el método `.copy()` y como en el caso de las listas y arreglos, se puede borrar una entrada de un diccionario con `del`
+
+```{python echo=TRUE}
+edadC=edad.copy() # <1>  
+del edadC["Luis"] # <2>
+edadC
+```
+
+1.  Copia del diccionario edad.
+2.  Se borra de `edadC` la clave `Luis` junto con su valor.
+
+#  Métodos aplicables a diccionarios
+
+## Método `.pop()`
+
+La mayoría de los métodos que estudiamos para listas son aplicables a diccionarios. \index{Diccionarios!Método!\texttt{.pop()}}
+
+El *método `pop()`* remueve específicamente una clave de diccionario y devuelve valor correspondiente. En caso que la clave dada como argumento no se encuentre en el diccionario, `pop()` lanza una excepción `KeyError`.
+
+```{python echo=TRUE}
+edadC=edad.copy() #<1>  
+edadC.pop("Luis") #<2>
+edadC
+```
+
+1.  Copia del diccionario edad.
+2.  Regresa la edad de Luis y lo elimina del diccionario.
+
+## Método `.popitem()`
+
+\index{Diccionarios!Método!\texttt{.popitem()}}
+
+Observe que en `edadC` ya no está la clave `Luis`.
+
+El *método `.popitem()`* funciona como `pop()`, pero con la última clave, es decir, elimina el último ítem del diccionario y regresa una tupla con la clave y el valor correspondientes.
+
+```{python echo=TRUE}
+edadC=edad.copy() # copia de edad 
+edadC.popitem() 
+```
+
+## Método `update()`
+
+\index{Diccionarios!Método!\texttt{.update()}}
+
+El *método `update`* permite actualizar la información contenida en un diccionario. Recibe como parámetro otro diccionario: si los dos diccionarios tienen claves en común, actualiza los valores de las claves comunes; si no hay claves comunes, los pares `clave:valor` no comunes serán agregados al diccionario.
+
+```{python echo=TRUE}
+edad2={"Brenda":25,"Mary":18} #<1> 
+edad.update(edad2) # <2> 
+edad 
+```
+
+1.  Nuevo diccionario, note que Brenda ya está en el diccionario `edad`
+2.  Se actualiza el diccionario `edad`, observe que a Brenda, que es una clave común a los dos diccionarios, se le actualiza la edad.
+
+## Método `.get()`
+
+\index{Diccionarios!Método!\texttt{.get()}} El *método `get()`* recibe una clave y devuelve el valor que le corresponde en el diccionario.\
+\index{Diccionarios!Método!\texttt{.setdefault()}} El *método `.setdefault()`* tiene dos usos: el primero es como el método `get()` y, el segundo, para agregar un nuevo elemento al diccionario
+
+```{python echo=TRUE}
+edad.get("Brenda") #<1> 
+edad.setdefault("Brenda") #<2> 
+edad.setdefault("Lila",16) #<3>
+for clave in edad: 
+    print(f"'{clave}':{edad[clave]}") #<4>
+```
+
+1.  `get()`: recupera el valor de la clave Brenda.
+2.  `setdefault`, primer uso: exactamente lo mismo que `get()`.
+3.  `setdefault`, segundo uso: agrega al diccionario `edad` una nueva pareja `clave:valor`, `Lila:16`.
+4.  Recorremos el diccionario para imprimir de forma vertical.
+
+## Tuplas a diccionarios
+
+Considere la siguiente tupla, conformada por 6 tuplas anidadas:
+
+```{python echo=TRUE}
+tup = (('A', 5), ('A', 7),
+       ('B', 2),('B', 9),('B', 1),
+       ('C',4) )
+```
+
+Note que `'A'` está dos veces; `'B'`, 3 veces y `'C'` una vez en la tupla. El ejercicio consiste en trasladar esta información a un diccionario donde `'A'`, `'B'` y `'C'` conformen las claves y los valores que coresponden a cada clave se organicen en una lista.
+
+##  Tuplas a diccionarios (cont)
+
+```{python echo=TRUE}
+dicn = {} #<1>  
+for clave, valor in tup: #<2> 
+    if clave in dicn: #<3>  
+        dicn[clave].append(valor) #<4> 
+    else: # <5> 
+        dicn[clave] = [valor]  # <6>  
+dicn 
+```
+
+1.  Diccionario vacío para guardar los datos.
+2.  Se recorre la tupla.
+3.  En caso que la clave ya esté en dicn.
+4.  Agrega el valor a la lista
+5.  En caso que la clave aún no esté
+6.  Anexa a `dicn` la clave con el respectivo valor
+
+## 
+
+Observe que la tupla inicial tiene longitud 6, mientras que la longitud del diccionario, que contiene la misma información es 3. Esta forma de guardar los datos es mucho más eficiente en cuanto al uso de memoria y espacio en disco duro. Otra forma de realizar la misma tarea es mediante la combinación de los métodos `.setdefault()` y `.append()`
+
+```{python echo=TRUE}
+dicn = {} #<1> 
+for clave, valor in tup: # <2>
+    dicn.setdefault(clave, []).append(valor) #<3>
+dicn 
+```
+
+1.  Diccionario vacío para guardar los datos.
+2.  Se recorre la tupla.
+3.  Se agrega la información al diccionario: `setdefault(clave, [])` verifica si la clave no está la agrega con una lista vacía como valor, luego `append(valor)` agrega el valor a la lsita.
+
+
+## Comprensión de Diccionarios
+
+Al igual que con las listas, podemos generar nuevos diccionarios de forma compacta utilizando una sola línea de código. 
+
+Supongamos que necesitamos calcular el cuadrado de las edades:
+
+```{python echo=TRUE}
+edades_cuadrado = {nombre: valor**2 for nombre, valor in edad.items()}
+print(edades_cuadrado)
+```
+
+
+
+
+# Aplicación
+
+## Polinomios como diccionarios
+
+Las claves en los diccionarios no tienen que ser necesariamente cadenas de caracteres *(strings)*, en realidad cualquier objeto **inmutable** (como las tuplas) de Python puede usarse como clave. En este ejemplo se muestra como los diccionarios con enteros como claves se pueden usar para representar polinomios. Los datos asociados con el polinomio $$p(x)=-1+x^2+3x^7 $$ {#eq-polinomio} se pueden expresar como un conjunto de pares de la forma `clave:valor`, donde la clave corresponde al exponente y el valor al coeficiente
+
+## 
+
+Las entradas del diccionario, de acuerdo con esto, son {`exponente:coeficiente`}.
+
+En el caso del polinomio dado en ([-@eq-polinomio]), el coeficiente $-1$ corresponde al exponente cero para la variable $x$, ya que $-1=-1x^0$, el coeficiente 1 pertenece al exponente 2, el coeficiente 3 corresponde al exponente 7. A continuación se usa el diccionario `p` para guardar la información de ([-@eq-polinomio])
+
+```{python echo=TRUE}
+p={0:-1, 2:1, 7:3} 
+for m in p:
+        print(f"Coeficiente: {p[m]}, Exponente: {m}")  
+```
+
+##  
+
+Podemos definir una función que recibe un polinomio (expresado como un diccionario) y un valor de la variable $x_0$ y evalúe $p(x_0)$
+
+```{python echo=TRUE}
+def evalpoli(poli,x): #<1>
+    return  sum([poli[m]*x**m for m in poli]) #<2>
+evalpoli(p,1) #<3> 
+```
+
+1.  Definimos la función.
+2.  Observe el uso de comprensión de lista. Se recorren las claves del diccionario y se multiplica `valor` por `x` elevado a `clave`.
+3.  Se hace el llamado a la función `evalpoli`, entregándole el polinomio `p` y el valor donde se avaluará.
+
+## 
+
+Así que el polinomio [-@eq-polinomio] en $x_0=1$, toma un valor de 3, es decir, $p(1)=3$.
+
+El la parte esencial de la función `evalpoli` es que la variable `m` varía sobre las claves del diccionario, luego se recupera el valor correspondiente a esa clave con `poli[m]`, y se multiplica por `x` elevado a la `m`. 
+
+
