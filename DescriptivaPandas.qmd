@@ -1,0 +1,348 @@
+---
+title: "Pandas DF: Agrupamiento y Pipelines"
+subtitle: "Estadística con Python"  
+date: "`r Sys.Date()`"
+author: 
+  - name: Mario Morales
+    orcid: 0000-0001-8814-0179
+    email: mamorales@correo.unicordoba.edu.co
+    url: https://mariomorales.xyz/
+    affiliations:
+      - name: Universidad de Córdoba, Montería
+format: 
+  revealjs:
+    theme: default 
+    css: estilos2.css
+    include-before-body: logo2.html
+    mainfont: "Arial" 
+    slide-level: 3
+    embed-resources: true
+    toc-depth: 1 
+    highlight: "tango"
+    center: true
+    transition: fade
+    lang: es
+    code-fold: true
+    #slide-level: 3
+    scrollable: true
+  beamer:
+    aspectratio: 169
+    theme: default
+    navigation: horizontal
+    number-sections: false
+    include-in-header:
+      - text: |
+          \setbeamertemplate{headline}{} % Elimina la cabecera del tema Madrid
+          \setbeamertemplate{section in head/foot}{} % Limpia la numeración de secciones
+          \renewcommand{\contentsname}{Índice}
+          \renewcommand{\refname}{Referencias}
+          \renewcommand{\figurename}{Figura}
+          \renewcommand{\tablename}{Tabla}
+          \logo{%
+            \begin{tabular}{c}
+              \includegraphics[height=1.2cm]{EscudoU.png}
+            \end{tabular}%
+          }
+          % --- CONFIGURACIÓN DE COLORES INSTITUCIONALES ---
+          \definecolor{UnicorGreen}{HTML}{024426}
+          \definecolor{UnicorText}{HTML}{F9F9F9}
+          \definecolor{UnicorWhite}{HTML}{FFFFFF}
+          \definecolor{UnicorGold}{HTML}{D1B061}
+          
+          % Aplicación al fondo y texto general
+          \setbeamercolor{background canvas}{bg=UnicorGreen}
+          \setbeamercolor{normal text}{fg=UnicorText}
+          
+          % Aplicación a títulos y cabeceras
+          %\setbeamercolor{title}{fg=UnicorWhite}
+          \setbeamercolor{frametitle}{fg=UnicorWhite}
+          \setbeamercolor{framesubtitle}{fg=UnicorWhite}
+          
+          % Aplicación a viñetas y estructura
+          \setbeamercolor{structure}{fg=UnicorWhite}
+          \setbeamercolor{itemize item}{fg=UnicorWhite}
+          \setbeamercolor{itemize subitem}{fg=UnicorWhite}
+          \setbeamercolor{enumerate item}{fg=UnicorWhite}
+          
+          % Forzar a LaTeX a repintar el texto general al iniciar el documento
+          \AtBeginDocument{\usebeamercolor[fg]{normal text}}
+          
+          % Aplicación a hipervínculos
+          \hypersetup{colorlinks=true, urlcolor=UnicorGold, linkcolor=UnicorWhite} 
+          
+          % --- ACTIVAR ESTILO DE BLOQUES Y SOMBRAS (ESTILO MADRID) ---
+          \useinnertheme[shadow=true]{rounded}
+          
+          % --- COLORES DEL RECUADRO DEL TÍTULO PRINCIPAL ---
+          % Fondo dorado con texto verde
+          \setbeamercolor{title}{bg=UnicorGold, fg=UnicorGreen}
+          \setbeamercolor{frametitle}{fg=UnicorWhite} % Mantiene el título de las diapositivas normal
+          \setbeamercolor{framesubtitle}{fg=UnicorWhite}
+          
+          % --- COLORES PARA TEOREMAS, DEFINICIONES Y BLOQUES ---
+          % Título del bloque (Fondo dorado, texto verde)
+          \setbeamercolor{block title}{bg=UnicorGold, fg=UnicorGreen}
+          % Cuerpo del bloque (Fondo blanco, texto verde)
+          \setbeamercolor{block body}{bg=UnicorWhite, fg=UnicorGreen}
+          
+          \AtBeginDocument{
+            \author{%
+              \begin{tabular}{c}
+                Mario A. Morales Rivera \\
+                \footnotesize \texttt{mamorales@correo.unicordoba.edu.co} \\
+                \footnotesize Universidad de Córdoba
+              \end{tabular}
+            }
+            \institute{} 
+          }
+          % --- LIMPIAR DIAPOSITIVAS DE SECCIÓN (ELIMINAR "SECTION X") ---
+          \setbeamertemplate{section page}{
+            \begin{center}
+              \begin{beamercolorbox}[sep=12pt,center,rounded=true,shadow=true]{title}
+                \usebeamerfont{title}\insertsection\par
+              \end{beamercolorbox}
+            \end{center}
+          }
+    slide-level: 2
+    fonttheme: default 
+    keep-tex: true
+    lang: es
+
+toc: true
+editor: source 
+---
+
+```{r echo=FALSE}
+library(reticulate)
+use_condaenv("/Users/unicordoba/miniforge3/envs/limpio",required = TRUE)
+```
+
+
+
+# Estadísticas Rápidas e Inspección
+
+## Datos de ejemplo
+
+Para ilustrar los conceptos de esta clase, crearemos un `DataFrame` simulando información de pacientes:
+
+```{python}
+#| echo: true
+
+import pandas as pd
+import numpy as np
+
+datos = pd.DataFrame({
+    'Nombre': ['Luis', 'Brenda', 'Diego', 'Luisa', 'Manuel'],
+    'Edad': [15, 22, 19, 20, 17],
+    'Estatura': [1.60, 1.67, 1.70, 1.74, 1.63],
+    'Genero': ['M', 'F', 'M', 'F', 'M'],
+    'Peso': [72.0, 52.0, np.nan, 45.0, 65.0]
+})
+
+datos.head() 
+
+```
+
+
+## Estadísticas descriptivas globales
+
+Pandas ofrece el método `.describe()`, el cual genera automáticamente un resumen estadístico completo (conteo, media, desviación estándar, mínimos, máximos y cuartiles) únicamente para las columnas numéricas.
+
+```{python}
+#| echo: true
+
+datos.describe()
+
+```
+
+
+## Conteo de categorías y valores extremos
+
+
+Frecuentemente necesitamos saber cuántos elementos hay de cada categoría. 
+
+```{python}
+#| echo: true
+
+# ¿Cuántos pacientes hay por género?
+print(datos['Genero'].value_counts())
+
+```
+
+
+
+
+## Dónde están los valores extremos
+
+
+Frecuentemente necesitamos saber dónde se encuentran los valores extremos.
+
+
+```{python}
+#| echo: true
+
+
+# ¿En qué índice se encuentra el paciente más joven?
+
+idx_min = datos['Edad'].idxmin()
+print("El índice de la menor edad es:", idx_min)
+```
+
+
+# El uso de eval() y Pipelines 
+
+## Creación ágil de variables con eval
+
+Además de sumar columnas de forma tradicional `(df['C'] = df['A'] + df['B'])`, Pandas nos permite usar el método `.eval()`. Esto hace que el código sea muy fácil de leer, especialmente en fórmulas complejas.
+
+```{python}
+#| echo: true
+# Creamos una columna que suma Edad y Peso
+datos['EdadMasPeso'] = datos.eval('Edad + Peso')
+# Aplicando funciones matemáticas directas
+datos['Log_Edad'] = datos.eval('log(Edad)')
+```
+
+## El paradigma del "Pipeline" (Encadenamiento)
+En análisis de datos, es común realizar múltiples operaciones una tras otra. En lugar de crear un objeto nuevo en cada paso, usamos el encadenamiento de métodos (Method Chaining o Pipeline).
+
+Para que el código sea legible y Python no arroje error por salto de línea, envolvemos toda la operación en paréntesis ().
+
+## Ejemplo de Pipeline
+
+Supongamos que queremos seleccionar solo las columnas numéricas de nuestro DataFrame y luego calcular la media y el máximo de cada una.
+
+```{python}
+#| echo: true
+
+resumen = (datos
+    .select_dtypes(include=np.number) # Paso 1: Filtrar tipos
+    .agg(['mean', 'max'])             # Paso 2: Agregar estadísticas
+)
+resumen
+```
+
+# Agrupamiento de Datos
+
+## Uso de `groupby()` 
+
+El método `.groupby()` agrupa las filas que comparten un mismo valor en una variable categórica.
+
+```{python}
+#| echo: true
+grp = datos.groupby('Genero')
+grp.head() 
+```
+
+## Objeto agrupado 
+
+Al invocar `groupby` creamos un "objeto agrupado" esperando a que le apliquemos una función.
+
+```{python}
+#| echo: true
+print(type(grp))
+```
+
+
+## Estadísticas por grupo
+
+
+Una vez creado el objeto agrupado, podemos invocar funciones matemáticas y Pandas las calculará para cada nivel del factor automáticamente.
+
+```{python}
+#| echo: true
+
+# Media de todas las columnas numéricas por género
+grp[['Edad', 'Estatura', 'Peso']].mean()
+```
+
+## Otra forma 
+
+Usando el encadenamiento 
+
+```{python}
+#| echo: true
+
+
+
+resumen = (datos
+    .groupby('Genero')[['Edad', 'Estatura', 'Peso']]
+    .mean()
+)
+resumen 
+```
+
+
+## Otra forma 
+
+Usando el encadenamiento, todas las numéricas  
+
+```{python}
+#| echo: true
+
+
+
+resumen = (datos
+    .groupby('Genero')
+    .mean(numeric_only=True)
+)
+resumen 
+```
+
+
+
+
+## Otras medidas descriptivas
+
+El objeto `groupby` soporta múltiples funciones estadísticas como `.min()`, `.max()`, `.sum()`, `.var()`, `.std()`, y combinaciones rápidas como `.describe()`. 
+
+
+```{python}
+#| echo: true
+
+# Varianza de la Edad y Estatura por género
+grp[['Edad', 'Estatura']].var()
+```
+
+## Cuantiles por grupo
+
+Podemos incluso calcular los percentiles/cuantiles para cada subgrupo pasando una lista al método `.quantile()`. 
+
+```{python}
+#| echo: true
+
+# Cuartiles de la Edad por género
+grp[['Edad']].quantile([0.25, 0.50, 0.75])
+```
+
+## Agrupamiento por múltiples columnas
+
+Podemos agrupar por dos o más categorías pasando una lista al método `groupby()`. Primero categorizaremos la edad para el ejemplo.
+
+```{python}
+#| echo: true
+
+# Identificamos si es mayor de edad o no
+datos['Mayor'] = datos['Edad'] >= 18
+
+# Agrupamos cruzando Genero y la nueva columna Mayor
+grp_multi = datos.groupby(['Genero', 'Mayor'])
+
+# Contamos cuántos hay en cada cruce
+grp_multi[['Nombre']].count()
+```
+
+
+# Selección de grupos 
+
+## Seleccionar un grupo específico
+
+Si solo nos interesa extraer el subconjunto de datos de una categoría, usamos `.get_group()`.
+
+```{python}
+#| echo: true 
+# Extraemos solo el grupo de mujeres
+mujeres = grp.get_group('F')
+mujeres
+```
+

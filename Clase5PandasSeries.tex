@@ -1,0 +1,1284 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  ignorenonframetext,
+  aspectratio=169,
+  spanish,
+]{beamer}
+\newif\ifbibliography
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolshorizontal
+% remove section numbering
+\setbeamertemplate{part page}{
+  \centering
+  \begin{beamercolorbox}[sep=16pt,center]{part title}
+    \usebeamerfont{part title}\insertpart\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+  \centering
+  \begin{beamercolorbox}[sep=12pt,center]{section title}
+    \usebeamerfont{section title}\insertsection\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center]{subsection title}
+    \usebeamerfont{subsection title}\insertsubsection\par
+  \end{beamercolorbox}
+}
+% Prevent slide breaks in the middle of a paragraph
+\widowpenalties 1 10000
+\raggedbottom
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+
+\usetheme[]{default}
+\usefonttheme[]{default}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+\usepackage{caption}
+% Make caption package work with longtable
+\makeatletter
+\def\fnum@table{\tablename~\thetable}
+\makeatother
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+
+\setbeamertemplate{headline}{} % Elimina la cabecera del tema Madrid
+\setbeamertemplate{section in head/foot}{} % Limpia la numeración de secciones
+\renewcommand{\contentsname}{Índice}
+\renewcommand{\refname}{Referencias}
+\renewcommand{\figurename}{Figura}
+\renewcommand{\tablename}{Tabla}
+\logo{%
+  \begin{tabular}{c}
+    \includegraphics[height=1.2cm]{EscudoU.png}
+  \end{tabular}%
+}
+% --- CONFIGURACIÓN DE COLORES INSTITUCIONALES ---
+\definecolor{UnicorGreen}{HTML}{024426}
+\definecolor{UnicorText}{HTML}{F9F9F9}
+\definecolor{UnicorWhite}{HTML}{FFFFFF}
+\definecolor{UnicorGold}{HTML}{D1B061}
+
+% Aplicación al fondo y texto general
+\setbeamercolor{background canvas}{bg=UnicorGreen}
+\setbeamercolor{normal text}{fg=UnicorText}
+
+% Aplicación a títulos y cabeceras
+%\setbeamercolor{title}{fg=UnicorWhite}
+\setbeamercolor{frametitle}{fg=UnicorWhite}
+\setbeamercolor{framesubtitle}{fg=UnicorWhite}
+
+% Aplicación a viñetas y estructura
+\setbeamercolor{structure}{fg=UnicorWhite}
+\setbeamercolor{itemize item}{fg=UnicorWhite}
+\setbeamercolor{itemize subitem}{fg=UnicorWhite}
+\setbeamercolor{enumerate item}{fg=UnicorWhite}
+
+% Forzar a LaTeX a repintar el texto general al iniciar el documento
+\AtBeginDocument{\usebeamercolor[fg]{normal text}}
+
+% Aplicación a hipervínculos
+\hypersetup{colorlinks=true, urlcolor=UnicorGold, linkcolor=UnicorWhite}
+
+% --- ACTIVAR ESTILO DE BLOQUES Y SOMBRAS (ESTILO MADRID) ---
+\useinnertheme[shadow=true]{rounded}
+
+% --- COLORES DEL RECUADRO DEL TÍTULO PRINCIPAL ---
+% Fondo dorado con texto verde
+\setbeamercolor{title}{bg=UnicorGold, fg=UnicorGreen}
+\setbeamercolor{frametitle}{fg=UnicorWhite} % Mantiene el título de las diapositivas normal
+\setbeamercolor{framesubtitle}{fg=UnicorWhite}
+
+% --- COLORES PARA TEOREMAS, DEFINICIONES Y BLOQUES ---
+% Título del bloque (Fondo dorado, texto verde)
+\setbeamercolor{block title}{bg=UnicorGold, fg=UnicorGreen}
+% Cuerpo del bloque (Fondo blanco, texto verde)
+\setbeamercolor{block body}{bg=UnicorWhite, fg=UnicorGreen}
+
+\AtBeginDocument{
+  \author{%
+    \begin{tabular}{c}
+      Mario A. Morales Rivera \\
+      \footnotesize \texttt{mamorales@correo.unicordoba.edu.co} \\
+      \footnotesize Universidad de Córdoba
+    \end{tabular}
+  }
+  \institute{}
+}
+% --- LIMPIAR DIAPOSITIVAS DE SECCIÓN (ELIMINAR "SECTION X") ---
+\setbeamertemplate{section page}{
+  \begin{center}
+    \begin{beamercolorbox}[sep=12pt,center,rounded=true,shadow=true]{title}
+      \usebeamerfont{title}\insertsection\par
+    \end{beamercolorbox}
+  \end{center}
+}
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
+\@ifpackageloaded{fontawesome5}{}{\usepackage{fontawesome5}}
+\definecolor{quarto-callout-color}{HTML}{909090}
+\definecolor{quarto-callout-note-color}{HTML}{0758E5}
+\definecolor{quarto-callout-important-color}{HTML}{CC1914}
+\definecolor{quarto-callout-warning-color}{HTML}{EB9113}
+\definecolor{quarto-callout-tip-color}{HTML}{00A047}
+\definecolor{quarto-callout-caution-color}{HTML}{FC5300}
+\definecolor{quarto-callout-color-frame}{HTML}{acacac}
+\definecolor{quarto-callout-note-color-frame}{HTML}{4582ec}
+\definecolor{quarto-callout-important-color-frame}{HTML}{d9534f}
+\definecolor{quarto-callout-warning-color-frame}{HTML}{f0ad4e}
+\definecolor{quarto-callout-tip-color-frame}{HTML}{02b875}
+\definecolor{quarto-callout-caution-color-frame}{HTML}{fd7e14}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Tabla de contenidos}
+\else
+  \newcommand\contentsname{Tabla de contenidos}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Listado de Figuras}
+\else
+  \newcommand\listfigurename{Listado de Figuras}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Listado de Tablas}
+\else
+  \newcommand\listtablename{Listado de Tablas}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figura}
+\else
+  \newcommand\figurename{Figura}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Tabla}
+\else
+  \newcommand\tablename{Tabla}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listado}
+\newcommand*\listoflistings{\listof{codelisting}{Listado de Listados}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{tikz}{}{\usepackage{tikz}}
+\makeatother
+        \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+          \node[shape=circle,draw,inner sep=1pt] (char) {{\scriptsize#1}};}}  
+                  
+
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Series de Pandas},
+  pdfauthor={Mario Morales},
+  pdflang={es},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Series de Pandas}
+\subtitle{\emph{Estadística con Python}}
+\author{Mario Morales}
+\date{}
+
+\begin{document}
+\frame{\titlepage}
+
+\renewcommand*\contentsname{Tabla de contenidos}
+\begin{frame}[allowframebreaks]
+  \frametitle{Tabla de contenidos}
+  \setcounter{tocdepth}{3}
+  \tableofcontents
+\end{frame}
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+
+\begin{frame}[fragile]{Series de Pandas}
+\phantomsection\label{series-de-pandas}
+\begin{block}{Pandas}
+\phantomsection\label{pandas}
+\index{Pandas}
+
+\begin{itemize}
+\item
+  \emph{Pandas} es una biblioteca de Python ampliamente utilizada para
+  el análisis y procesamiento de datos.
+\item
+  Proporciona estructuras de datos rápidas, flexibles y útiles para
+  cálculo estadístico y ofrece funciones que facilitan la entrada,
+  organización y transformación de datos.
+\item
+  Las dos principales estructuras de datos de Pandas, \texttt{Series} y
+  \texttt{DataFrame}, agotan la gran mayoría de los casos de uso típicos
+  en estadística.
+\end{itemize}
+\end{block}
+
+\begin{block}{Series de pandas}
+\phantomsection\label{series-de-pandas-1}
+\index{Diccionarios}
+
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, rightrule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Nota}, toprule=.15mm, arc=.35mm, bottomrule=.15mm, colback=white, opacitybacktitle=0.6, leftrule=.75mm, bottomtitle=1mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, colframe=quarto-callout-note-color-frame, titlerule=0mm, coltitle=black, breakable]
+
+Una \emph{Serie} de Pandas es un arreglo unidimensional etiquetado
+(\texttt{ndarray}). Este objeto, que admite la {indexación basada en
+enteros y etiquetas}, proporciona una gran cantidad de métodos para
+realizar operaciones relacionadas con el índice.
+
+\end{tcolorbox}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Creación de Series}
+\phantomsection\label{creaciuxf3n-de-series}
+\begin{block}{Creación Series de Pandas}
+\phantomsection\label{creaciuxf3n-series-de-pandas}
+\index{Contenedores de datos!Series de Pandas} \index{Pandas!Series de}
+\index{Series}
+
+\begin{itemize}
+\item
+  A continuación se muestra como crear Series de Pandas.
+\item
+  Lo primero es importar el paquete \texttt{pandas}, lo hacemos con el
+  nombre \texttt{pd} como es costumbre entre la comunidad de usuarios de
+  esta biblioteca.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
+\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np }
+\NormalTok{datoS}\OperatorTok{=}\NormalTok{pd.Series([}\DecValTok{22}\NormalTok{,}\DecValTok{15}\NormalTok{,}\DecValTok{19}\NormalTok{]) }
+\NormalTok{datoS}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+0    22
+1    15
+2    19
+dtype: int64
+\end{verbatim}
+
+De manera predeterminada, la función \texttt{Series()} asigna índices
+numéricos cuando, al momento de crear la serie, no se entregan las
+etiquetas, como ocurre con los indices de un arreglo de \texttt{numpy} o
+de una lista.
+\end{block}
+
+\begin{block}{Creación Series de Pandas (II)}
+\phantomsection\label{creaciuxf3n-series-de-pandas-ii}
+\begin{itemize}
+\item
+  Note que la salida impresa de la serie, además de los valores de las
+  edades \texttt{22,\ 15\ \ y\ 19}, muestra las etiquetas (índices),
+  asociadas a cada valor.
+\item
+  También podemos asignar las etiquetas, con el argumento
+  \texttt{index}, al momento de crear la Serie, como se muestra a
+  continuación:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{datoS}\OperatorTok{=}\NormalTok{pd.Series([}\DecValTok{22}\NormalTok{,}\DecValTok{15}\NormalTok{,}\DecValTok{19}\NormalTok{],index}\OperatorTok{=}\NormalTok{[}\StringTok{\textquotesingle{}a\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}b\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}c\textquotesingle{}}\NormalTok{])}
+\NormalTok{datoS}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+a    22
+b    15
+c    19
+dtype: int64
+\end{verbatim}
+\end{block}
+
+\begin{block}{Creación Series a partir de diccionarios}
+\phantomsection\label{creaciuxf3n-series-a-partir-de-diccionarios}
+\begin{itemize}
+\item
+  Es posible crear una serie de Pandas a partir de un diccionario.
+\item
+  Para ilustrarlo usaremos el diccionario \texttt{edad} creado en la
+  clase.
+\item
+  Observe que las claves del diccionario pasan a ser las etiquetas de la
+  serie.
+\end{itemize}
+
+\phantomsection\label{annotated-cell-3}%
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{edad}\OperatorTok{=}\NormalTok{\{}\StringTok{\textquotesingle{}Luis\textquotesingle{}}\NormalTok{:}\DecValTok{15}\NormalTok{,}\StringTok{\textquotesingle{}Brenda\textquotesingle{}}\NormalTok{:}\DecValTok{22}\NormalTok{,}\StringTok{\textquotesingle{}Diego\textquotesingle{}}\NormalTok{:}\DecValTok{19}\NormalTok{\}}
+\NormalTok{edadS}\OperatorTok{=}\NormalTok{pd.Series(edad) }\hspace*{\fill}\NormalTok{\circled{1}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{description}
+\tightlist
+\item[\circled{1}]
+Serie creada a partir del diccionario.
+\end{description}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Métodos para exploración de series}
+\phantomsection\label{muxe9todos-para-exploraciuxf3n-de-series}
+\begin{block}{Exploración inicial: métodos \texttt{.head} y
+\texttt{.tail}}
+\phantomsection\label{exploraciuxf3n-inicial-muxe9todos-.head-y-.tail}
+\begin{itemize}
+\item
+  Cuando trabajamos con Series que contienen una gran cantidad de datos,
+  suele ser poco práctico imprimirlos todos en pantalla.
+\item
+  Para una inspección rápida, usamos los métodos \texttt{.head(n)} y
+  \texttt{.tail(n)}, los cuales permiten extraer los primeros y últimos
+  \texttt{n} elementos de la Serie, respectivamente.
+\item
+  Si no se especifica el valor de \texttt{n}, por defecto ambos métodos
+  devuelven 5 elementos.
+\end{itemize}
+\end{block}
+
+\begin{block}{Ejemplo de uso de \texttt{.head} y \texttt{.tail}}
+\phantomsection\label{ejemplo-de-uso-de-.head-y-.tail}
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Creamos una serie más larga para el ejemplo}
+\NormalTok{datos }\OperatorTok{=}\NormalTok{ pd.Series([}\DecValTok{12}\NormalTok{, }\DecValTok{45}\NormalTok{, }\DecValTok{32}\NormalTok{, }\DecValTok{18}\NormalTok{, }\DecValTok{56}\NormalTok{, }\DecValTok{29}\NormalTok{, }\DecValTok{78}\NormalTok{, }\DecValTok{91}\NormalTok{, }\DecValTok{14}\NormalTok{, }\DecValTok{63}\NormalTok{, }\DecValTok{88}\NormalTok{])}
+
+\NormalTok{datos.head() }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+0    12
+1    45
+2    32
+3    18
+4    56
+dtype: int64
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{datos.tail(}\DecValTok{3}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+8     14
+9     63
+10    88
+dtype: int64
+\end{verbatim}
+\end{block}
+
+\begin{block}{Identificación de valores únicos}
+\phantomsection\label{identificaciuxf3n-de-valores-uxfanicos}
+\index{Series!Método!unique}
+
+\begin{itemize}
+\item
+  En muchas ocasiones, una Serie contiene datos categóricos o valores
+  que se repiten múltiples veces, y nos interesa conocer únicamente
+  cuáles son las distintas categorías que la componen.
+\item
+  El método \texttt{.unique()} recorre la Serie y retorna un arreglo de
+  \texttt{NumPy} con los valores únicos, conservando el mismo orden en
+  el que fueron encontrados por primera vez.
+\end{itemize}
+\end{block}
+
+\begin{block}{Ejemplo de uso del método \texttt{.unique()}}
+\phantomsection\label{ejemplo-de-uso-del-muxe9todo-.unique}
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Ejemplo con categorías repetidas en un muestreo de laboratorio}
+\NormalTok{especies }\OperatorTok{=}\NormalTok{ pd.Series([}\StringTok{\textquotesingle{}Cachama\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Tilapia\textquotesingle{}}\NormalTok{,}
+              \StringTok{\textquotesingle{}Cachama\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Bocachico\textquotesingle{}}\NormalTok{,}
+              \StringTok{\textquotesingle{}Cachama\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Tilapia\textquotesingle{}}\NormalTok{])}
+\NormalTok{especies.unique() }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+array(['Cachama', 'Tilapia', 'Bocachico'], dtype=object)
+\end{verbatim}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Recuperación de datos de una serie}
+\phantomsection\label{recuperaciuxf3n-de-datos-de-una-serie}
+\begin{block}{Recuperación de valores de la Serie}
+\phantomsection\label{recuperaciuxf3n-de-valores-de-la-serie}
+Como ocurre con los diccionarios, podemos recuperar los indices de una
+serie mediante el método \texttt{.index} \index{Series!Método!index} y
+los valores con el método \texttt{.values} \index{Series!Método!values}
+
+\phantomsection\label{annotated-cell-7}%
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{edadS.index }\hspace*{\fill}\NormalTok{\circled{1}}
+\NormalTok{edadS.values }\hspace*{\fill}\NormalTok{\circled{2}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{description}
+\tightlist
+\item[\circled{1}]
+Índices de la Serie.\\
+\item[\circled{2}]
+Valores de la Serie.
+\end{description}
+
+\begin{verbatim}
+Index(['Luis', 'Brenda', 'Diego'], dtype='object')
+array([15, 22, 19])
+\end{verbatim}
+\end{block}
+
+\begin{block}{Recuperación de valores de la Serie}
+\phantomsection\label{recuperaciuxf3n-de-valores-de-la-serie-1}
+\begin{itemize}
+\item
+  Observe que los valores de la serie se recuperan como un arreglo de
+  \texttt{NumPy}.
+\item
+  La recuperación de datos de una serie se hace de manera análoga a como
+  se hace con los arreglos o los diccionarios
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Por indice,
+  \item
+    Por etiqueta
+  \item
+    Por alguna condición que genere una lista, un arreglo o una Serie de
+    tipo booleano
+  \end{itemize}
+\item
+  Veamos algunos ejemplos.
+\end{itemize}
+\end{block}
+
+\begin{block}{Recuperación de valores de la Serie: ejemplos}
+\phantomsection\label{recuperaciuxf3n-de-valores-de-la-serie-ejemplos}
+\phantomsection\label{annotated-cell-8}%
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{edadS[}\DecValTok{1}\NormalTok{] }\hspace*{\fill}\NormalTok{\circled{1}}
+\NormalTok{edadS[}\StringTok{"Brenda"}\NormalTok{] }\hspace*{\fill}\NormalTok{\circled{2}}
+\NormalTok{edadS[edadS}\OperatorTok{\textgreater{}}\DecValTok{20}\NormalTok{] }\hspace*{\fill}\NormalTok{\circled{3}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{description}
+\tightlist
+\item[\circled{1}]
+Segundo elemento de la Serie, seleccionado por índice. Si se entrega un
+valor que esté por fuera del rango del indice, se produce un
+\texttt{IndexError}.
+\item[\circled{2}]
+Equivalente al anterior, pero seleccionando por etiqueta. Si se entrega
+una etiqueta que no esté en el índice se produce un \texttt{KeyError}
+\item[\circled{3}]
+Por la condición \texttt{edad} mayor que 20.
+\texttt{edadS\textgreater{}20} produce una Serie con datos de tipo
+booleano, \texttt{dtype(\textquotesingle{}bool\textquotesingle{})}, que
+contiene \texttt{True} donde se cumpla la condición de ser mayor que 20
+(\texttt{\textgreater{}20}) en \texttt{edadS}, y \texttt{False} en otro
+caso.
+\end{description}
+
+\begin{verbatim}
+22
+22
+Brenda    22
+dtype: int64
+\end{verbatim}
+\end{block}
+
+\begin{block}{Indexación: explícita vs.~implícita (\texttt{loc} e
+\texttt{iloc})}
+\phantomsection\label{indexaciuxf3n-expluxedcita-vs.-impluxedcita-loc-e-iloc}
+\index{Series!Método!loc} \index{Series!Método!iloc}
+
+\begin{itemize}
+\tightlist
+\item
+  Aunque podemos extraer datos de una Serie usando corchetes
+  \texttt{{[}{]}}, esto puede generar ambigüedad cuando nuestras
+  etiquetas de índice también son números enteros.
+\item
+  Para evitar errores lógicos, Pandas provee dos atributos
+  especializados:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{.loc{[}{]}}: Busca estrictamente por la \textbf{etiqueta
+    explícita} del índice.
+  \item
+    \texttt{.iloc{[}{]}}: Busca por la \textbf{posición entera
+    implícita} (desde 0 hasta n-1), de la misma forma que en las listas
+    tradicionales.
+  \end{itemize}
+\end{itemize}
+\end{block}
+
+\begin{block}{Ejemplos de uso de \texttt{.loc} e \texttt{.iloc}}
+\phantomsection\label{ejemplos-de-uso-de-.loc-e-.iloc}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{edadS.loc[}\StringTok{\textquotesingle{}Diego\textquotesingle{}}\NormalTok{] }\CommentTok{\# loc si usas etiquetas }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+19
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{edadS.iloc[}\DecValTok{2}\NormalTok{]   }\CommentTok{\# iloc si usas posición entera}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+19
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{edadS.loc[}\DecValTok{2}\NormalTok{]  }
+\NormalTok{edadS.iloc[}\StringTok{\textquotesingle{}Diego\textquotesingle{}}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+\end{block}
+
+\begin{block}{Ejemplos de uso de \texttt{.loc} e \texttt{.iloc}}
+\phantomsection\label{ejemplos-de-uso-de-.loc-e-.iloc-1}
+El escenario donde las etiquetas son números (como códigos de
+estudiantes o identificadores, por ejemplo \texttt{101}, \texttt{102}),
+hace obligatorio usar \texttt{.loc} e \texttt{.iloc} para evitar que el
+programa se confunda entre la etiqueta y la posición.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Registro de biometría (peso en gramos) de especímenes de cachama en el CINPIC}
+\NormalTok{peso}\OperatorTok{=}\NormalTok{ pd.Series([}\FloatTok{450.2}\NormalTok{, }\FloatTok{465.5}\NormalTok{, }\FloatTok{440.8}\NormalTok{], index}\OperatorTok{=}\NormalTok{[}\DecValTok{101}\NormalTok{, }\DecValTok{105}\NormalTok{, }\DecValTok{110}\NormalTok{])}
+
+\NormalTok{peso.loc[}\DecValTok{105}\NormalTok{]  }\CommentTok{\# por etiqueta }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+465.5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{peso.iloc[}\DecValTok{1}\NormalTok{]   }\CommentTok{\# por posición }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+465.5
+\end{verbatim}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Modificación del índice}
+\phantomsection\label{modificaciuxf3n-del-uxedndice}
+\begin{block}{Asignación futura del índice}
+\phantomsection\label{asignaciuxf3n-futura-del-uxedndice}
+\index{Series!Atributo!index}
+
+\begin{itemize}
+\item
+  Es posible modificar o establecer las etiquetas de una Serie después
+  de haberla creado, reasignando una nueva lista al atributo
+  \texttt{.index}.
+\item
+  \textbf{¿Por qué es útil?} Es muy común que los datos numéricos
+  provengan de un archivo o medición y carezcan de etiquetas iniciales .
+  Posteriormente, obtenemos las etiquetas desde otra fuente y
+  necesitamos integrarlas.
+\item
+  \textbf{Regla fundamental:} La cantidad de etiquetas nuevas
+  proporcionadas debe ser exactamente igual a la cantidad de elementos
+  en la Serie.
+\end{itemize}
+\end{block}
+
+\begin{block}{Ejemplo de asignación del índice}
+\phantomsection\label{ejemplo-de-asignaciuxf3n-del-uxedndice}
+\phantomsection\label{annotated-cell-14}%
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 1. Cargamos datos que inicialmente no tienen etiquetas descriptivas}
+\NormalTok{temperaturas }\OperatorTok{=}\NormalTok{ pd.Series([}\FloatTok{28.5}\NormalTok{, }\FloatTok{30.2}\NormalTok{, }\FloatTok{29.8}\NormalTok{]) }
+\NormalTok{temperaturas.index }
+
+\CommentTok{\# 2. Obtenemos los códigos de las estaciones de monitoreo desde otra fuente}
+\NormalTok{codigos\_estaciones }\OperatorTok{=}\NormalTok{ [}\StringTok{\textquotesingle{}Est\_Norte\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Est\_Centro\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Est\_Sur\textquotesingle{}}\NormalTok{]}
+
+\CommentTok{\# 3. Asignamos los códigos como el nuevo índice de la Serie}
+\NormalTok{temperaturas.index }\OperatorTok{=}\NormalTok{ codigos\_estaciones }\hspace*{\fill}\NormalTok{\circled{2}}
+
+\NormalTok{temperaturas }\hspace*{\fill}\NormalTok{\circled{3}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+RangeIndex(start=0, stop=3, step=1)
+Est_Norte     28.5
+Est_Centro    30.2
+Est_Sur       29.8
+dtype: float64
+\end{verbatim}
+\end{block}
+
+\begin{block}{Índices con etiquetas duplicadas}
+\phantomsection\label{uxedndices-con-etiquetas-duplicadas}
+\index{Pandas!Índices duplicados}
+
+\begin{itemize}
+\tightlist
+\item
+  Una diferencia fundamental entre un diccionario estándar de Python y
+  una Serie de Pandas, es que \textbf{Pandas sí permite tener etiquetas
+  repetidas} en su índice.
+\item
+  Aunque para mantener los datos organizados se recomienda que los
+  índices sean únicos, en la práctica es posible tener duplicados.
+\item
+  Si se utiliza \texttt{.loc{[}{]}} para extraer información mediante
+  una etiqueta que está repetida, Pandas no devuelve un solo valor, sino
+  una \textbf{nueva Serie} con todas las coincidencias.
+\end{itemize}
+\end{block}
+
+\begin{block}{Ejemplo: etiquetas duplicadas}
+\phantomsection\label{ejemplo-etiquetas-duplicadas}
+\phantomsection\label{annotated-cell-15}%
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Serie con la etiqueta \textquotesingle{}A\textquotesingle{} repetida}
+\NormalTok{datos\_duplicados }\OperatorTok{=}\NormalTok{ pd.Series([}\DecValTok{10}\NormalTok{, }\DecValTok{20}\NormalTok{, }\DecValTok{30}\NormalTok{, }\DecValTok{40}\NormalTok{], index}\OperatorTok{=}\NormalTok{[}\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}C\textquotesingle{}}\NormalTok{])}
+
+\CommentTok{\# Búsqueda de una etiqueta única}
+\NormalTok{datos\_duplicados.loc[}\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{] }\hspace*{\fill}\NormalTok{\circled{1}}
+
+\CommentTok{\# Búsqueda de una etiqueta duplicada}
+\NormalTok{datos\_duplicados.loc[}\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{] }\hspace*{\fill}\NormalTok{\circled{2}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+20
+A    10
+A    30
+dtype: int64
+\end{verbatim}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Agregar datos a una serie}
+\phantomsection\label{agregar-datos-a-una-serie}
+\begin{block}{Ejemplo: agregar un elemento}
+\phantomsection\label{ejemplo-agregar-un-elemento}
+Agregamos un nuevo individuo a la serie \texttt{edadS}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{edadS[}\StringTok{"Pedro"}\NormalTok{]}\OperatorTok{=}\DecValTok{16}
+
+\NormalTok{edadS.tail(}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Brenda    22
+Diego     19
+Pedro     16
+dtype: int64
+\end{verbatim}
+\end{block}
+
+\begin{block}{Agregar múltiples elementos a una Serie}
+\phantomsection\label{agregar-muxfaltiples-elementos-a-una-serie}
+Para agregar \textbf{múltiples} elementos nuevos al mismo tiempo,
+debemos crear una nueva Serie con los datos a ingresar y luego unirlas
+utilizando la función \texttt{pd.concat()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nuevos}\OperatorTok{=}\NormalTok{ pd.Series(\{}\StringTok{\textquotesingle{}Ana\textquotesingle{}}\NormalTok{: }\DecValTok{20}\NormalTok{, }\StringTok{\textquotesingle{}Juan\textquotesingle{}}\NormalTok{: }\DecValTok{25}\NormalTok{, }\StringTok{\textquotesingle{}Sofia\textquotesingle{}}\NormalTok{: }\DecValTok{21}\NormalTok{\})}
+
+\CommentTok{\# Concatenamos ambas estructuras}
+\NormalTok{edadS }\OperatorTok{=}\NormalTok{ pd.concat([edadS, nuevos])}
+\NormalTok{edadS}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Luis      15
+Brenda    22
+Diego     19
+Pedro     16
+Ana       20
+Juan      25
+Sofia     21
+dtype: int64
+\end{verbatim}
+\end{block}
+
+\begin{block}{Cuidado!!!}
+\phantomsection\label{cuidado}
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, rightrule=.15mm, opacityback=0, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Advertencia}, toprule=.15mm, arc=.35mm, bottomrule=.15mm, colback=white, opacitybacktitle=0.6, leftrule=.75mm, bottomtitle=1mm, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, colframe=quarto-callout-warning-color-frame, titlerule=0mm, coltitle=black, breakable]
+
+En versiones antiguas de Pandas existía el método \texttt{.append()},
+que usamos en listas, pero fue eliminado a partir de la versión 2.0 por
+razones de rendimiento.
+
+\end{tcolorbox}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Conversión de tipos}
+\phantomsection\label{conversiuxf3n-de-tipos}
+\begin{block}{Modificación del tipo de dato}
+\phantomsection\label{modificaciuxf3n-del-tipo-de-dato}
+\index{Series!Método!astype}
+
+\begin{itemize}
+\tightlist
+\item
+  En ocasiones, los datos de una Serie no tienen el formato adecuado
+  para el análisis. Por ejemplo, números que fueron importados por el
+  sistema como texto (\texttt{string}).
+\item
+  El método \texttt{.astype()} permite forzar la conversión de los
+  elementos de una Serie a un tipo de dato (\texttt{dtype}) específico,
+  como enteros (\texttt{int}) o decimales (\texttt{float}).
+\item
+  Es importante recordar que este método devuelve una \textbf{nueva}
+  Serie con los tipos cambiados; no modifica la original a menos que se
+  sobreescriba.
+\end{itemize}
+\end{block}
+
+\begin{block}{Ejemplo de modificación de tipo}
+\phantomsection\label{ejemplo-de-modificaciuxf3n-de-tipo}
+Serie donde los números están almacenados como texto
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{texto }\OperatorTok{=}\NormalTok{ pd.Series([}\StringTok{"15.5"}\NormalTok{, }\StringTok{"20.1"}\NormalTok{, }\StringTok{"18.3"}\NormalTok{])}
+\NormalTok{texto.dtype }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+dtype('O')
+\end{verbatim}
+
+Conversión a números de punto flotante (decimales)
+
+\phantomsection\label{annotated-cell-19}%
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{numerico }\OperatorTok{=}\NormalTok{ texto.astype(}\BuiltInTok{float}\NormalTok{) }\hspace*{\fill}\NormalTok{\circled{2}}
+\NormalTok{numerico.dtype }\hspace*{\fill}\NormalTok{\circled{3}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+dtype('float64')
+\end{verbatim}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Alineación automática de índices}
+\phantomsection\label{alineaciuxf3n-automuxe1tica-de-uxedndices}
+\begin{block}{Alineación automática de índices en operaciones}
+\phantomsection\label{alineaciuxf3n-automuxe1tica-de-uxedndices-en-operaciones}
+\begin{itemize}
+\tightlist
+\item
+  Una de las características más potentes de Pandas es que, al realizar
+  operaciones matemáticas entre dos Series, los datos se \textbf{alinean
+  automáticamente basándose en sus etiquetas}, no en su posición.
+\item
+  Si una etiqueta está presente en una Serie pero no en la otra, Pandas
+  introduce un valor faltante (\texttt{NaN}) en el resultado para esa
+  etiqueta.
+\item
+  Esto evita errores graves (que sí ocurrirían con listas normales)
+  cuando se cruzan conjuntos de datos desordenados o con diferente
+  cantidad de registros.
+\end{itemize}
+\end{block}
+
+\begin{block}{Ejemplo: Alineación automática de índices}
+\phantomsection\label{ejemplo-alineaciuxf3n-automuxe1tica-de-uxedndices}
+\phantomsection\label{annotated-cell-20}%
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Notas del primer y segundo corte de un grupo de estudiantes}
+\NormalTok{corte1 }\OperatorTok{=}\NormalTok{ pd.Series(\{}\StringTok{\textquotesingle{}Luis\textquotesingle{}}\NormalTok{: }\FloatTok{4.0}\NormalTok{, }\StringTok{\textquotesingle{}Brenda\textquotesingle{}}\NormalTok{: }\FloatTok{4.5}\NormalTok{, }\StringTok{\textquotesingle{}Diego\textquotesingle{}}\NormalTok{: }\FloatTok{3.8}\NormalTok{, }\StringTok{\textquotesingle{}Ana\textquotesingle{}}\NormalTok{: }\FloatTok{4.2}\NormalTok{\})}
+\NormalTok{corte2 }\OperatorTok{=}\NormalTok{ pd.Series(\{}\StringTok{\textquotesingle{}Brenda\textquotesingle{}}\NormalTok{: }\FloatTok{4.6}\NormalTok{, }\StringTok{\textquotesingle{}Ana\textquotesingle{}}\NormalTok{: }\FloatTok{4.0}\NormalTok{, }\StringTok{\textquotesingle{}Diego\textquotesingle{}}\NormalTok{: }\FloatTok{4.1}\NormalTok{, }\StringTok{\textquotesingle{}Pedro\textquotesingle{}}\NormalTok{: }\FloatTok{3.5}\NormalTok{\}) }
+
+\CommentTok{\# Sumamos ambas series para obtener el acumulado}
+\NormalTok{suma}\OperatorTok{=}\NormalTok{ corte1 }\OperatorTok{+}\NormalTok{ corte2 }\hspace*{\fill}\NormalTok{\circled{1}}
+
+\NormalTok{suma }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Ana       8.2
+Brenda    9.1
+Diego     7.9
+Luis      NaN
+Pedro     NaN
+dtype: float64
+\end{verbatim}
+\end{block}
+
+\begin{block}{Operaciones con índices duplicados}
+\phantomsection\label{operaciones-con-uxedndices-duplicados}
+\index{Pandas!Alineación con duplicados}
+
+\begin{itemize}
+\tightlist
+\item
+  El comportamiento matemático de Pandas con etiquetas repetidas depende
+  de si las Series comparten exactamente la misma estructura de índices:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Índices idénticos:} Pandas optimiza la operación y la
+    realiza componente a componente.
+  \item
+    \textbf{Índices diferentes (con duplicados):} Pandas aplica un
+    producto cartesiano cruzando todas las combinaciones posibles para
+    las etiquetas en común.
+  \end{itemize}
+\end{itemize}
+\end{block}
+
+\begin{block}{Ejemplos con índice duplicado}
+\phantomsection\label{ejemplos-con-uxedndice-duplicado}
+\phantomsection\label{annotated-cell-21}%
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Caso 1: Índices idénticos (Componente a componente)}
+\NormalTok{serie1 }\OperatorTok{=}\NormalTok{ pd.Series([}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{], index}\OperatorTok{=}\NormalTok{[}\StringTok{\textquotesingle{}X\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}X\textquotesingle{}}\NormalTok{])}
+\NormalTok{serie2 }\OperatorTok{=}\NormalTok{ pd.Series([}\DecValTok{10}\NormalTok{, }\DecValTok{20}\NormalTok{], index}\OperatorTok{=}\NormalTok{[}\StringTok{\textquotesingle{}X\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}X\textquotesingle{}}\NormalTok{])}
+\NormalTok{serie1 }\OperatorTok{+}\NormalTok{ serie2 }\hspace*{\fill}\NormalTok{\circled{1}}
+
+\CommentTok{\# Caso 2: Índices diferentes con duplicados (Producto cartesiano)}
+\NormalTok{serie3 }\OperatorTok{=}\NormalTok{ pd.Series([}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{], index}\OperatorTok{=}\NormalTok{[}\StringTok{\textquotesingle{}X\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Y\textquotesingle{}}\NormalTok{])}
+\NormalTok{serie4 }\OperatorTok{=}\NormalTok{ pd.Series([}\DecValTok{10}\NormalTok{, }\DecValTok{20}\NormalTok{], index}\OperatorTok{=}\NormalTok{[}\StringTok{\textquotesingle{}X\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}X\textquotesingle{}}\NormalTok{])}
+\NormalTok{serie3 }\OperatorTok{+}\NormalTok{ serie4 }\hspace*{\fill}\NormalTok{\circled{2}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+X    11
+X    22
+dtype: int64
+X    11.0
+X    21.0
+Y     NaN
+dtype: float64
+\end{verbatim}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Datos faltantes en una Serie}
+\phantomsection\label{datos-faltantes-en-una-serie}
+\begin{block}{Datos faltantes en series de Pandas}
+\phantomsection\label{datos-faltantes-en-series-de-pandas}
+\index{Pandas!Series!datos faltantes}
+
+\index{Datos!faltantes}
+
+\begin{itemize}
+\item
+  Las series de Pandas tienen la propiedad de poder tratar con datos
+  faltantes,
+\item
+  Los cuales se representan como: \texttt{"NA"\ =\ Not\ available},
+  \texttt{"NaN"\ =\ Not\ a\ number},
+  \texttt{None\ =\ Null/nonetype\ object}.
+\item
+  A continuación se crean series que tienen datos faltantes
+\end{itemize}
+\end{block}
+
+\begin{block}{Datos faltantes en series de Pandas}
+\phantomsection\label{datos-faltantes-en-series-de-pandas-1}
+\phantomsection\label{annotated-cell-22}%
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\NormalTok{edadSN}\OperatorTok{=}\NormalTok{pd.Series([}\DecValTok{21}\NormalTok{, }\DecValTok{15}\NormalTok{, }\VariableTok{None}\NormalTok{], index}\OperatorTok{=}\NormalTok{[}\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}C\textquotesingle{}}\NormalTok{]) }\hspace*{\fill}\NormalTok{\circled{1}}
+\NormalTok{edadSN}\OperatorTok{=}\NormalTok{pd.Series([}\DecValTok{21}\NormalTok{, }\DecValTok{15}\NormalTok{,np.nan],index}\OperatorTok{=}\NormalTok{[}\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}C\textquotesingle{}}\NormalTok{]) }\hspace*{\fill}\NormalTok{\circled{2}}
+\NormalTok{edadDic}\OperatorTok{=}\NormalTok{\{}\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{:}\DecValTok{12}\NormalTok{, }\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{:}\DecValTok{15}\NormalTok{, }\StringTok{\textquotesingle{}C\textquotesingle{}}\NormalTok{:}\VariableTok{None}\NormalTok{\} }\hspace*{\fill}\NormalTok{\circled{3}}
+\NormalTok{edadSN}\OperatorTok{=}\NormalTok{pd.Series(edadDic) }\hspace*{\fill}\NormalTok{\circled{4}}
+\NormalTok{edadSN}\OperatorTok{=}\NormalTok{pd.Series(edadDic,index}\OperatorTok{=}\NormalTok{[}\StringTok{"A"}\NormalTok{,}\StringTok{"B"}\NormalTok{,}\StringTok{"D"}\NormalTok{]) }\hspace*{\fill}\NormalTok{\circled{5}}
+\NormalTok{edadSN}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{description}
+\tightlist
+\item[\circled{1}]
+Serie creada a partir de una lista con un valor en \texttt{None}.
+\item[\circled{2}]
+Serie creada a partir de un arreglo de Numpy con un valor en
+\texttt{nan}.
+\item[\circled{3}]
+Diccionario con una clave cuyo valor es \texttt{None}
+\item[\circled{4}]
+Serie creada a partir del diccionario, el valor asociado al índice
+\texttt{C} es \texttt{NaN}.
+\item[\circled{5}]
+\texttt{D} no es una clave del diccionario \texttt{edadDic}, aparece
+como índice en la Serie con valor \texttt{NaN}.
+\end{description}
+
+\begin{verbatim}
+A    12.0
+B    15.0
+D     NaN
+dtype: float64
+\end{verbatim}
+\end{block}
+
+\begin{block}{Datos faltantes en series de Pandas}
+\phantomsection\label{datos-faltantes-en-series-de-pandas-2}
+\begin{itemize}
+\item
+  En la penúltima linea del bloque anterior, observe que la clave
+  \texttt{C} es descartada y no aparece en la Serie creada, a pesar de
+  encontrarse en el diccionario, eso ocurre porque \texttt{C} no aparece
+  en el argumento pasado como índice.
+\item
+  En contraste, \texttt{D} no está como clave en el diccionario, pero
+  está en la lista que se pasó como índice al crear la Serie, por eso se
+  le asigna el valor \texttt{NaN}.
+\end{itemize}
+
+\index{Series!Método!notnull()}
+\end{block}
+
+\begin{block}{¿Como saber si hay datos faltantes?}
+\phantomsection\label{como-saber-si-hay-datos-faltantes}
+\begin{itemize}
+\item
+  Los métodos \texttt{isnull()} y \texttt{notnull()} nos permiten
+  conocer si en una serie de Pandas hay datos faltantes.
+\item
+  El método \texttt{isnull()}, aplicado a una Serie, regresa una Serie
+  booleana con valores \texttt{True} donde hayan datos faltantes, y
+  \texttt{False} en caso contrario.
+\item
+  El método \texttt{notnull()} regresa la negación lógica de
+  \texttt{isnull()}, es decir, regresa valores \texttt{True} donde no
+  hayan datos faltantes, y \texttt{False} en caso contrario.
+  \index{Series!Método!all}
+\item
+  El método \texttt{all()} aplicable a una serie de Pandas que contiene
+  valores booleanos (\texttt{dtype:\ bool}) regresa \texttt{True} en
+  caso que todos los elementos de la serie sean \texttt{True} y
+  \texttt{False} en caso que al menos uno elemento sea \texttt{False}.
+\item
+  La combinación de \texttt{isnull()} o \texttt{notnull()} con
+  \texttt{all()} es útil para determinar si en una serie hay o no datos
+  faltantes. En las siguientes líneas de código, se ilustra el
+  funcionamiento de estos métodos.
+\end{itemize}
+\end{block}
+
+\begin{block}{}
+\phantomsection\label{section}
+\phantomsection\label{annotated-cell-23}%
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{edadSN.isnull() }\hspace*{\fill}\NormalTok{\circled{1}}
+\NormalTok{edadSN.notnull() }\hspace*{\fill}\NormalTok{\circled{2}}
+\NormalTok{edadSN.notnull().}\BuiltInTok{all}\NormalTok{() }\hspace*{\fill}\NormalTok{\circled{3}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{description}
+\tightlist
+\item[\circled{1}]
+Serie de valores lógicos, con \texttt{True} en la posición donde hay un
+dato faltante.
+\item[\circled{2}]
+Serie de valores lógicos, con \texttt{True} en caso que no hayan datos
+faltantes, \texttt{False} en caso que haya al menos un dato faltante.
+\item[\circled{3}]
+El resultado \texttt{False} nos permite concluir que en la serie hay por
+lo menos un dato faltante.
+\end{description}
+
+\begin{verbatim}
+A    False
+B    False
+D     True
+dtype: bool
+A     True
+B     True
+D    False
+dtype: bool
+False
+\end{verbatim}
+\end{block}
+
+\begin{block}{Tratamiento de datos faltantes en Series}
+\phantomsection\label{tratamiento-de-datos-faltantes-en-series}
+\begin{itemize}
+\item
+  Hay dos formas de proceder cuando se tienen datos faltantes:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Una es simplemente eliminarlos, lo cual se hace, en Series de
+    Pandas, con el método \texttt{.dropna()}.
+  \item
+    La otra se conoce como \index{Imputación}
+    \index{Datos faltantes!Imputación} \emph{imputación}, que consiste
+    en estimar el (los) dato(s) faltante(s) mediante algún
+    procedimiento.
+  \end{itemize}
+\item
+  Se cuenta con mucha literatura en cuanto a métodos de imputación, uno
+  sencillo es el de medias, que consiste en reemplazar el dato faltante
+  por el promedio de los datos disponibles, también se puede usar la
+  mediana.
+\end{itemize}
+\end{block}
+
+\begin{block}{Imputación de datos faltantes en series de Pandas}
+\phantomsection\label{imputaciuxf3n-de-datos-faltantes-en-series-de-pandas}
+\begin{itemize}
+\item
+  A continuación se \emph{imputa} el dato faltante en la serie
+  \texttt{edadSN} reemplazándolo por la media de los datos disponibles,
+  la cual se calcula con \texttt{edadSN.mean()}.
+\item
+  De manera análoga \index{Pandas!Datos faltantes!Imputación} se hace
+  imputación de datos faltantes usando la mediana, calculada con
+  \texttt{edadSN.median()}.
+\item
+  En clases posteriores studiaremos con más detalles estos métodos,
+  aplicables a Series de Pandas, para cálculos de estadísticas
+  descriptivas.
+\end{itemize}
+\end{block}
+
+\begin{block}{Imputación de datos faltantes (cont)}
+\phantomsection\label{imputaciuxf3n-de-datos-faltantes-cont}
+En las siguientes líneas de código, primero eliminamos los registros
+faltantes y luego imputamos
+
+\phantomsection\label{annotated-cell-24}%
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{edadSN.dropna() }\hspace*{\fill}\NormalTok{\circled{1}}
+\NormalTok{edadSN.fillna(edadSN.mean()) }\hspace*{\fill}\NormalTok{\circled{2}}
+\NormalTok{edadSN.fillna(edadSN.median()) }\hspace*{\fill}\NormalTok{\circled{3}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{description}
+\tightlist
+\item[\circled{1}]
+Elimina de la Serie los índices con datos faltantes.
+\item[\circled{2}]
+Reemplaza en la Serie los datos faltantes por la \textbf{media} de los
+datos disponibles.\\
+\item[\circled{3}]
+Reemplaza en la Serie los datos faltantes por la \textbf{mediana} de los
+datos disponibles.
+\end{description}
+
+\begin{verbatim}
+A    12.0
+B    15.0
+dtype: float64
+A    12.0
+B    15.0
+D    13.5
+dtype: float64
+A    12.0
+B    15.0
+D    13.5
+dtype: float64
+\end{verbatim}
+\end{block}
+
+\begin{block}{}
+\phantomsection\label{section-1}
+Tenga presente que en ninguna de las tres líneas de código anteriores se
+modifica la Serie \texttt{edadSN}, si quiere conservar los resultados
+deberá asignarlos a otro objeto o reemplazar, por ejemplo,
+\texttt{edadSN=edadSN.dropna()}.
+\end{block}
+\end{frame}
+
+
+
+
+\end{document}

@@ -1,0 +1,838 @@
+---
+title: "Data Frames de  Pandas II"
+subtitle: "Estadística con Python "  
+date: "`r Sys.Date()`"
+author: 
+  - name: Mario Morales
+    orcid: 0000-0001-8814-0179
+    email: mamorales@correo.unicordoba.edu.co
+    url: https://mariomorales.xyz/
+    affiliations:
+      - name: Universidad de Córdoba, Montería
+format: 
+  revealjs:
+    theme: default 
+    css: estilos2.css
+    include-before-body: logo2.html
+    mainfont: "Arial" 
+    slide-level: 3
+    embed-resources: true
+    toc-depth: 2 
+    highlight: "tango"
+    center: true
+    transition: fade
+    lang: es
+    code-fold: true
+    #slide-level: 3
+    scrollable: true
+  beamer:
+    aspectratio: 169
+    theme: default
+    navigation: horizontal
+    number-sections: false
+    include-in-header:
+      - text: |
+          \setbeamertemplate{headline}{} % Elimina la cabecera del tema Madrid
+          \setbeamertemplate{section in head/foot}{} % Limpia la numeración de secciones
+          \renewcommand{\contentsname}{Índice}
+          \renewcommand{\refname}{Referencias}
+          \renewcommand{\figurename}{Figura}
+          \renewcommand{\tablename}{Tabla}
+          \logo{%
+            \begin{tabular}{c}
+              \includegraphics[height=1.2cm]{EscudoU.png}
+            \end{tabular}%
+          }
+          % --- CONFIGURACIÓN DE COLORES INSTITUCIONALES ---
+          \definecolor{UnicorGreen}{HTML}{024426}
+          \definecolor{UnicorText}{HTML}{F9F9F9}
+          \definecolor{UnicorWhite}{HTML}{FFFFFF}
+          \definecolor{UnicorGold}{HTML}{D1B061}
+          
+          % Aplicación al fondo y texto general
+          \setbeamercolor{background canvas}{bg=UnicorGreen}
+          \setbeamercolor{normal text}{fg=UnicorText}
+          
+          % Aplicación a títulos y cabeceras
+          %\setbeamercolor{title}{fg=UnicorWhite}
+          \setbeamercolor{frametitle}{fg=UnicorWhite}
+          \setbeamercolor{framesubtitle}{fg=UnicorWhite}
+          
+          % Aplicación a viñetas y estructura
+          \setbeamercolor{structure}{fg=UnicorWhite}
+          \setbeamercolor{itemize item}{fg=UnicorWhite}
+          \setbeamercolor{itemize subitem}{fg=UnicorWhite}
+          \setbeamercolor{enumerate item}{fg=UnicorWhite}
+          
+          % Forzar a LaTeX a repintar el texto general al iniciar el documento
+          \AtBeginDocument{\usebeamercolor[fg]{normal text}}
+          
+          % Aplicación a hipervínculos
+          \hypersetup{colorlinks=true, urlcolor=UnicorGold, linkcolor=UnicorWhite} 
+          
+          % --- ACTIVAR ESTILO DE BLOQUES Y SOMBRAS (ESTILO MADRID) ---
+          \useinnertheme[shadow=true]{rounded}
+          
+          % --- COLORES DEL RECUADRO DEL TÍTULO PRINCIPAL ---
+          % Fondo dorado con texto verde
+          \setbeamercolor{title}{bg=UnicorGold, fg=UnicorGreen}
+          \setbeamercolor{frametitle}{fg=UnicorWhite} % Mantiene el título de las diapositivas normal
+          \setbeamercolor{framesubtitle}{fg=UnicorWhite}
+          
+          % --- COLORES PARA TEOREMAS, DEFINICIONES Y BLOQUES ---
+          % Título del bloque (Fondo dorado, texto verde)
+          \setbeamercolor{block title}{bg=UnicorGold, fg=UnicorGreen}
+          % Cuerpo del bloque (Fondo blanco, texto verde)
+          \setbeamercolor{block body}{bg=UnicorWhite, fg=UnicorGreen}
+          
+          \AtBeginDocument{
+            \author{%
+              \begin{tabular}{c}
+                Mario A. Morales Rivera \\
+                \footnotesize \texttt{mamorales@correo.unicordoba.edu.co} \\
+                \footnotesize Universidad de Córdoba
+              \end{tabular}
+            }
+            \institute{} 
+          }
+          % --- LIMPIAR DIAPOSITIVAS DE SECCIÓN (ELIMINAR "SECTION X") ---
+          \setbeamertemplate{section page}{
+            \begin{center}
+              \begin{beamercolorbox}[sep=12pt,center,rounded=true,shadow=true]{title}
+                \usebeamerfont{title}\insertsection\par
+              \end{beamercolorbox}
+            \end{center}
+          }
+    slide-level: 2
+    fonttheme: default 
+    keep-tex: true
+    lang: es
+
+toc: true
+editor: source 
+---
+
+```{r echo=FALSE}
+library(reticulate)
+use_condaenv("/Users/unicordoba/miniforge3/envs/limpio",required = TRUE)
+```
+
+# Pandas DataFrames: Creación a partir de fuentes externas
+
+### Lectura de datos desde archivos externos. {#sec-lecturaDatosExternos}
+
+\index{Lectura!de datos externos} Es posible crear `Pandas DataFrames` a partir de datos que se encuentran en fuentes externas, tales como archivos de `MS Excel` (`.xls` o `.xlsx`), Open Document Format (`.odf`), ficheros de texto plano (`.txt` o `.csv`), en bases de datos relacionales `SQL` e incluso en tablas de páginas web. La lectura de datos en el formato correcto y verificar que no hayan errores en el proceso, es la parte que toma más tiempo en el análisis de datos.
+
+### Lectura de datos desde archivos externos (II)
+
+Cuando los datos están organizados en un archivo de texto plano, deberíamos iniciar siempre con una inspección visual de los datos, en particular deberíamos chequear:
+
+- ¿Tienen los datos un encabezado al inicio o texto al final?
+
+- Lo usual es que el encabezado tenga los nombres de las columnas,
+
+- Las notas al final de los archivos se usan para dar una descripción de los datos.
+
+Por ejemplo, se explica el contenido de las columnas, si hay alguna codificación de las respuestas que haya que tener en cuenta, entre otras cosas.
+
+### Lectura de datos desde archivos externos (III)
+
+- ¿Hay líneas vacías al final del archivo?
+- ¿Hay espacios en blanco antes del primer número o al final de cada línea?
+- ¿Están los datos separados por espacios, tabuladores, comas (,) o punto y coma (;)?
+- ¿Qué carácter o símbolo se está usando como separador de decimales?
+- ¿Qué carácter o símbolo se está usando para agrupar cadenas de texto?
+
+### Lectura de datos desde archivos externos (IV)
+
+La lectura con Pandas tiene los siguientes pasos:
+
+- Cambiar el directorio actual (carpeta de trabajo) a la ruta donde está el archivo que contiene los datos.
+
+- Listar los archivos de la carpeta de trabajo.
+
+- Este paso no es obligatorio, pero es útil para verificar que el archivo se encuentra en esa ruta.
+
+- Leer los datos.
+
+- Verificar que los datos han sido leídos completamente y en el formato correcto.
+
+### Lectura de datos desde archivos de texto plano.
+
+- Seguidamente se importaran a un `DataFrame` de Pandas los datos contenidos en el archivo `DatosEst.csv`, el cual puede descargar del repositorio de archivos asociados al libro.
+
+- El archivo contiene información recolectada mediante una encuesta aplicada a estudiantes de primer semestre de la carrera de Estadística de la Universidad de Córdoba.
+
+- La columnas contienen la edad, el género, la estatura, el peso, una valoración del nivel de satisfacción del estudiante en relación al servicio prestado por la Universidad, entre otras características.
+
+### Lectura de datos desde archivos de texto plano.
+
+Lo primero que hacemos es examinar el directorio de trabajo actual, la carpeta desde donde Pandas intentará leer los datos.
+
+```{python echo=TRUE, eval=TRUE}
+import os # <1>  
+dir_act=os.path.abspath(os.curdir) # <2> 
+wd=os.getcwd() # <3> 
+```
+
+1.  Se carga el modulo `os`, con el cual interactuamos, desde python, con el sistema operativo.
+2.  Obtenemos la ruta absoluta del directorio actual.
+3.  Equivalente a la línea anterior.
+
+### 
+
+La salida del comando anterior es la ruta completa al directorio de trabajo actual, algo como `/home/proyectos/python`, dependiendo de su sistema operativo y la forma como tenga organizadas sus carpetas. En caso que se quiera cambiar la carpeta de trabajo se usa la función `chdir`, por ejemplo, para cambiar a la carpeta `/home/proyectos/datos` se usa la siguiente línea de código
+
+```{python echo=TRUE, eval=FALSE}
+os.chdir('/home/proyectos/datos') 
+```
+
+### Lista de archivos en el directorio
+
+Podemos obtener un listado de los archivos contenidos en la carpeta de trabajo actual mediante
+
+```{python eval=FALSE,echo=TRUE}
+os.listdir()
+```
+
+```{python eval=TRUE,echo=FALSE}
+ind=os.listdir().index('DatosEst.csv')
+os.listdir()[(ind-3):(ind+1)]
+```
+
+### Verificar si el archivo está en el directorio actual
+
+En este punto podemos verificar si el archivo de datos que pretendemos leer se encuentra en el listado anterior. Si el número de archivos contenido en la carpeta es muy grande, podría ser útil la siguiente línea, que regresaría `True` si el archivo `DatosEst.csv` se encuentra en la carpeta y `False` en caso contrario.
+
+```{python echo=TRUE, eval=TRUE}
+'DatosEst.csv' in os.listdir()
+```
+
+### Lectura del archivo
+
+Luego de fijar la carpeta de trabajo y estando seguros que el archivo de datos a leer se encuentra en ella, procedemos a la lectura de los datos
+
+```{python echo=TRUE}
+import pandas as pd 
+import numpy as np 
+df=pd.read_csv('DatosEst.csv')
+```
+
+### Argumento `header`
+
+La función `read_csv` está configurada, por defecto, para leer archivos que tienen, en la primera fila, los nombres de las columnas. En caso que eso no sea así, tendríamos que indicarlo a la función mediante el argumento `header`, de la siguiente forma
+
+```{python echo=TRUE, eval=FALSE}
+df=pd.read_csv('DatosEst.csv',header=None)
+```
+
+### Argumento `delimiter`
+
+Con el argumento `delimiter` se establece el delimitador de campos, es decir, el carácter o símbolo que separa las columnas y viene, de manera predeterminada, configurada con la coma `(,)`. En caso que el archivo de datos a leer tenga otro delimitador, como por ejemplo punto y coma `(;)`, debemos usar `delimiter=';'`, como se muestra a continuación
+
+```{python echo=TRUE,  eval=FALSE}
+df_es=pd.read_csv('DatosEst.csv',delimiter=';')
+```
+
+Para más información de la opciones de `read_csv`, consultar su documentación.
+
+### Lectura de datos contenidos en archivos de excel (.xls)
+
+Siempre es posible guardar un archivo de Microsoft Excel en formato `csv` o `txt`. Así que, una forma de leer datos que vienen en formato `xls` o `xlsx` es exportándolos a texto plano y luego aplicar lo aprendido en la sección anterior.
+
+Si por alguna razón no es posible la conversión a texto plano, en Pandas contamos con la clase `ExelFile`, que se recomienda para leer un libro con diferentes formatos de datos en las hojas; y la función `read_excel`, recomendada para leer libros con formatos de datos idénticos en las hojas.
+
+### Lectura de datos contenidos en archivos de excel (.xls)
+
+- Suponga que queremos importar los datos que se encuentran en la `hoja1` del archivo `datosExel.xls`.
+
+- Luego de colocar el archivo en la carpeta de trabajo actual, procedemos a leerlo con la clase `ExelFile` de Pandas
+
+```{python echo=TRUE, eval=TRUE}
+xls=pd.ExcelFile('datosExel.xls')
+df_ex=xls.parse('hoja1',na_values='NA')
+```
+
+### Lectura de datos contenidos en archivos de excel (.xls)
+
+Ahora, a continuación, usaremos la función `read_excel` para leer los datos contenidos en el mismo archivo anterior
+
+```{python echo=TRUE,  eval=TRUE}
+df_ex=pd.read_excel('datosExel.xls','hoja1',na_values=['NA'])
+df_ex.head() 
+```
+
+# Operaciones con `DataFrames`
+
+### Selección, adición y borrado de columnas.
+
+- Con `df['x']` podemos seleccionar la columna de nombre `x`, del `Pandas DataFrame`, `df`.
+
+- De manera equivalente, mediante `df.x`.
+
+```{python echo=TRUE}
+#| code-line-numbers: "|1-3|4-5"
+Dic=dict(zip("ABCDEFG",(1,3,2,4,7,9,5)))
+D=pd.Series(Dic) 
+df=pd.DataFrame({"col1":D,
+                "col2":[9,0,2,1,7,3,4],
+            "col3":["F","M","F","F","F","M","M"]})
+df
+```
+
+### Selección de columnas
+
+- A continuación seleccionamos `col1` del marco de datos `df`
+
+```{python echo=TRUE}
+df['col1'] 
+```
+
+### Selección, adición y borrado de columnas (II)
+
+- Observe que la clase del objeto recuperado es una serie de Pandas.
+
+```{python echo=TRUE}
+type(df['col1'])
+```
+
+- Otra forma de conseguir lo mismo es mediante `df.col1`.
+
+```{python echo=TRUE}
+df.col1
+```
+
+### Selección de mas de una columna
+
+- Si necesita extraer más de una columna al tiempo, por ejemplo, se puede extraer de `df` las columnas de nombre `col1` y `col2`, mediante `df[['col1','col2']]`, veamos
+
+```{python echo=TRUE}
+df[['col1','col2']].head(3) 
+```
+
+### Adición de columnas
+
+A continuación se crea la columna `rcol2` calculando la raíz cuadrada positiva de la columna `col2`, es decir, se aplica la transformación $y=\sqrt x$, luego se agrega, como una columna, al `DataFrame` `df`
+
+```{python echo=TRUE}
+df['rcol2']=np.sqrt(df["col2"])
+df.head(3)
+```
+
+note que ahora `df` tiene cuatro columnas.
+
+### Adición de columnas (II)
+
+Otra forma de llevar a cabo la tarea anterior es mediante
+
+```{python  echo=TRUE , eval=FALSE  }
+df.rcol2=np.sqrt(df.col2)  
+```
+
+### Adición de columnas (III)
+
+Seguidamente adicionamos la columna `sum_col` al marco de datos `df`, `sum_col` se obtiene como la suma de las columnas `col1` y `col2`
+
+```{python echo=TRUE}
+df['sum_col']=df.col1 + df.col2 
+df.head(3)
+```
+
+### Adición de columnas (IV)
+
+Como un ejemplo adicional, podríamos agregar una columna indicadora con valor cero, en caso que `col3` sea igual a `F` y uno en caso que sea igual a `M`. En esta oportunidad usaremos el concepto de comprensión de listas, visto en la sección
+
+```{python echo=TRUE}
+df['Ind']=[0 if x  else 1 for x in df["col3"]=="F"]
+df
+```
+
+### Borrado de columnas con `del`
+
+Para borrar una columna se puede usar la función genérica `del`, como se muestra seguidamente
+
+```{python echo=TRUE}
+del df['Ind']
+df 
+```
+
+- No se recomienda usar `del` porque modifica el data
+
+### Borrado de columnas con `.drop`
+
+Para borrar una columna sin modificar el data, usamos el método `.drop`
+
+```{python echo=TRUE}
+dfs=df.drop(['sum_col'],axis=1)
+dfs.head() 
+```
+
+# Filtrado de datos con pandas
+
+### Selección de filas y columnas con `iloc` y `loc` {.smaller}
+
+- El método `iloc` selecciona tanto filas como columnas basado en la posición del elemento.
+
+- El formato de la sintaxis es: `df.iloc[<fila>,<columna>]`
+
+- `fila` y/o `columna` corresponde a un número entero o una lista de enteros que indican la posición (índice) de las filas o columnas a seleccionar.
+
+- Esta forma de seleccionar filas con `.iloc` también soporta índices negativos, en cuyo caso la selección se realiza empezando por la última fila (o columna).
+
+- Cuando se entrega un solo valor, por ejemplo `df.iloc[valor]` la selección se hace sobre las filas, veamos su funcionamiento con ejemplos concretos.
+
+### Selección de filas y columnas con `iloc` y `loc` (II)
+
+```{python echo=TRUE, eval=FALSE}
+df.iloc[0:3] # <1> 
+df.iloc[0] # <2>  
+df.iloc[[0,4,6]] # <3> 
+df.iloc[-1] # <4>
+```
+
+1.  Se seleccionan las tres primeras filas de `df`.
+2.  Se selecciona la primera fila de `df`, esto es equivalente a `df.iloc[0,]`.
+3.  Selección de filas con índices específicos; se seleccionan las filas de índice 0, 4 y 6.
+4.  Seleccionamos la última fila; con `df.iloc[-2]` se selecciona la penúltima y así sucesivamente.
+
+### Selección de columnas con `.iloc`
+
+Para la selección de columnas se procede de forma análoga. Por ejemplo, a continuación seleccionamos las dos primeras columnas, los dos puntos (`:`) antes de la coma, hacen referencia a *todas las filas*.
+
+```{python echo=TRUE}
+df.iloc[:,0:2]
+```
+
+### Selección con valores lógicos
+
+- También se pueden seleccionar filas (o columnas) usando valores lógicos o booleanos,
+
+- Serán seleccionadas las filas (o columnas) que les corresponda un valor `True`, en otro caso no se selecciona, como hemos visto con las series de Pandas.
+
+- Esta forma de seleccionar es muy útil, pues permite filtrar los datos por el cumplimiento de ciertas condiciones que sean de interés.
+
+- A continuación se seleccionan las columnas que les corresponda `True`
+
+### Selección con valores lógicos
+
+```{python echo=TRUE}
+df.iloc[:,[False,True,False,True,False]]
+```
+
+### Filtrado de datos
+
+Una tarea que se presenta a menudo cuando se analizan datos, es separarlos por niveles o valores de alguna variable, por ejemplo, género.
+
+```{python echo=TRUE, eval=FALSE}
+df.iloc[list(df.col3=="F")] #<1>
+df.iloc[list(df.col2>=7)]  #<2> 
+df.iloc[df.index % 2 == 0] #<3>
+```
+
+1.  Seleccionamos del marco de datos `df` las filas para las cuales `col3` corresponde al valor `F`.
+2.  Seleccionamos las filas de `df` que cumplan con la condición que `col2` sea mayor o igual que 7.
+3.  Seleccionemos del marco de datos `df` las filas que correspondan a índice par.
+
+### Método `.loc` {.smaller}
+
+- Con el método `loc` se puede acceder a un grupo de filas o columnas de la tabla de datos mediante etiquetas, o por medio de un arreglo cuyos elementos son valores lógicos.
+
+- Esto permite seleccionar datos basados en los nombres de las etiquetas y no en sus posiciones. En el siguiente bloque de código se muestran algunos ejemplos
+
+```{python echo=TRUE ,  eval=FALSE}
+df.index=['A','B','C','D','E','F','G'] #<1>
+df.loc['D','col2'] # <2> 
+df.loc[['A','D']] # <3>  
+df.loc[['A','D'],['col1','col3']] # <4>
+df.loc[:,['col1','col3']] # <5> 
+df.loc[df.col1>4] # <6> 
+df.loc[(df.col1>=4) & (df.col2<=3)] # <7>  
+```
+
+1.  Asignamos letras como etiquetas de filas.
+2.  Selección de la fila `D` y columna `col2`.
+3.  Selección de las filas con etiquetas `A` y `D`.
+4.  Selección de las filas con etiquetas `A` y `D` y columnas `col1` y `col3`.
+5.  Selección de las columnas `col1` y `col3`, todas las filas.
+6.  Selección de aquellas filas que cumplen con la condición que `col1` es mayor que 4 y todas las columnas.
+7.  Selección de las filas que cumplan simultáneamente las condiciones `col1>4` y `col2<=3`
+
+### Recuerde!
+
+::: callout-note
+Recuerde que estas operaciones no modifican al data `df`, si desea guardar las consultas, deberán asignarse a algún objeto.
+:::
+
+# Unir Marcos de datos de Pandas
+
+### Unir marcos de datos de Pandas
+
+\index{Pandas DataFrame!Función!concat}
+
+En caso que se tengan dos marcos de datos con exactamente las mismas columnas, por ejemplo, cuando tenemos información de hombres y mujeres separada en objetos distintos, podríamos unir los dos en uno, con la función \index{Función!concat} `concat`.
+
+### Marcos de datos para unir
+
+- Para ilustrar el uso de `concat` crearemos dos marcos de datos, `dfM` y `dfF` que contienen datos de edad, estatura, y género.
+
+- Note que todas las filas de `dfM` tienen `Genero=M` y todas las de `dfF`, tienen `Genero=F`.
+
+```{python echo=TRUE}
+dfM=pd.DataFrame({"Edad":[24,21,18,26],
+     "Estat":[1.65,1.72,1.69,1.8],
+     "Genero":["M","M","M","M"]})
+dfF=pd.DataFrame({"Estat":[1.60,1.58,1.62,1.71,1.64],
+"Genero":["F","F","F","F","F"],     
+"Edad":[23,22,19,25,21]})
+```
+
+### Uso de `concat`
+
+Usemos la función `concat()` para unir los dos marcos de datos en uno solo, lo haremos uno debajo del otro
+
+```{python echo=TRUE}
+tablas=[dfM,dfF] #<1> 
+df1=pd.concat(tablas) #<2>
+df1
+```
+
+1.  Lista con los `DataFrames` de pandas.
+2.  Unimos, un marco de datos debajo del otro.
+
+### Reestablecer índices
+
+Notemos, en la salida anterior, que los índices de filas son los mismos de los marcos de datos originales, es decir, tenemos índices repetidos, esto puede causar confusión al momento de seleccionar filas usando índices, para evitar ese comportamiento usamos la opción `ignore_index=True`
+
+```{python echo=TRUE}
+df1=pd.concat(tablas,ignore_index=True)
+df1
+```
+
+### Claves para los datas originales
+
+Es posible asignar claves a cada bloque representado, en este caso, por los niveles de género, para que en caso que sea necesario, se facilite la posterior separación
+
+```{python echo=TRUE}
+dfC=pd.concat(tablas,keys=['Masculino', 'Femenino'])
+dfC
+```
+
+### Separación usando las claves
+
+De ese modo, si queremos recuperar el grupo femenino (`F`) podríamos hacerlo de la siguiente forma.
+
+```{python echo=TRUE}
+dfC.loc['Femenino']
+```
+
+### Multi index
+
+```{python echo=TRUE}
+df1.index
+```
+
+```{python echo=TRUE}
+dfC.index
+```
+
+### El argumento `join`
+
+Cuando los marcos de datos que queremos concatenar tienen algunas columnas que no son comunes, `concat()` hace coincidir las columnas comunes y las no comunes las adiciona a la tabla y llena las filas que quedan sin datos con `NaN`, veamos un ejemplo
+
+### Datos para ilustrar el argumento `join`
+
+```{python echo=TRUE}
+df1 = pd.DataFrame({'A': ['A0', 'A1', 'A2', 'A3'],
+                    'B': ['B0', 'B1', 'B2', 'B3'],
+                    'C': ['C0', 'C1', 'C2', 'C3'],
+                    'D': ['D0', 'D1', 'D2', 'D3']},
+                       index=[0, 1, 2, 3])
+df1
+```
+
+Observe que `df1` tiene cuatro columnas, nombradas `A`, `B`, `C` y `D`.
+
+### Datos para ilustrar el argumento `join` (II)
+
+Ahora creamos el marco de datos `df2` que tiene tres columnas, de las cuales dos tienen nombres que coinciden con las de `df1`, es decir, `B` y `D`, son nombres de columnas comunes a las del marco de datos `df1`.
+
+```{python echo=TRUE}
+df2 = pd.DataFrame({'B': ['B2', 'B3', 'B6', 'B7'],
+                    'D': ['D2', 'D3', 'D6', 'D7'],
+                    'F': ['F2', 'F3', 'F6', 'F7']},
+                         index=[2, 3, 6, 7])
+df2
+```
+
+### Datos para ilustrar el argumento `join` (III)
+
+Fíjese, además, que `df1` y `df2` tienen dos filas en común, cuyos índices son `2` y `3`. Ahora concatenamos
+
+```{python echo=TRUE}
+dfC12=pd.concat([df1,df2])   
+dfC12
+```
+
+Observe que se hacen coincidir las columnas cuidando que la información de las filas con el mismo indice se mantenga.
+
+### Uso de `join="inner"`
+
+Con la opción `join="inner"` solo se concatenan las columnas que sean comunes a los dos marcos de datos
+
+```{python echo=TRUE}
+dfC12=pd.concat([df1,df2],join="inner")
+dfC12
+```
+
+La opción `axis=1` es para concatenar por filas, es decir coloca un marco de datos al lado del otro, haciendo coincidir las filas con el mismo índice
+
+```{python echo=TRUE}
+dfC12=pd.concat([df1,df2],axis=1) 
+dfC12
+```
+
+### Concatenar datos por filas
+
+De manera análoga que con las columnas, con la opción `join="inner"` solo se conservan las filas que sean comunes a los dos marcos de datos
+
+```{python echo=TRUE}
+dfC12=pd.concat([df1,df2],axis=1,join="inner")
+dfC12
+```
+
+# Ordenar data frames
+
+### Ordenar un marco de datos
+
+Para ordenar un `DataFrame` de Pandas se cuenta con el método \index{Pandas DataFrame!Método!sort\_values} `sort_values`. En los siguientes ejemplos se usa el marco de datos `df`, el cual ordenamos por la columna `col1`
+
+```{python echo=TRUE}
+df_or=df.sort_values(by=['col1']) #  
+df_or # df ordenado  
+```
+
+### Orenar por más de una columna
+
+También es posible ordenar por más de una columna, por ejemplo, ordenamos `df` primero por `col3` y luego por `col1`
+
+```{python echo=TRUE}
+df_or=df.sort_values(by=['col3','col1'])
+df_or # df ordenado 
+```
+
+### Variables categóricas con pandas {#sec-VariablesCatPandas}
+
+\index{Variables!Categóricas}\index{Pandas DataFrame!Variables!Categóricas}
+
+- En el análisis de datos, con frecuencia, es necesario tratar con variables categóricas o factores.
+
+- Estudiaremos como hacer la conversión de columnas de un **data frame** de pandas, cuyo contenido es texto `(object)` o numérico, a categórico (`category`).
+
+- Para los ejemplos usaremos el **data frame** `df_es` que hemos leído
+
+- A continuación leemos los datos que se encuentran en un archivo `csv`
+
+### Lectura de los datos
+
+```{python echo=TRUE}
+df_es=pd.read_csv('DatosEst.csv')
+```
+
+Una forma de conocer el tipo de datos que contienen las columnas `sexo`, `Tcolegio` y `Afisica`, es mediante el método `.info`, como se ilustra a continuación
+
+```{python echo=TRUE}
+df_es[['Sexo','Tcolegio','Afisica']].info()
+```
+
+### Conversión con `.astype("category")`
+
+- La columnas, que guardan información de variables categóricas, aparecen como de tipo `object`
+
+- Esta es la forma como pandas identifica el contenido de texto o `string`.
+
+- A continuación convertimos dichas columnas a tipo `category`
+
+```{python echo=TRUE}
+df_es['Sexo']=df_es['Sexo'].astype("category")
+df_es['Tcolegio']=df_es['Tcolegio'].astype("category")
+df_es['Afisica']=df_es['Afisica'].astype("category")
+```
+
+## Cómo quedó
+
+```{python}
+#| echo: true
+
+df_es.info()
+
+```
+
+### Tabla de contingencia
+
+```{python echo=TRUE}
+pd.crosstab(df_es.Sexo,df_es.Tcolegio) 
+```
+
+### Información y renombrado de categorías
+
+Ahora las columnas `Sexo`, `Tcolegio` y `Afisica` son columnas categóricas, es decir, de tipo `category`. Podemos pedir que se imprima la información de las categorías de una variable categórica, invocando el método `cat.categories`, y renombrar las categorías con `cat.rename_categories`. A continuación lo hacemos con la columna `Sexo`
+
+### Información y renombrado de categorías (II)
+
+```{python echo=TRUE}
+df_es['Sexo'].cat.categories #<1>
+n_cat=['Grupo Hombres', 'Grupo Mujeres'] # <2>
+df_es['SexoR']=df_es['Sexo'].cat.rename_categories(n_cat) # <3>
+df_es['SexoR'].cat.categories
+```
+
+1.  Se recuperan las categorías de la columna categórica `Sexo`.
+2.  Para renombrar las categorías, creamos una lista que contiene los nuevos nombres de las categorías.
+3.  Renombramos las categorías.
+
+### Información y renombrado de categorías (II)
+
+```{python echo=TRUE}
+df_es['Sexo'].cat.categories #<1>
+n_cat=['Grupo Hombres', 'Grupo Mujeres'] # <2>
+df_es['SexoR']=df_es['Sexo'].cat.rename_categories(n_cat) # <3>
+```
+
+Rescribe la columna `Sexo`, si se desea conservar la columna original, debemos crear la columna con otro nombre, algo como `df_es['SexoR']=...`
+
+## Uso de Diccionarios
+
+Otra alternativa más segura y explícita para renombrar categorías es utilizar un diccionario. En lugar de depender del orden interno de las categorías (como ocurre con las listas), mapeamos directamente el nombre antiguo al nuevo.
+
+```{python}
+#| echo: true
+
+df_es['Sexo'].cat.categories # <1>
+dicc_cat = {'Hombre': 'Grupo Hombres', 'Mujer': 'Grupo Mujeres'} # <2>
+df_es['Sexo_Nuevo'] = df_es['Sexo'].cat.rename_categories(dicc_cat) # <3>
+df_es['Sexo_Nuevo'].cat.categories
+```
+
+### Información de actividad física
+
+```{python echo=TRUE}
+df_es['Afisica'].cat.categories 
+```
+
+### Recategorización
+
+Una tarea frecuente con variables categóricas consiste en hacer una recategorización de sus niveles, por ejemplo, suponga que a partir de la columna `Afisica` queremos construir una nueva variable categórica, con dos categorías, de tal forma que los niveles `Cuatro días a la semana`, `Cinco días a la semana` y `Todos los días de la semana` conformen la categoría `Alta`; `Ningún día a la semana`, `Dos días a la semana` y `Tres días a la semana`, conformen la categoría `Baja`.
+
+### Recategorización (II)
+
+Lo anterior se puede llevar a cabo mediante un `mapeo`, de la siguiente forma:
+
+```{python echo=TRUE}
+dic_map={'Ningún día a la semana':'Baja','Dos días a la semana':'Baja',
+'Tres días a la semana':'Baja',
+'Todos los días de la semana':'Alta',
+'Cinco días a la semana':'Alta',
+'Cuatro días a la semana':'Alta'} # <1>
+df_es['Afisica2C']=df_es['Afisica'].map(dic_map).astype("category") # <2>
+
+df_es['Afisica2C'].value_counts()
+
+```
+
+### Recategorización (III)
+
+```{python echo=TRUE,  eval=FALSE}
+dic_map={'Ningún día a la semana':'Baja',
+  'Dos días a la semana':'Baja',
+  'Tres días a la semana':'Baja',
+  'Todos los días de la semana':'Alta',
+  'Cinco días a la semana':'Alta',
+  'Cuatro días a la semana':'Alta'} # <1>
+df_es['Afisica2C']=df_es['Afisica'].map(dic_map) #<2>
+df_es['Afisica2C'].astype("category")# <3>
+```
+
+1.  Diccionario con los nombres de las categorías actuales como claves y los nombres de las nuevas categorías como valores.
+2.  Reemplazamos las antiguas categorías por las nuevas, creando una nueva columna llamada `Afisica2C`.
+3.  Convertimos la nueva columna a categórica.
+
+### Columnas numéricas a factores
+
+Cuando organizamos datos para hacer resúmenes o análisis estadístico, una tarea frecuente es transformar una columna, que inicialmente se registra como numérica, a una variable categórica o `factor`. Consideremos el siguiente marco de datos de pandas, que tiene una columna numérica y una de texto
+
+```{python echo=TRUE,  eval=TRUE}
+d={ 'A':[1,4,2,1,3,2,4,3,2],
+    'B':['M','F','M','F','M','F','M','F','M']}
+dfc=pd.DataFrame(d) 
+dfc.info()
+```
+
+### Columnas numéricas a factores (II) {.smaller}
+
+Queremos convertir la columna `A`, que es de tipo `int64`, a categórica; de tal forma que los valores 1 pasen a ser `c1`, los 2 se conviertan en `c2` y así, hasta el valor 4.
+
+```{python echo=TRUE}
+rep={1:"c1",2:"c2",3:"c3",4:"c4"} #<1> 
+#dfc['Acat']=dfc['A'].replace(rep) # <2>
+dfc['Acat']=dfc['A'].map(rep) # <2>
+dfc['Acat']=dfc['Acat'].astype('category') # <3> 
+dfc.info() 
+```
+
+1.  Diccionario con los valores actuales como claves y los valores por los cuales serán reemplazados como valores.
+2.  Hacemos el reemplazo.
+3.  Convertimos a columna categórica.
+
+### Categorizar una variable cuantitativa
+
+Otra situación que se presenta con frecuencia es categorizar una variable cuantitativa, por lo general de naturaleza continua. Por ejemplo, tenemos los datos que se muestran en la tabla [-@tbl-datosedades] corresponden a edades de personas
+
+```{r echo=FALSE}
+set.seed(123)
+x=c(runif(10,min=14,max=26),runif(10,min=27,max=40),runif(10,min=41,max=50),runif(20,min=51,max=80)) 
+```
+
+### Datos
+
+```{r echo=FALSE}
+#| label: tbl-datosedades
+#| tbl-cap: Datos de edades de un grupo de personas 
+knitr::kable(matrix(sample(round(x),50),5,10),booktabs = TRUE)
+```
+
+### Categorizar la edad
+
+Usaremos los siguientes grupos etarios según la OMS: juventud \[14 - 26\] años, adultez joven (26 - 40\] años, adultez intermedia (40 - 50\] años, adultez tardía (50 - 60\] años y adulto mayor 60 años o más.
+
+```{python echo=TRUE}
+edad=pd.Series([20, 74, 36, 49, 39, 47, 60, 63, 34, 50,
+46, 44, 28, 28, 39, 65, 52, 65, 55, 73,
+77, 25, 71, 47, 15, 76, 23, 19, 58, 62,
+57, 25, 59, 46, 39, 42, 25, 21, 19, 55,
+47, 33, 55, 79, 63, 30, 58, 31, 17, 47] ) #<1>
+edadf=pd.cut(edad, bins=[14,26,40,50,60,float('Inf')],
+labels= ['Juventud','Adultez joven',
+'Adultez intermedia','adultez tardía','Adulto Mayor']) # <2>
+dfedad=pd.DataFrame({"Edad":edad,"Categ":edadf}) #<3>
+```
+
+1.  Ingresamos los datos como una Serie de Pandas.
+2.  Usamos la función `cut` \index{Pandas!Función!cut} para categorizar.
+3.  Colocamos en un marco de datos las edades y su categorización.
+4.  Se imprimen las 5 primeras filas del marco de datos que contiene las edades y su categorización.
+
+### 
+
+```{python}
+dfedad.head() 
+```
+
+### 
+
+Ahora podemos contar cuantas personas hay en cada grupo etáreo usando el método `count()`. \index{Pandas Data Frame!Método!count}
+
+```{python echo=TRUE}
+edadf.value_counts() 
+```
+
+Estos métodos para contar, sumar, promediar y, en general, para calcular estadísticas de resumen los estudiaremos en las siguientes clases.

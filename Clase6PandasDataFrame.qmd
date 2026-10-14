@@ -318,6 +318,8 @@ dfd.columns
 list(dfd.columns) 
 ```
 
+# Creación a partir de fuentes externas 
+
 ### Lectura de datos desde archivos externos. {#sec-lecturaDatosExternos}
 
 \index{Lectura!de datos externos} Es posible crear `Pandas DataFrames` a partir de datos que se encuentran en fuentes externas, tales como archivos de `MS Excel` (`.xls` o `.xlsx`), Open Document Format (`.odf`), ficheros de texto plano (`.txt` o `.csv`), en bases de datos relacionales `SQL` e incluso en tablas de páginas web. La lectura de datos en el formato correcto y verificar que no hayan errores en el proceso, es la parte que toma más tiempo en el análisis de datos.
